@@ -2,8 +2,10 @@
 해당 프로젝트는 위치기입에 강제성을 부여하는 SNS 제작 프로젝트이다.
 
 해당 레파지토리는 프론트 부분임
+- ES6
 - React.js
 - Kakao maps API
+
 
 KAKAO MAPS API를 이용하여 지도를 나타내고 이를 React.js를 이용하여 SPA를 만들 것 이기 떄문에 API 탐구를 위한 커밋이 포함됨
 
