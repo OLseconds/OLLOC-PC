@@ -7,9 +7,9 @@ import Login from './components/Login';
 import * as serviceWorker from './serviceWorker';
 
 // 개발단계에서 당장 필요 없어서 주석처리
-// ReactDOM.render(<Map />, document.getElementById('Map'));
-// ReactDOM.render(<App />, document.getElementById('root'));
-ReactDOM.render(<Login />, document.getElementById('root'));
+ReactDOM.render(<Map />, document.getElementById('Map'));
+ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Login />, document.getElementById('Login'));
 
 
 // If you want your app to work offline and load faster, you can change
