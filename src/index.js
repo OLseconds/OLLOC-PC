@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Test from "./Test/Test";
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
-
+import './Animation.css'
 import * as serviceWorker from './serviceWorker';
 
 import App from './App';
