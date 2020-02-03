@@ -34,8 +34,8 @@ class Warning extends Component {
         if(!visible && !closing) return null;
         return (
             <div className="Warning-wrapper">
-                <div className={`Warning ${closing?'bounceIn':'bounceOut'} animated`}>
-                    {message}
+                <div className={`Warning ${closing?'bounceOut':'bounceIn'} animated`}>
+                    {message + ' ' + closing}
                 </div>
             </div>
         );

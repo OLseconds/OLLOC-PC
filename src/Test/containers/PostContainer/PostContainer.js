@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PostWrapper, Navigate, Post, Warning } from '../../components';
+import {PostWrapper, Navigate, Post, Warning, CommentList} from '../../components';
 import * as service from '../../services/post';
 
 class PostContainer extends Component {
@@ -101,6 +101,7 @@ class PostContainer extends Component {
                     onClick = {this.handleNavigateClick}
                 />
                 <Post
+                    postId={postId}
                     title = {post.title}
                     body = {post.body}
                     comments = {comments}
