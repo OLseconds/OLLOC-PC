@@ -7,8 +7,8 @@
 - Kakao maps API
 
 현재까지 결과물은 http://react.kr3.kr 에서 확인 가능
-- 현재 redux, react-router 탐구 중....
-- https://velog.io/@velopert/Redux-1-소개-및-개념정리-zxjlta8ywt (redux)
+- 현재 ~~redux~~, react-router 탐구 중....
+- ~~https://velog.io/@velopert/Redux-1-소개-및-개념정리-zxjlta8ywt (redux)~~
 - https://velopert.com/3417 (react-router)5
 
 
