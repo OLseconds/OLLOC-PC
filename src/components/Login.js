@@ -31,7 +31,7 @@ class Login extends Component{
     sendJoinData = (data) => {
         const join = require('axios');
         console.log(data);
-        join.post('http://azure.kr3.kr:5000/v0.0/user/join', {
+        join.post('http://olloc.kr3.kr:5000/v0.0/user/join', {
             "username": data.userName,
             "password": data.passWord,
             "name": data.name,

@@ -5,7 +5,7 @@
       <paths name="Azure">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/linesys/olloc" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/linesys/OLLOC" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
