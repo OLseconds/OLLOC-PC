@@ -1,14 +1,9 @@
 import React, {Component} from "react";
-import "../style/Join.scss";
+import "../Animation.css"
 import apiGetter from 'axios';
+import { Link, Redirect } from 'react-router-dom';
 
 class Join extends Component{
-    state = {
-        userName: '',
-        passWord: '',
-        name: '',
-        mail: '',
-    }
 
     handleChange = (e) => {
         this.setState({
@@ -45,10 +40,42 @@ class Join extends Component{
         });
     }
 
+    changeView = () => {
+        this.setState({
+            userName: '',
+            passWord: '',
+            name: '',
+            mail: '',
+            animation: 'animated bounceOutLeft'
+        });
+        this.props.animation('animated bounceInRight');
+        setTimeout(()=>{
+            this.setState({
+                redirect: true
+            })
+        }, 300);
+    }
+
+    constructor(props){
+        super(props);
+        this.state ={
+            userName: '',
+            passWord: '',
+            name: '',
+            mail: '',
+            animation: this.props.direction,
+            redirect: false,
+        }
+    }
+
     render(){
+
+        if(this.state.redirect){
+            return <Redirect push to ='main/?detail=login' />;
+        }
         return(
-            <fragment>
-                <form id="loginForm" onSubmit={this.joinSubmit}>
+            <div id ="join">
+                <form id="loginForm" className={this.state.animation} onSubmit={this.joinSubmit}>
                     <h1>OLLoc</h1>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
                     <button className="mainBtn">facebook으로 로그인</button>
@@ -84,10 +111,10 @@ class Join extends Component{
                     <button className="mainBtn">가입</button>
                     <span className="loginText">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
                 </form>
-                <div id="checkMem">
-                    계정이 있으신가요? <a href="./login">로그인</a>
+                <div id="checkMem" className={this.state.animation}>
+                    계정이 있으신가요? <Link onClick={this.changeView} >로그인</Link>
                 </div>
-            </fragment>
+            </div>
         );
     }
 }
