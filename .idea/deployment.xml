@@ -7,6 +7,9 @@
           <mappings>
             <mapping deploy="/home/linesys/OLLOC" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/linesys/OLLOC/src/img/main.png" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

@@ -93,7 +93,7 @@ class Login extends Component{
                         value={this.state.name}
                         onChange={this.handleChange}
                     />
-                    <Link class="noUnderLine" to ="/"><button className="mainBtn">로그인</button></Link>
+                    <Link to ="/" className="noUnderLine" ><button className="mainBtn">로그인</button></Link>
                     <span className="loginText">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
                 </form>
             </div>

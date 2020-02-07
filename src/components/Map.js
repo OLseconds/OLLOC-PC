@@ -2,7 +2,6 @@
 /*global kakao*/
 
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
 import '../style/Map.css';
 import Inputs from "./Inputs";
 

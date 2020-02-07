@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "../Animation.css"
 import apiGetter from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Join extends Component{
 
@@ -28,7 +28,7 @@ class Join extends Component{
     sendJoinData = (data) => {
         //const sender = require('axios');
         console.log(data);
-        apiGetter.post('http://azure.kr3.kr:5000/v0.0/user/join', {
+        apiGetter.post('http://olloc.kr3.kr:5000/v0.0/user/join', {
             "username": data.userName,
             "password": data.passWord,
             "name": data.name,
@@ -112,7 +112,7 @@ class Join extends Component{
                     <span className="loginText">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
                 </form>
                 <div id="checkMem" className={this.state.animation}>
-                    계정이 있으신가요? <Link onClick={this.changeView} >로그인</Link>
+                    계정이 있으신가요? <span id = "loginBtn" onClick={this.changeView} >로그인</span>
                 </div>
             </div>
         );
