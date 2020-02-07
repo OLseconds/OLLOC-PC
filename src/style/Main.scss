@@ -1,6 +1,8 @@
 #main{
   text-align: center;
   img{
+    width: 389px;
+    height: 618px;
     vertical-align: top;
     display: inline-block;
     z-index: 1;
@@ -11,8 +13,6 @@
     #mainTitle{display: inline-block; text-align: center; margin-left: -35px; }
   }
 
-  #join {
-  }
   #join, #login{
     overflow: hidden;
     display: inline-block;
@@ -58,11 +58,31 @@
         font-weight: bold;
         line-height: 30px;
       }
+
       .loginText{margin: 0 40px; display: block; color: #999999; font-weight: bold;}
     }
   }
 
-  #checkMem {margin : 10px auto; background-color: #fff; width: 348px; height: 48px; padding: 10px 0; border: solid 1px #E6E6E6; border-radius: 1px; text-align: center; line-height: 48px;}
+  #checkMem {
+    margin : 10px auto;
+    background-color: #fff;
+    width: 348px;
+    height: 48px;
+    padding: 10px 0;
+    border: solid 1px #E6E6E6;
+    border-radius: 1px;
+    text-align: center;
+    line-height: 48px;
+
+
+    #loginBtn{
+      color: blue;
+      text-decoration: underline;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
 
 }
 

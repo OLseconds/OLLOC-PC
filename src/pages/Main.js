@@ -4,6 +4,7 @@ import Login from 'components/Login';
 import '../Animation.css'
 import queryString from "query-string";
 import 'style/Main.scss';
+import leftImg from '/home/linesys/OLLOC/src/img/main.png'
 
 class Main extends Component {
     state = {
@@ -27,7 +28,7 @@ class Main extends Component {
 
         return (
             <div id = "main">
-                <img src="https://placehold.it/700x512" alt=""/>
+                <img className = "animated fadeIn" src={leftImg} alt="이미지"/>
                 {
                     detail
                         ? <Join
