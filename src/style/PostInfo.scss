@@ -1,0 +1,19 @@
+#post-info{
+  padding: 10px;
+  .symbol-size{
+    margin-bottom: 5px;
+    font-size: 25px;
+    svg {margin-right: 7px;}
+  }
+  .description{
+    margin-top: 7px;
+    width: 480px;
+    text-overflow: ellipsis;
+  }
+}
+
+.show-more{
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}

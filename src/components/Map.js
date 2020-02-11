@@ -44,6 +44,17 @@ class Map extends Component {
 
                 this.myMarker.setMap(this.myMap);
 
+                let iwContent = '<div style="padding:5px;">Location<br> title <br> date <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+                // 인포윈도우를 생성합니다
+                let infowindow = new kakao.maps.InfoWindow({
+                    position : iwPosition,
+                    content : iwContent
+                });
+
+                infowindow.open(this.myMap, this.myMarker);
+
                 kakao.maps.event.addListener(this.myMap, 'click', (mouseEvent) => {
 
                     // 클릭한 위도, 경도 정보를 가져옵니다
@@ -51,7 +62,13 @@ class Map extends Component {
 
                     // 마커 위치를 클릭한 위치로 옮깁니다
                     this.myMarker.setPosition(latlng);
-                    
+                    infowindow.close();
+                    infowindow = new kakao.maps.InfoWindow({
+                        position : latlng,
+                        content : iwContent
+                    });
+                    infowindow.open(this.myMap, this.myMarker);
+
                     // 클릭한 위치의 위도와 경도를 state의 x와 y에 setState해주기
                     this.setState({
                         x: latlng.getLat(),

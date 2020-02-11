@@ -1,13 +1,11 @@
 import React from 'react'
-import Map from 'components/Map'
+import Post from 'components/Post'
 
 const Home = () => {
     return (
         <div>
-            <Map></Map>
-            <h2>
-                홈
-            </h2>
+            <Post />
+            <hr/>
         </div>
     )
 };
