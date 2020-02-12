@@ -4,7 +4,7 @@ class Comment extends Component {
     render(){
         return(
             <div id = "comment">
-                <span style={{fontWeight: 'bold'}} className="comment-name">5linesys</span><span className="comment-text"> wow 개쩌름</span>
+                <span style={{fontWeight: 'bold'}} className="comment-name">{this.props.name}</span><span className="comment-text"> {this.props.comment}</span>
             </div>
         );
     }

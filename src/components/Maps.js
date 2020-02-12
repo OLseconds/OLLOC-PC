@@ -5,6 +5,10 @@ import React, {Component} from 'react';
 import '../style/Maps.scss';
 
 class Maps extends Component {
+    state = {
+        animation: 'Maps animated fadeIn',
+        clicked: this.props.clicked,
+    }
     componentDidMount(){    // 컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드
         const script = document.createElement('script');
         script.async = true;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
@@ -23,10 +27,16 @@ class Maps extends Component {
         };
     }
 
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(prevState.clicked && !nextProps.clicked) {
+            return {animation: 'Maps animated fadeOut'}
+        }
+    }
+
     render() {
         return (
             <div
-                className="Maps"
+                className={this.state.animation}
                 id="map">
             </div>
         );

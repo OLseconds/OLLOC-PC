@@ -2,47 +2,74 @@ import React, { Component } from 'react';
 import '../style/PostInfo.scss';
 
 class PostInfo extends Component {
+    static defaultProps = {
+        initDescription: '',
+        likes: 0,
+        likeState: false,
+    }
+
+
     constructor(props) {
         super(props);
         this.state = {
-            initDescription: "안녕하세요 OLLOC Test 입니다. 아직 API가 없어서 하드코딩이에요. 안녕하세요 OLLOC Test 입니다. 아직 API가 없어서 하드코딩이에요.",
             showDescription: "",
             showMore: false,
+            likes: this.props.likes,
+            likeState: this.props.likeState,
         };
     }
     componentWillMount() {
-        const {initDescription} = this.state;
-        if(initDescription.length >= 15) {
+        const {initDescription} = this.props;
+        if(initDescription.split('\n')){
+            this.setState({
+                showDescription: initDescription.split('\n')[0].substr(0, 25),
+                showMore: true,
+            })
+        }else if(initDescription.length >= 25) {
             this.setState({
                 showDescription: initDescription.substr(0, 25) + " ",
                 showMore: true,
             })
+        }else{
+            this.setState({
+                showDescription: initDescription,
+            })
         }
-    }
-
-    componentDidMount(){
-        const {description, initShowDescription} = this.state;
-        this.setState({
-
-        });
     }
 
     showMore = () => {
         this.setState({
             showMore: false,
-            showDescription: this.state.initDescription,
+            showDescription: this.props.initDescription,
         })
     }
+
+    likesToggle = () => {
+        const {likeState, likes} = this.state;
+        if(!likeState){
+            this.setState({
+                likeState: !likeState,
+                likes: likes+1,
+            })
+        }else{
+            this.setState({
+                likeState: !likeState,
+                likes: likes-1,
+            })
+        }
+    }
+
     render() {
+        const {showDescription, showMore, likes, likeState} = this.state;
         return(
             <div id = "post-info">
                 <div className="symbol-size">
-                    <i className="far fa-heart"></i> <i className="far fa-comment"></i>
+                    {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
+                    <i className="far fa-comment" />
                 </div>
-                좋아요 12,142,342개
+                좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개
                 <div className="description">
-                    {this.state.showDescription}
-                    {this.state.showMore && <a className="show-more" onClick={this.showMore}>더보기</a>}
+                    {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
                 </div>
             </div>
         );

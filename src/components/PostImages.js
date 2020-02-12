@@ -3,6 +3,15 @@ import React, {Component} from 'react';
 import '../style/Slider.css'
 
 class PostImages extends Component{
+    static defaultProps = {
+
+    }
+    state = {
+        images: this.props.URL.map(
+            url => <div className="swiper-slide"><img className="swiper-index" src={url} /></div>
+        ),
+    }
+
     componentDidMount() {
         const script = document.createElement('script');
         script.async = true;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
@@ -26,22 +35,26 @@ class PostImages extends Component{
                 },
             });
         }
-
+    }
+    clicked = () => {
+        this.props.clicked(true);
     }
     render() {
         return (
-            <div className="swiper-container" style={{width: '500px', height: '500px'}}>
-                <div className="swiper-wrapper">
-                    <div className="swiper-slide"><img className="swiper-index" src="https://placehold.it/458x458" /></div>
-                    <div className="swiper-slide">Slide 2</div>
-                    <div className="swiper-slide">Slide 3</div>
+            <div>
+                <div className="swiper-container" style={{width: '500px', height: '500px'}}>
+                    <div className="swiper-wrapper" onDoubleClick={this.clicked}>
+                        {this.state.images}
+                    </div>
+
+                    <div className="swiper-pagination"></div>
+
+                    <div className="swiper-button-prev"></div>
+                    <div className="swiper-button-next"></div>
+
                 </div>
-                <div className="swiper-pagination"></div>
-
-                <div className="swiper-button-prev"></div>
-                <div className="swiper-button-next"></div>
-
             </div>
+
         );
     }
 }
