@@ -1,1 +1,14 @@
-.Maps{width: 450px; height: 650px; margin: 0 auto;}
+.Maps{
+  width: 500px;
+  height: 650px;
+  margin: 0 auto;
+  box-shadow: 10px 10px 15px 10px #666666;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  line-height: 100%;
+  z-index: 999;
+}
