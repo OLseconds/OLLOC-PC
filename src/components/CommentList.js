@@ -8,11 +8,8 @@ class CommentList extends Component {
 
     state = {
         commentList1: this.props.information.slice(0, 2).map(
-            information => <div>{information.name}</div>
+            information => <Comment name={information.name} comment={information.comment} />
         ),
-        // commentList1: this.props.information.slice(0, 2).map(
-        //     information => <Comment name={information.name} comment={information.comment} />
-        // ),
         commentList2: this.props.information.slice(2, this.props.information.length).map(
             information => <Comment name={information.name} comment={information.comment} />
         ),

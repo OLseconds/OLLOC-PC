@@ -4,7 +4,7 @@ import '../style/Slider.css'
 
 class PostImages extends Component{
     static defaultProps = {
-
+        URL: []
     }
     state = {
         images: this.props.URL.map(
