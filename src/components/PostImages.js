@@ -8,7 +8,7 @@ class PostImages extends Component{
     }
     state = {
         images: this.props.URL.map(
-            url => <div className="swiper-slide"><img className="swiper-index" src={url} /></div>
+            url => <div className="swiper-slide"><img className="swiper-index" src={url}/></div>
         ),
     }
 
@@ -19,7 +19,7 @@ class PostImages extends Component{
         document.head.appendChild(script);
 
         script.onload = () =>{
-            let mySwiper = new Swiper ('.swiper-container', {
+            new Swiper ('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',
 
@@ -41,7 +41,7 @@ class PostImages extends Component{
     }
     render() {
         return (
-            <div>
+            <div id="post-img">
                 <div className="swiper-container" style={{width: '500px', height: '500px'}}>
                     <div className="swiper-wrapper" onDoubleClick={this.clicked}>
                         {this.state.images}

@@ -6,6 +6,7 @@ class PostInfo extends Component {
         initDescription: '',
         likes: 0,
         likeState: false,
+        beforeProps: false,
     }
 
 
@@ -20,7 +21,7 @@ class PostInfo extends Component {
     }
     componentWillMount() {
         const {initDescription} = this.props;
-        if(initDescription.split('\n')){
+        if(~initDescription.indexOf('\n')){
             this.setState({
                 showDescription: initDescription.split('\n')[0].substr(0, 25),
                 showMore: true,
@@ -61,18 +62,33 @@ class PostInfo extends Component {
 
     render() {
         const {showDescription, showMore, likes, likeState} = this.state;
-        return(
-            <div id = "post-info">
-                <div className="symbol-size">
-                    {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
-                    <i className="far fa-comment" />
+        if(this.props.beforeProps){
+            return(
+                <div id = "post-info">
+                    <div className="description">
+                        {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                    </div>
+                    <div className="symbol-size">
+                        {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
+                        <i className="far fa-comment" />
+                    </div>
+                    좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개
                 </div>
-                좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개
-                <div className="description">
-                    {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+            );
+        }else{
+            return(
+                <div id = "post-info">
+                    <div className="symbol-size">
+                        {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
+                        <i className="far fa-comment" />
+                    </div>
+                    좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개
+                    <div className="description">
+                        {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 

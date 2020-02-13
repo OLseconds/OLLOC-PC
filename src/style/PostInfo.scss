@@ -7,7 +7,6 @@
   }
   .description{
     margin-top: 7px;
-    width: 480px;
     text-overflow: ellipsis;
   }
 }
@@ -15,6 +14,7 @@
 .show-more{
   color: #999;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .heart{

@@ -1,0 +1,38 @@
+#post-split{
+  border: 1px solid black;
+  width: 802px;
+  margin: 0 auto;
+  #post-info{
+  }
+  #post-img{
+    display: inline-block;
+  }
+  #post-split-right{
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar{
+      display: none !important;
+    }
+
+    display: inline-block;
+    width: 300px;
+    vertical-align: top;
+    height: 500px;
+    #writer{
+      background-color: white;
+      height: 50px;
+      padding: 10px 0 10px 10px;
+      border-bottom: 1px solid #999;
+      span{vertical-align: top; line-height:50px; margin-left: 5px;}
+      img{height: 50px; width: 50px; border-radius: 50px;}
+
+    }
+    #description{
+      padding: 10px 0 0 10px;
+    }
+    #after-description{
+      #post-info{
+      }
+    }
+  }
+}

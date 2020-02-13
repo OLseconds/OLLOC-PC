@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import Post from 'components/Post'
+import React, {Component} from 'react';
+import Post from 'components/Post';
 import MapAlert from "../components/MapAlert";
-import '../Animation.css'
+import '../Animation.css';
 
 class Home extends Component{
     static defaultProps = {
@@ -16,7 +16,7 @@ class Home extends Component{
                     "음악 듣고 싶은데\n" +
                     "나도 춤추고 싶은데\n" +
                     "2만원도 있는데\n" +
-                    "씨발 나만 못 가",
+                    "씨발 나만 못 가\n",
                 imagesURL: [
                     "https://placehold.it/458x458",
                     "https://placehold.it/128x128",
@@ -91,6 +91,12 @@ class Home extends Component{
         ]
     }
 
+    checkClicked = (getClicked) => {
+        this.setState({
+            clicked: getClicked,
+        })
+    }
+
     state = {
         posts : this.props.posts.map(
             post => <Post
@@ -101,12 +107,6 @@ class Home extends Component{
         clicked: false,
     }
 
-
-    checkClicked = (getClicked) => {
-        this.setState({
-            clicked: getClicked,
-        })
-    }
     render(){
         return(
             <div>
