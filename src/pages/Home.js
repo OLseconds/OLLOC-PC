@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Post from 'components/Post';
-import MapAlert from "../components/MapAlert";
+import Post from '../components/Post/Post';
+import MapAlert from "../components/Modules/MapAlert";
+import MyTimeline from "../components/MyPost/MyTimeline";
 import '../Animation.css';
 
 class Home extends Component{
@@ -110,6 +111,7 @@ class Home extends Component{
     render(){
         return(
             <div>
+                <MyTimeline />
                 {this.state.clicked && <MapAlert clicked = {this.checkClicked}/>}
                 {this.state.posts}
             </div>

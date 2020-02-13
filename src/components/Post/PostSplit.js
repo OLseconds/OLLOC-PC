@@ -1,8 +1,8 @@
 import React from 'react';
-import '../style/PostSplit.scss'
+import '../../style/PostSplit.scss'
 import PostImages from "./PostImages";
 import PostInfo from "./PostInfo";
-import CommentList from "./CommentList";
+import CommentList from "../Modules/CommentList";
 
 const PostSplit = (props) => {
     const {writer, profileImg, imagesURL, description, likes, likeState, comments} = props.postInfo;

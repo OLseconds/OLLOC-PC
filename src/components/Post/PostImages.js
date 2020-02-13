@@ -1,6 +1,6 @@
 /*global Swiper*/
 import React, {Component} from 'react';
-import '../style/Slider.css'
+import '../../style/Slider.css'
 
 class PostImages extends Component{
     static defaultProps = {

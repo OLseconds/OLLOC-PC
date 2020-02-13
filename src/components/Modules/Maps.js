@@ -2,7 +2,7 @@
 /*global kakao*/
 
 import React, {Component} from 'react';
-import '../style/Maps.scss';
+import '../../style/Maps.scss';
 
 class Maps extends Component {
     state = {

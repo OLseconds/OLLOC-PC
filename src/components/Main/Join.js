@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import "../Animation.css"
+import "../../Animation.css"
 import apiGetter from 'axios';
 import { Redirect } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ class Join extends Component{
     sendJoinData = (data) => {
         //const sender = require('axios');
         console.log(data);
-        apiGetter.post('http://olloc.kr3.kr:5000/v0.0/user/join', {
+        apiGetter.post('http://olloc.kr3.kr:8000/user/', {
             "username": data.userName,
             "password": data.passWord,
             "name": data.name,

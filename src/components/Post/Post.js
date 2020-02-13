@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PostInfo from './PostInfo';
-import CommentList from './CommentList';
+import CommentList from '../Modules/CommentList';
 import PostImages from "./PostImages";
-import '../style/Post.scss';
+import '../../style/Post.scss';
 
 
 const Post = (props) => {

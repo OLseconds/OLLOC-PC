@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../style/PostInfo.scss';
+import '../../style/PostInfo.scss';
 
 class PostInfo extends Component {
     static defaultProps = {

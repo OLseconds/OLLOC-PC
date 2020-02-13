@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Join from 'components/Join';
-import Login from 'components/Login';
+import Join from '../components/Main/Join';
+import Login from '../components/Main/Login';
 import '../Animation.css'
 import queryString from "query-string";
 import 'style/Main.scss';

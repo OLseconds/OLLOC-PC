@@ -36,7 +36,7 @@ class CommentList extends Component {
         }else{
             return (
                 <div id = "comment-list" style={{padding: '0 10px 10px 10px'}}>
-                    {!this.state.commentOverFlow &&  <Link className="show-more" to ="/post">댓글 {this.props.information.length}개 모두 보기</Link>}
+                    {this.state.commentOverFlow &&  <Link className="show-more" to ="/post">댓글 {this.props.information.length}개 모두 보기</Link>}
                     {this.state.commentList1}
                 </div>
             );

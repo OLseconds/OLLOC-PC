@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import Post from 'components/Post';
-import MapAlert from "../components/MapAlert";
+import MapAlert from "../components/Modules/MapAlert";
 import '../Animation.css';
-import PostSplit from "../components/PostSplit";
+import PostSplit from "../components/Post/PostSplit";
 
 class Home extends Component{
     static defaultProps = {

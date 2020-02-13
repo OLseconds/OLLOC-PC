@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../style/MapAlert.scss'
+import '../../style/MapAlert.scss'
 import Maps from "./Maps";
 
 class MapAlert extends Component{
