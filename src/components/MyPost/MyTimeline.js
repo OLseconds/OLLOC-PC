@@ -1,14 +1,14 @@
 import React from 'react';
+import MyTimelineInfo from './MyTimelineInfo';
+import MyPostList from './MyPostList';
 
-const test = () => {
-    alert("!");
-}
-
-const MyTimeline  = () => {
-    // test();
+const MyTimeline  = (props) => {
     return(
         <div id = "my-timeline">
-            test
+            <MyTimelineInfo data = {props.data}/>
+            <div style={{textAlign: 'center'}}>
+                <MyPostList image={props.imagesURL} />
+            </div>
         </div>
     );
 }
