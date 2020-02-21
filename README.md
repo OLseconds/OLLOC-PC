@@ -8,12 +8,12 @@
 
 현재까지 결과물은 http://react.kr3.kr 에서 확인 가능
 
-***redux를 통한 상태관리 및 클라이언트측 로그인 세션관리 연구 중...***
+*** 백엔드의 API를 기다리느라 프로젝트 중단 중 @bell2lee 가 요즘 바쁨..ㅠ ***
 
 KAKAO MAPS API를 이용하여 지도를 나타내고 이를 React.js를 이용하여 SPA를 만들 것 이기 떄문에 API 탐구를 위한 커밋이 포함됨
 
 ## 백엔드
-https://github.com/paperjlee/OLLOC-server
+https://github.com/bell2lee/OLLOC-server
 
 해당 프로젝트의 백엔드 부분의 레파지토리는 위 링크를 통해 확인할 수 있다.
 
