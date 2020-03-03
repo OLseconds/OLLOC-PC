@@ -6,12 +6,12 @@ import '../../style/Post.scss';
 
 
 const Post = (props) => {
-    const {writer, profileImg, imagesURL, description, likes, likeState, comments} = props.postInfo;
+    const {writer, profileImg, imagesURL, description, likes, likeState, comments, mapLoc} = props.postInfo;
     const { clicked } = props;
     return (
         <div id = "post">
                 <div id = "writer"><img src={profileImg} /> {writer}</div>
-                <PostImages URL={imagesURL} clicked={clicked}/>
+                <PostImages URL={imagesURL} clicked={clicked} mapLoc={mapLoc}/>
                 <PostInfo
                     initDescription={description}
                     likes={likes}

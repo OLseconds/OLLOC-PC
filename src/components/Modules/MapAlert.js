@@ -20,7 +20,7 @@ class MapAlert extends Component{
                 {this.state.onDisplay ?
                     <div className="alert animated fadeIn" onClick={this.clicked}></div>
                     : <div className="alert animated fadeOut" onClick={this.clicked}></div>}
-                <Maps clicked={this.state.onDisplay} />
+                <Maps mapLoc = {this.props.mapLoc} clicked={this.state.onDisplay} />
             </div>
         );
     }

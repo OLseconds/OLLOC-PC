@@ -19,7 +19,7 @@ class Maps extends Component {
             kakao.maps.load(() => { // 가져온 api에 포함된 함수 실행
                 let container = document.getElementById('map');
                 let options = {
-                    center: new kakao.maps.LatLng(37.536172, 126.976978),
+                    center: new kakao.maps.LatLng(this.props.mapLoc.lat, this.props.mapLoc.lng),
                     level: 3,
                 }
                 let map = new kakao.maps.Map(container, options);

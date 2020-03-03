@@ -37,7 +37,7 @@ class PostImages extends Component{
         }
     }
     clicked = () => {
-        this.props.clicked(true);
+        this.props.clicked(true, this.props.mapLoc.lat, this.props.mapLoc.lng);
     }
     render() {
         return (

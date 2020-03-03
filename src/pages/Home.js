@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Post from '../components/Post/Post';
 import MapAlert from "../components/Modules/MapAlert";
 import MyTimeline from "../components/MyPost/MyTimeline";
+import Upload from "../components/Post/Upload/Upload";
 import '../Animation.css';
 
 class Home extends Component{
@@ -50,7 +51,11 @@ class Home extends Component{
                         name: "jvckiwai",
                         comment: "혹시 날 잊었니..?"
                     }
-                ]
+                ],
+                mapLoc: {
+                    lat: 37.536172,
+                    lng: 126.976978
+                }
             },
             {
                 writer: "jvckiwai",
@@ -87,14 +92,22 @@ class Home extends Component{
                         name: "yuzion",
                         comment: "온니,, 핸즈클럽 가자"
                     }
-                ]
+                ],
+                mapLoc: {
+                    lat: 38.536172,
+                    lng: 126.976978
+                }
             },
         ]
     }
 
-    checkClicked = (getClicked) => {
+    checkClicked = (getClicked, lat, lng) => {
         this.setState({
             clicked: getClicked,
+            mapLoc: {
+                lat: lat,
+                lng: lng,
+            }
         })
     }
 
@@ -105,13 +118,18 @@ class Home extends Component{
                 clicked = {this.checkClicked}
             />
         ),
+        mapLoc: {
+            lat: 0,
+            lng: 0,
+        },
         clicked: false,
     }
 
     render(){
         return(
             <div>
-                {this.state.clicked && <MapAlert clicked = {this.checkClicked}/>}
+                <Upload></Upload>
+                {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                 {this.state.posts}
             </div>
         );
