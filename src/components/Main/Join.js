@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "../../Animation.css"
-import apiGetter from 'axios';
+import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
 class Join extends Component{
@@ -15,7 +15,7 @@ class Join extends Component{
         // submit버튼을 누른 경우 리로딩 방지
         e.preventDefault();
         // 상태값을 전송 함수에 전달
-        this.sendJoinData(this.state);
+        this.sendJoinData(this.state, this);
         //값 초기
         this.setState({
             userName: '',
@@ -25,18 +25,22 @@ class Join extends Component{
         });
     }
 
-    sendJoinData = (data) => {
-        //const sender = require('axios');
-        console.log(data);
-        apiGetter.post('http://olloc.kr3.kr:8000/user/', {
+    sendJoinData = (data, t) => {
+        axios.post('http://olloc.kr3.kr:8000/user/', {
             "username": data.userName,
             "password": data.passWord,
             "name": data.name,
             "mail": data.mail,
         }).then(function (response){
             console.log(response);
+            t.changeView();
+            alert("성공적으로 가입되었습니다.");
         }).catch(function (error){
             console.log(error);
+            if(error.response.data.error_code == 2){
+                alert("중복되는 아이디가 존재합니다.");
+                error = true;
+            }
         });
     }
 
