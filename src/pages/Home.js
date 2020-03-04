@@ -61,17 +61,17 @@ class Home extends Component{
                 writer: "jvckiwai",
                 profileImg: "https://placehold.it/58x58",
                 description:
-                "불을 지펴 여기에 펼치는 소란\n" +
-                "내 스피커 빵빵해 터지는 고막\n" +
-                "모두가 이 전쟁이 끝나길 소망\n" +
-                "난 진짜 병자라 스스로 뜨거워져 폭발\n" +
-                "너흰 마법에 걸렸지, 전부 마법에 걸렸지\n" +
-                "내 마법 같은 논리로 펼쳐지는 이 극과 현실\n" +
-                "빛나는 금목걸이 걸고 평양까지 flexin'\n" +
-                "내 목소리에 맞춰 춤을 추는 개 돼지 위로\n" +
-                "숭배를 받을래, 다 가진 김정은 아저씨, oh, yeah, oh, 처럼\n" +
-                "내가 사라지면 명복을 빌어줘 war is ready\n" +
-                "Oh, yeah, oh, oh, oh",
+                    "불을 지펴 여기에 펼치는 소란\n" +
+                    "내 스피커 빵빵해 터지는 고막\n" +
+                    "모두가 이 전쟁이 끝나길 소망\n" +
+                    "난 진짜 병자라 스스로 뜨거워져 폭발\n" +
+                    "너흰 마법에 걸렸지, 전부 마법에 걸렸지\n" +
+                    "내 마법 같은 논리로 펼쳐지는 이 극과 현실\n" +
+                    "빛나는 금목걸이 걸고 평양까지 flexin'\n" +
+                    "내 목소리에 맞춰 춤을 추는 개 돼지 위로\n" +
+                    "숭배를 받을래, 다 가진 김정은 아저씨, oh, yeah, oh, 처럼\n" +
+                    "내가 사라지면 명복을 빌어줘 war is ready\n" +
+                    "Oh, yeah, oh, oh, oh",
                 imagesURL: [
                     "https://placehold.it/458x458",
                     "https://placehold.it/128x128",
@@ -91,6 +91,37 @@ class Home extends Component{
                     {
                         name: "yuzion",
                         comment: "온니,, 핸즈클럽 가자"
+                    }
+                ],
+                mapLoc: {
+                    lat: 38.536172,
+                    lng: 126.976978
+                }
+            },
+            ,
+            {
+                writer: "paperlee",
+                profileImg: "https://leejh.info/wp-content/themes/paperlee/img/profile125.jpg",
+                description:
+                    "감성 코딩 shit",
+                imagesURL: [
+                    "https://leejh.info/wp-content/uploads/2020/01/IMG_2327-768x768.jpeg",
+                    "https://leejh.info/wp-content/uploads/2020/01/IMG_2329-768x768.jpeg"
+                ],
+                likes: 79,
+                likeState: false,
+                comments: [
+                    {
+                        name: "5linesys",
+                        comment: "팬이에요!!"
+                    },
+                    {
+                        name: "paperlee_",
+                        comment: "감사합니다 오선식님"
+                    },
+                    {
+                        name: "yuzion",
+                        comment: "종휘야 왜 씹고 인스타해?"
                     }
                 ],
                 mapLoc: {
