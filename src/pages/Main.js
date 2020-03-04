@@ -4,7 +4,7 @@ import Login from '../components/Main/Login';
 import '../Animation.css'
 import queryString from "query-string";
 import 'style/Main.scss';
-import leftImg from '/home/linesys/OLLOC/src/img/main.png'
+import leftImg from '../img/main.png'
 
 class Main extends Component {
     state = {
