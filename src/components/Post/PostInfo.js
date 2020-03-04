@@ -17,6 +17,7 @@ class PostInfo extends Component {
             showMore: false,
             likes: this.props.likes,
             likeState: this.props.likeState,
+            writer: this.props.writer,
         };
     }
     componentWillMount() {
@@ -61,7 +62,7 @@ class PostInfo extends Component {
     }
 
     render() {
-        const {showDescription, showMore, likes, likeState} = this.state;
+        const {showDescription, showMore, likes, likeState, writer} = this.state;
         if(this.props.beforeProps){
             return(
                 <div id = "post-info">
@@ -72,7 +73,7 @@ class PostInfo extends Component {
                         {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
                         <i className="far fa-comment" />
                     </div>
-                    좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개
+                    <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
                 </div>
             );
         }else{
@@ -82,9 +83,9 @@ class PostInfo extends Component {
                         {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
                         <i className="far fa-comment" />
                     </div>
-                    좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개
+                    <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
                     <div className="description">
-                        {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                        <b>{writer} </b>{this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
                     </div>
                 </div>
             );

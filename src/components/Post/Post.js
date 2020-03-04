@@ -16,6 +16,7 @@ const Post = (props) => {
                     initDescription={description}
                     likes={likes}
                     likeState={likeState}
+                    writer={writer}
                 />
                 <CommentList information = {comments}/>
             </div>

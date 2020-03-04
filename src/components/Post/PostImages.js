@@ -47,10 +47,10 @@ class PostImages extends Component{
                         {this.state.images}
                     </div>
 
-                    <div className="swiper-pagination"></div>
+                    <div className="swiper-pagination swiper-pagination-white"></div>
 
-                    <div className="swiper-button-prev"></div>
-                    <div className="swiper-button-next"></div>
+                    <div className="swiper-button-prev swiper-button-white"></div>
+                    <div className="swiper-button-next swiper-button-white"></div>
 
                 </div>
             </div>
