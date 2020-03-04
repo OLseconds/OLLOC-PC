@@ -1,15 +1,15 @@
 #post{
   width: 500px;
-  margin: 30px auto;
+  margin: 15px auto;
   border: 1px solid #999999;
   #writer{
-    margin: 20px 0;
-    line-height: 48px;
+    margin: 16px 0;
+    line-height: 32px;
+    font-weight:bold;
     img{
-      height: 48px;
-      width: 48px;
-      border: 1px solid black;
-      border-radius: 48px;
+      height: 32px;
+      width: 32px;
+      border-radius: 16px;
       margin: 0 10px;
       vertical-align: top;
     }
@@ -24,4 +24,9 @@
   color: #999;
   cursor: pointer;
   margin-bottom: 5px;
+}
+
+#comment-list
+{
+  font-size:11pt;
 }
