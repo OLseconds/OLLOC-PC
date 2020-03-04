@@ -16,10 +16,7 @@ class SearchMap extends Component{
 
         script.onload = () => {
             kakao.maps.load(() => {
-                const {search, infowindow, ps, map} = this.state;
-                this.setState({
-                    infowindow: new kakao.maps.InfoWindow({zIndex:1}),
-                })
+                let infowindow= new kakao.maps.InfoWindow({zIndex:1});
                 let mapContainer = document.getElementById('search-map'),
                     mapOption = {
                     center: new kakao.maps.LatLng(37.566826, 126.9786567),
@@ -28,12 +25,9 @@ class SearchMap extends Component{
                 this.setState({
                     map: new kakao.maps.Map(mapContainer, mapOption),
                     ps: new kakao.maps.services.Places(),
-                })
-                let a = new kakao.maps.services.Places();
-                a.keywordSearch('이태원 맛집', this.placesSearchCB);
+                });
 
-                const placesSearchCB = (data, status, pagination) => {
-                    console.log("!");
+                const placesSearchCB =  (data, status, pagination) => {
                     if(status === kakao.maps.services.Status.OK){
                         let bounds = new kakao.maps.LatLngBounds();
 
@@ -41,19 +35,21 @@ class SearchMap extends Component{
                             displayMarker(data[i]);
                             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                         }
-                        map.setBounds(bounds);
+                        this.state.map.setBounds(bounds);
                     }
                 }
 
+                this.state.ps.keywordSearch(this.state.search, placesSearchCB);
+
                 const displayMarker = (place) => {
                     let marker = new kakao.maps.Marker({
-                        map: map,
+                        map: this.state.map,
                         position: new kakao.maps.LatLng(place.y, place.x)
                     });
 
                     kakao.maps.event.addListener(marker, 'click', () => {
                         infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-                        infowindow.open(map, marker);
+                        infowindow.open(this.state.map, marker);
                     });
                 }
             });
@@ -66,6 +62,33 @@ class SearchMap extends Component{
         this.setState({
             search: document.getElementById('search').value,
         })
+        let infowindow= new kakao.maps.InfoWindow({zIndex:1});
+
+        const placesSearchCB =  (data, status, pagination) => {
+            if(status === kakao.maps.services.Status.OK){
+                let bounds = new kakao.maps.LatLngBounds();
+
+                for(let i = 0; i < data.length; i++){
+                    displayMarker(data[i]);
+                    bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                }
+                this.state.map.setBounds(bounds);
+            }
+        }
+
+        this.state.ps.keywordSearch(document.getElementById('search').value, placesSearchCB);
+
+        const displayMarker = (place) => {
+            let marker = new kakao.maps.Marker({
+                map: this.state.map,
+                position: new kakao.maps.LatLng(place.y, place.x)
+            });
+
+            kakao.maps.event.addListener(marker, 'click', () => {
+                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                infowindow.open(this.state.map, marker);
+            });
+        }
         document.getElementById('search').value="";
     }
     render(){
@@ -73,6 +96,7 @@ class SearchMap extends Component{
             <form onSubmit={this.search}>
                 {this.state.search}
                 <input
+                    placeholder="위치를 입력하세요!"
                     id="search"
                     name='search'
                     type="text"
