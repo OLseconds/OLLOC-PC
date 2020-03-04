@@ -17,23 +17,19 @@ class Login extends Component{
         this.setState({
             userName: '',
             passWord: '',
-            name: '',
-            mail: '',
         });
     }
 
     sendJoinData = (data) => {
         const join = require('axios');
         console.log(data);
-        join.post('http://olloc.kr3.kr:8000/auth', {
-            "username": data.userName,
-            "password": data.passWord,
-            "name": data.name,
-            "mail": data.mail,
+        join.post('http://olloc.kr3.kr:8000/auth/', {
+            "username": data.username,
+            "password": data.password,
         }).then(function (response){
             console.log(response);
         }).catch(function (error){
-            console.log(error);
+            console.log(error.response);
         });
     }
 
@@ -41,8 +37,6 @@ class Login extends Component{
         this.setState({
             userName: '',
             passWord: '',
-            name: '',
-            mail: '',
             animation: 'animated bounceOutRight'
         });
 
@@ -60,8 +54,6 @@ class Login extends Component{
         this.state ={
             userName: '',
             passWord: '',
-            name: '',
-            mail: '',
             animation: this.props.direction,
             redirect: false,
         }
@@ -82,18 +74,19 @@ class Login extends Component{
                     <input
                         className="textInput"
                         placeholder="휴대폰 번호 또는 이메일 주소"
-                        name="mail"
+                        name="username"
                         value={this.state.mail}
                         onChange={this.handleChange}
                     />
                     <input
                         className="textInput"
                         placeholder="비밀번호"
-                        name="name"
+                        name="password"
                         value={this.state.name}
                         onChange={this.handleChange}
                     />
-                    <Link to ="/" className="noUnderLine" ><button className="mainBtn" >로그인</button></Link>
+                    {/*<Link to ="/" className="noUnderLine" ><button className="mainBtn" >로그인</button></Link>*/}
+                    <button className="mainBtn" >로그인</button>
                     <span className="loginText">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
                 </form>
             </div>
