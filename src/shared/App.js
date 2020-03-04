@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home, Main, Post } from 'pages';
-import Menu from 'components/Menu';
+import Header from 'components/Header';
 import {MyPost} from "../pages";
 
 class App extends Component {
     render() {
         return(
             <div>
-                <Menu />
+                <Header />
                 <Route exact path="/" component={Home} />
                 <Switch>
                     <Route path="/main/:name" component={Main} />
