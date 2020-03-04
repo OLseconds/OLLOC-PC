@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "cross-env": "^7.0.0",
+    "exifr": "^3.0.1",
     "node-sass": "^4.13.1",
     "query-string": "latest",
     "react": "^16.12.0",

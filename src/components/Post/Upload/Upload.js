@@ -11,7 +11,7 @@ class Upload extends Component{
                     type="text"
                     placeholder="게시글을 작성해보세요!"
                 />
-
+                <ImageUp></ImageUp>
                 <SearchMap></SearchMap>
                 지도
                 이미지
