@@ -116,12 +116,8 @@ class Home extends Component{
                         comment: "팬이에요!!"
                     },
                     {
-                        name: "paperlee_",
-                        comment: "감사합니다 오선식님"
-                    },
-                    {
                         name: "yuzion",
-                        comment: "종휘야 왜 씹고 인스타해?"
+                        comment: "오빠 왜 톡 씹고 OLLOC해?"
                     }
                 ],
                 mapLoc: {

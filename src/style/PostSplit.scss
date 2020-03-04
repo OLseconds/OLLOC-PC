@@ -1,5 +1,6 @@
 #post-split{
-  border: 1px solid black;
+  border: 1px solid #dbdbdb;
+  border-radius:3px;
   width: 802px;
   margin: 0 auto;
   #post-info{
@@ -13,16 +14,16 @@
     &::-webkit-scrollbar{
       display: none !important;
     }
-
+    background-color: white;
+    line-height:1.5;
     display: inline-block;
     width: 300px;
     vertical-align: top;
     height: 500px;
     #writer{
-      background-color: white;
       height: 50px;
       padding: 10px 0 10px 10px;
-      border-bottom: 1px solid #999;
+      border-bottom: 1px solid #dbdbdb;
       span{vertical-align: top; line-height:50px; margin-left: 5px;}
       img{height: 50px; width: 50px; border-radius: 50px;}
 
