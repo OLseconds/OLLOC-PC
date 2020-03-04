@@ -62,7 +62,6 @@ class PostInfo extends Component {
     }
 
     render() {
-        console.log(this.state.writer);
         const {showDescription, showMore, likes, likeState, writer} = this.state;
         if(this.props.beforeProps){
             return(
