@@ -29,7 +29,7 @@ class ImageUp extends Component{
                     check = true;
                 } catch (e) {
                     check = false;
-                    alert("사진에 GPS정보가 없읍니다.")
+                    //alert("사진에 GPS정보가 없읍니다.")
                 }
                 const base64 = reader.result;//reader.readAsDataURL(event.target.files[0]); //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
                 if (base64) {

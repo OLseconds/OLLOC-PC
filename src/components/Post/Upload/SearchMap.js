@@ -7,6 +7,8 @@ class SearchMap extends Component{
         ps: null,
         map: null,
         locName: "",
+        lat: 0,
+        lng: 0,
     }
     myMarker = null;
     markers = [];
@@ -59,36 +61,52 @@ class SearchMap extends Component{
 
                     this.markers.push(marker);
 
-                    kakao.maps.event.addListener(marker, 'click', () => {
+                    kakao.maps.event.addListener(marker, 'click', (mouseEvent) => {
                         this.infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                        this.setState({
+                            locName: place.place_name,
+                            lat: place.y,
+                            lng: place.x,
+                        })
                         this.infowindow.open(this.state.map, marker);
                         this.myMarker.setMap(null);
                         this.customOverlay.setMap(null);
                     });
-
-                    this.myMarker = new kakao.maps.Marker();
-                    let iwContent = "<div><input id='loc-name' type='text'><button>완료</button></div>";
-
-                    kakao.maps.event.addListener(this.state.map, 'click', (mouseEvent) => {
-                        // 클릭한 위도, 경도 정보를 가져옵니다
-                        let latlng = mouseEvent.latLng;
-                        this.myMarker.setMap(null);
-                        this.myMarker = new kakao.maps.Marker({position: new kakao.maps.LatLng(latlng.lat, latlng.lng)});
-                        this.myMarker.setMap(this.state.map);
-                        this.myMarker.setPosition(latlng);
-                        this.customOverlay.setMap(null);
-                        this.customOverlay = new kakao.maps.CustomOverlay({
-                            clickable: true,
-                            position: latlng,
-                            content: iwContent,
-                            xAnchor: 0.4,      //커지면 왼쪽
-                            yAnchor: 3.3,        //커지면 위로
-                            zIndex:999,
-                        });
-                        this.customOverlay.setMap(this.state.map);
-                        this.infowindow.setMap(null);
-                    });
                 }
+
+                this.myMarker = new kakao.maps.Marker();
+
+                kakao.maps.event.addListener(this.state.map, 'click', (mouseEvent) => {
+                    // 클릭한 위도, 경도 정보를 가져옵니다
+                    let latlng = mouseEvent.latLng;
+                    this.setState({
+                        locName: "",
+                        lat: latlng.Ha,
+                        lng: latlng.Ga,
+                    })
+                    this.myMarker.setMap(null);
+                    this.myMarker = new kakao.maps.Marker({position: new kakao.maps.LatLng(latlng.lat, latlng.lng)});
+                    this.myMarker.setMap(this.state.map);
+                    this.myMarker.setPosition(latlng);
+                    this.customOverlay.setMap(null);
+                    this.customOverlay = new kakao.maps.CustomOverlay({
+                        clickable: true,
+                        position: latlng,
+                        content: "<div><input id='loc-name' type='text'><button id='loc-name-btn'>완료</button></div>",
+                        xAnchor: 0.4,      //커지면 왼쪽
+                        yAnchor: 3.3,        //커지면 위로
+                        zIndex:999,
+                    });
+                    this.customOverlay.setMap(this.state.map);
+                    let btn = document.getElementById('loc-name-btn');
+                    btn.onclick = () =>{
+                        this.setState({
+                            locName: document.getElementById('loc-name').value,
+                        })
+                        return false;
+                    }
+                    this.infowindow.setMap(null);
+                });
             });
         }
     }
@@ -144,6 +162,11 @@ class SearchMap extends Component{
 
             kakao.maps.event.addListener(marker, 'click', () => {
                 this.infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                this.setState({
+                    locName: place.place_name,
+                    lat: place.y,
+                    lng: place.x,
+                })
                 this.infowindow.open(this.state.map, marker);
                 this.myMarker.setMap(null);
                 this.customOverlay.setMap(null);
@@ -152,20 +175,33 @@ class SearchMap extends Component{
         this.customOverlay.setMap(this.state.map);
         document.getElementById('search-loc').value="";
     }
+    sendData = () =>{
+        if(this.state.locName === "" && this.state.lat == 0 && this.state.lng == 0){
+            alert("위치를 선택해주세요!");
+            return;
+        }else if(this.state.locName === ""){
+            alert("위치명을 입력해주세요!");
+            return;
+        }
+        this.props.getData({locName: this.state.locName, lat: this.state.lat, lng: this.state.lng});
+    }
     render(){
         return(
-            <form onSubmit={this.search}>
-                {this.state.search}
-                <input
-                    placeholder="위치를 입력하세요!"
-                    id="search-loc"
-                    name='search'
-                    type="text"
-                />
-                <button>검색</button>
-                <div>{this.state.locName}</div>
-                <div style={{width: '500px', height: '700px'}} id="search-map"></div>
-            </form>
+            <div>
+                <form onSubmit={this.search}>
+                    {this.state.search}
+                    <input
+                        placeholder="위치를 입력하세요!"
+                        id="search-loc"
+                        name='search'
+                        type="text"
+                    />
+                    <input type='submit' value = '검색' />
+                    <div style={{width: '500px', height: '700px'}} id="search-map"></div>
+                </form>
+                <button onClick={this.sendData}>확인</button>
+            </div>
+
         )
     }
 }
