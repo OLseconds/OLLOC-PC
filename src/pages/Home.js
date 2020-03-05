@@ -140,7 +140,8 @@ class Home extends Component{
 
     state = {
         posts : this.props.posts.map(
-            post => <Post
+            (post, index) => <Post
+                key = {index}
                 postInfo = {post}
                 clicked = {this.checkClicked}
             />

@@ -9,10 +9,10 @@ class CommentList extends Component {
 
     state = {
         commentList1: this.props.information.slice(0, 2).map(
-            information => <Comment name={information.name} comment={information.comment} />
+            (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
         ),
         commentList2: this.props.information.slice(2, this.props.information.length).map(
-            information => <Comment name={information.name} comment={information.comment} />
+            (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
         ),
         commentOverFlow: false,
     }

@@ -8,7 +8,7 @@ class PostImages extends Component{
     }
     state = {
         images: this.props.URL.map(
-            url => <div className="swiper-slide"><img className="swiper-index" src={url}/></div>
+            (url, index) => <div key={index} className="swiper-slide"><img className="swiper-index" src={url}/></div>
         ),
     }
 

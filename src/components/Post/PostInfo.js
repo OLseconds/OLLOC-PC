@@ -85,7 +85,7 @@ class PostInfo extends Component {
                     </div>
                     <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
                     <div className="description">
-                        <b>{writer} </b>{this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                        <b>{writer} </b>{this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
                     </div>
                 </div>
             );
