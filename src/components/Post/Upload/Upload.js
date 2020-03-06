@@ -3,6 +3,20 @@ import SearchMap from './SearchMap';
 import ImageUp from './ImageUp';
 
 class Upload extends Component{
+    state = {
+        locName: "",
+        lat: 0,
+        lng: 0,
+    }
+
+    getMapData = (data) =>{
+        this.setState({
+            locName: data.locName,
+            lat: data.lat,
+            lng: data.lng,
+        })
+    }
+
     render(){
         return(
             <div>
@@ -12,7 +26,8 @@ class Upload extends Component{
                     placeholder="게시글을 작성해보세요!"
                 />
                 <ImageUp></ImageUp>
-                <SearchMap></SearchMap>
+                {"위치: " + this.state.locName}
+                <SearchMap getData={this.getMapData}></SearchMap>
                 지도
                 이미지
                 글
