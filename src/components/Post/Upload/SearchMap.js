@@ -2,14 +2,22 @@
 import React, {Component} from 'react';
 
 class SearchMap extends Component{
+    static defaultProps={
+        GPS: {
+            lat: 0,
+            lng: 0,
+        }
+    }
+
     state = {
-        search: '솔샘로 4길 30',
-        ps: null,
-        map: null,
+        search: "",
         locName: "",
         lat: 0,
         lng: 0,
     }
+    searchText = ""
+    ps = null;
+    map = null;
     myMarker = null;
     markers = [];
     customOverlay = null;
@@ -22,40 +30,62 @@ class SearchMap extends Component{
 
         script.onload = () => {
             kakao.maps.load(() => {
+                let mapContainer = document.getElementById('map'),
+                    mapOption = {
+                        center: new kakao.maps.LatLng(this.props.GPS.lat, this.props.GPS.lng),
+                        lever: 3,
+                    };
+                this.map = new kakao.maps.Map(mapContainer, mapOption);
+                this.infowindow= new kakao.maps.InfoWindow({zIndex:1});
+                if(this.props.GPS.lat != 0){
+                    let geocoder = new kakao.maps.services.Geocoder();
+
+                    const searchAddrFromCoords = (coords, callback) => {
+                        // 좌표로 행정동 주소 정보를 요청합니다
+                        geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
+                    }
+
+                    // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+                    const displayCenterInfo = (result, status) => {
+                        if (status === kakao.maps.services.Status.OK) {
+                            for(var i = 0; i < result.length; i++) {
+                                // 행정동의 region_type 값은 'H' 이므로
+                                if (result[i].region_type === 'H') {
+                                    this.searchText = result[i].address_name.toString();
+                                    this.ps = new kakao.maps.services.Places();
+
+                                    const placesSearchCB =  (data, status, pagination) => {
+                                        if(status === kakao.maps.services.Status.OK){
+                                            let bounds = new kakao.maps.LatLngBounds();
+                                            for(let i = 0; i < data.length; i++){
+                                                displayMarker(data[i]);
+                                                bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                                            }
+                                            this.map.setBounds(bounds);
+                                        }
+                                    }
+                                    this.ps.keywordSearch(this.searchText, placesSearchCB);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    searchAddrFromCoords(this.map.getCenter(), displayCenterInfo);
+                }
+
+                this.ps = new kakao.maps.services.Places();
                 this.customOverlay = new kakao.maps.CustomOverlay({
-                    position: new kakao.maps.LatLng(37.536172, 126.976978),
-                    content: 'test',
+                    position: new kakao.maps.LatLng(0, 0),
+                    content: '',
                     xAnchor: 0.3,
                     yAnchor: 0.91
                 });
-                this.infowindow= new kakao.maps.InfoWindow({zIndex:1});
-                let mapContainer = document.getElementById('search-map'),
-                    mapOption = {
-                    center: new kakao.maps.LatLng(37.60796529098804, 127.00635631855505),
-                        level: 3
-                    };
-                this.setState({
-                    map: new kakao.maps.Map(mapContainer, mapOption),
-                    ps: new kakao.maps.services.Places(),
-                });
-
-                const placesSearchCB =  (data, status, pagination) => {
-                    if(status === kakao.maps.services.Status.OK){
-                        let bounds = new kakao.maps.LatLngBounds();
-
-                        for(let i = 0; i < data.length; i++){
-                            displayMarker(data[i]);
-                            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                        }
-                        this.state.map.setBounds(bounds);
-                    }
-                }
-
-                this.state.ps.keywordSearch(this.state.search, placesSearchCB);
 
                 const displayMarker = (place) => {
+                    // console.log(place);
                     let marker = new kakao.maps.Marker({
-                        map: this.state.map,
+                        map: this.map,
                         position: new kakao.maps.LatLng(place.y, place.x)
                     });
 
@@ -68,7 +98,7 @@ class SearchMap extends Component{
                             lat: place.y,
                             lng: place.x,
                         })
-                        this.infowindow.open(this.state.map, marker);
+                        this.infowindow.open(this.map, marker);
                         this.myMarker.setMap(null);
                         this.customOverlay.setMap(null);
                     });
@@ -76,7 +106,7 @@ class SearchMap extends Component{
 
                 this.myMarker = new kakao.maps.Marker();
 
-                kakao.maps.event.addListener(this.state.map, 'click', (mouseEvent) => {
+                kakao.maps.event.addListener(this.map, 'click', (mouseEvent) => {
                     // 클릭한 위도, 경도 정보를 가져옵니다
                     let latlng = mouseEvent.latLng;
                     this.setState({
@@ -86,7 +116,7 @@ class SearchMap extends Component{
                     })
                     this.myMarker.setMap(null);
                     this.myMarker = new kakao.maps.Marker({position: new kakao.maps.LatLng(latlng.lat, latlng.lng)});
-                    this.myMarker.setMap(this.state.map);
+                    this.myMarker.setMap(this.map);
                     this.myMarker.setPosition(latlng);
                     this.customOverlay.setMap(null);
                     this.customOverlay = new kakao.maps.CustomOverlay({
@@ -97,13 +127,16 @@ class SearchMap extends Component{
                         yAnchor: 3.3,        //커지면 위로
                         zIndex:999,
                     });
-                    this.customOverlay.setMap(this.state.map);
-                    let btn = document.getElementById('loc-name-btn');
-                    btn.onclick = () =>{
-                        this.setState({
-                            locName: document.getElementById('loc-name').value,
-                        })
-                        return false;
+                    this.customOverlay.setMap(this.map);
+                    if(this.props.GPS.check){
+                        let btn = document.getElementById('loc-name-btn');
+                        btn.onclick = () =>{
+                            this.setState({
+                                locName: document.getElementById('loc-name').value,
+                            });
+                            alert("등록 완료");
+                            return false;
+                        }
                     }
                     this.infowindow.setMap(null);
                 });
@@ -122,9 +155,7 @@ class SearchMap extends Component{
     search = (e) => {
         // submit버튼을 누른 경우 리로딩 방지
         e.preventDefault();
-        this.setState({
-            search: document.getElementById('search-loc').value,
-        })
+        this.searchText = document.getElementById('search-loc').value
 
         const placesSearchCB =  (data, status, pagination) => {
             if(status === kakao.maps.services.Status.OK){
@@ -138,7 +169,7 @@ class SearchMap extends Component{
                     displayMarker(data[i]);
                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }
-                this.state.map.setBounds(bounds);
+                this.map.setBounds(bounds);
             }else if (status === kakao.maps.services.Status.ZERO_RESULT) {
                 alert('검색 결과가 존재하지 않습니다.');
                 return;
@@ -149,12 +180,12 @@ class SearchMap extends Component{
             }
         }
 
-        this.state.ps.keywordSearch(document.getElementById('search-loc').value, placesSearchCB);
+        this.ps.keywordSearch(document.getElementById('search-loc').value, placesSearchCB);
 
         const displayMarker = (place) => {
             this.customOverlay.location = new kakao.maps.LatLng(place.y, place.x);
             let marker = new kakao.maps.Marker({
-                map: this.state.map,
+                map: this.map,
                 position: new kakao.maps.LatLng(place.y, place.x)
             });
 
@@ -167,12 +198,12 @@ class SearchMap extends Component{
                     lat: place.y,
                     lng: place.x,
                 })
-                this.infowindow.open(this.state.map, marker);
+                this.infowindow.open(this.map, marker);
                 this.myMarker.setMap(null);
                 this.customOverlay.setMap(null);
             });
         }
-        this.customOverlay.setMap(this.state.map);
+        this.customOverlay.setMap(this.map);
         document.getElementById('search-loc').value="";
     }
     sendData = () =>{
@@ -183,13 +214,13 @@ class SearchMap extends Component{
             alert("위치명을 입력해주세요!");
             return;
         }
-        this.props.getData({locName: this.state.locName, lat: this.state.lat, lng: this.state.lng});
+        this.props.getData({lat: this.state.lat, lng: this.state.lng, info: this.state.locName});
     }
     render(){
         return(
-            <div>
+            <div id = "search-map">
                 <form onSubmit={this.search}>
-                    {this.state.search}
+                    {this.props.GPS.lat}
                     <input
                         placeholder="위치를 입력하세요!"
                         id="search-loc"
@@ -197,9 +228,10 @@ class SearchMap extends Component{
                         type="text"
                     />
                     <input type='submit' value = '검색' />
-                    <div style={{width: '500px', height: '700px'}} id="search-map"></div>
+                    <div style={{width: '500px', height: '700px'}} id="map"></div>
                 </form>
-                <button onClick={this.sendData}>확인</button>
+                <button style={{position: 'relative', zIndex: "999"}} onClick={this.sendData}>확인</button>
+                <div className="alert" onClick={this.props.onClick}></div>
             </div>
 
         )

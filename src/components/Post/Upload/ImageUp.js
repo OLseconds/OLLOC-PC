@@ -24,13 +24,13 @@ class ImageUp extends Component{
                     lng = longitude;
                 } catch (e) {
                     check = false;
-                    lat = 37.60796529098804;
-                    lng = 127.00635631855505;
+                    lat = 0;
+                    lng = 0 ;
                 }
                 const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
                 if (base64) {
                     this.setState({
-                        data: this.state.data.concat({id: this.id++, File: imgFile, imgBase64: base64.toString(), gps:{lat: lat, lng: lng, check: check,}}),
+                        data: this.state.data.concat({id: this.id++, File: imgFile, imgBase64: base64.toString(), gps:{lat: lat, lng: lng, check: check,}, mapInfo: ""}),
                     })
                 }
             };
@@ -45,9 +45,20 @@ class ImageUp extends Component{
         });
     };
 
+    getData = (data) => {
+        this.setState({
+            data: this.state.data.map(
+                info => data.id === info.id
+                ? {...info, ...data}
+                : info
+            )
+        })
+    }
+
     render(){
+        console.log(this.state)
         const imageList = this.state.data.map(
-            preview => (<UploadImageList key={preview.id} id={preview.id} src={preview.imgBase64} GPS={preview.gps} remove={this.handleRemove}/>)
+            preview => (<UploadImageList key={preview.id} id={preview.id} src={preview.imgBase64} GPS={preview.gps} mapInfo= {preview.mapInfo} remove={this.handleRemove} getData={this.getData}/>)
         );
         return(
             <div>

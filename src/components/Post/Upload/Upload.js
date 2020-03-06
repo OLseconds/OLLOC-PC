@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SearchMap from './SearchMap';
 import ImageUp from './ImageUp';
+import "../../../style/Upload.scss"
 
 class Upload extends Component{
     state = {
@@ -9,7 +10,7 @@ class Upload extends Component{
         lng: 0,
     }
 
-    getMapData = (data) =>{
+    getImgLoc = (data) =>{
         this.setState({
             locName: data.locName,
             lat: data.lat,
@@ -26,11 +27,7 @@ class Upload extends Component{
                     placeholder="게시글을 작성해보세요!"
                 />
                 <ImageUp></ImageUp>
-                {"위치: " + this.state.locName}
-                <SearchMap getData={this.getMapData}></SearchMap>
-                지도
-                이미지
-                글
+                <button>업로드</button>
             </div>
         );
     }
