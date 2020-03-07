@@ -9,6 +9,7 @@ class App extends Component {
         return(
             <div>
                 <Header />
+                <div style={{"paddingTop": "75px"}}></div>
                 <Route exact path="/" component={Home} />
                 <Switch>
                     <Route path="/main/:name" component={Main} />
