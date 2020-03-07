@@ -86,7 +86,7 @@ class Join extends Component{
                     <div id="line">또는</div>
                     <input
                         className="textInput"
-                        placeholder="휴대폰 번호 또는 이메일 주소"
+                        placeholder="이메일 주소"
                         name="mail"
                         value={this.state.mail}
                         onChange={this.handleChange}
@@ -100,7 +100,7 @@ class Join extends Component{
                     />
                     <input
                         className="textInput"
-                        placeholder="사용자 이름"
+                        placeholder="회원 아이디"
                         name="userName"
                         value={this.state.userName}
                         onChange={this.handleChange}
@@ -108,6 +108,7 @@ class Join extends Component{
                     <input
                         className="textInput"
                         placeholder="비밀번호"
+                        type="password"
                         name="passWord"
                         value={this.state.passWord}
                         onChange={this.handleChange}

@@ -87,13 +87,14 @@ class Login extends Component{
                     <div id="line">또는</div>
                     <input
                         className="textInput"
-                        placeholder="휴대폰 번호 또는 이메일 주소"
+                        placeholder="회원 아이디"
                         name="userName"
                         value={this.state.userName}
                         onChange={this.handleChange}
                     />
                     <input
                         className="textInput"
+                        type="password"
                         placeholder="비밀번호"
                         name="passWord"
                         value={this.state.passWord}
