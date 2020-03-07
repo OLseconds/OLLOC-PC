@@ -62,13 +62,14 @@ class ImageUp extends Component{
         return(
             <div>
                 <div className="input_item">
-                    <div className="input_title">대표이미지</div>
+                    <div className="input_title"></div>
                 </div>
                 <div className="img_upload">
                     <div className="img_add">
-                        <label htmlFor="ex_file" onChange={this.handleChangeFile}>
-                            파일첨부
+                        <label className="upload_btn" htmlFor="ex_file" onChange={this.handleChangeFile}>
+                            <i className="fas fa-camera"></i> 사진
                         </label>
+
                         <input
                             multiple="multiple"
                             type="file"

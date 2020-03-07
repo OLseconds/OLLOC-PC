@@ -56,10 +56,10 @@ class UploadImageList extends Component{
     render(){
         const {src, GPS} = this.props;
         return(
-            <div>
-                <button onClick={this.onRemove}>삭제</button>
-                {GPS.check?<button onClick={this.onClick}>정보 있음</button>: <button onClick={this.onClick}>정보 없음</button>}
+            <div className="images">
                 <img style={{width: "100px", height: "100px"}} src={src} alt="미리보기 실패"/>
+                <button className="del_btn" onClick={this.onRemove}>삭제</button>
+                {GPS.check?<button className="map_btn" onClick={this.onClick}>위치 변경</button>: <button className="map_btn" onClick={this.onClick}>*위치입력</button>}
                 {this.state.clickCheck && <SearchMap onClick = {this.onClick} GPS = {GPS} getData = {this.getData}/>}
             </div>
         );
