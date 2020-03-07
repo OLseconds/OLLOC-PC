@@ -1,18 +1,34 @@
 import React, {Component} from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 class Login extends Component{
-    handleChange = (e) => {
-    this.setState({
-        [e.target.name]: e.target.value
-    });
-}
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
 
-    joinSubmit = (e) => {
+    constructor(props){
+        super(props);
+        this.state ={
+            userName: '',
+            passWord: '',
+            animation: this.props.direction,
+            redirect: false,
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    loginSubmit = (e) => {
         // submit버튼을 누른 경우 리로딩 방지
         e.preventDefault();
         // 상태값을 전송 함수에 전달
-        this.sendJoinData(this.state);
+        this.sendLoginData(this.state);
         //값 초기
         this.setState({
             userName: '',
@@ -20,17 +36,25 @@ class Login extends Component{
         });
     }
 
-    sendJoinData = (data) => {
-        const join = require('axios');
-        console.log(data);
-        join.post('http://olloc.kr3.kr:8000/auth/', {
-            "username": data.username,
-            "password": data.password,
+    sendLoginData = (data) => {
+        const checkLogin = (token) => {
+            this.props.login(token);
+        }
+
+        const { cookies } = this.props;
+        const login = require('axios');
+        login.post('http://olloc.kr3.kr:8000/auth/', {
+            "username": data.userName,
+            "password": data.passWord,
         }).then(function (response){
-            console.log(response);
-        }).catch(function (error){
+            console.log(response.data.token);
+            cookies.set('olloc', response.data.token);
+            checkLogin(response.data.token);
+        }).catch(error => {
+            if(!error.response) alert("서버 병신됨");
+            else alert("입력한 정보가 존재하지 않거나 패스워드가 일치하지 않습니다.");
             console.log(error.response);
-        });
+        })
     }
 
     changeView = () => {
@@ -49,23 +73,13 @@ class Login extends Component{
         }, 300);
     }
 
-    constructor(props){
-        super(props);
-        this.state ={
-            userName: '',
-            passWord: '',
-            animation: this.props.direction,
-            redirect: false,
-        }
-    }
-
     render(){
         if(this.state.redirect){
             return <Redirect push to ='/main' />;
         }
         return(
             <div id ="login">
-                <form className={this.state.animation} id="loginForm" onSubmit={this.joinSubmit}>
+                <form className={this.state.animation} id="loginForm" onSubmit={this.loginSubmit}>
                     <span id="prevBtn" onClick={this.changeView}><i className="fas fa-arrow-left"></i></span>
                     <h1 id="mainTitle">OLLoc</h1>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
@@ -74,15 +88,15 @@ class Login extends Component{
                     <input
                         className="textInput"
                         placeholder="휴대폰 번호 또는 이메일 주소"
-                        name="username"
-                        value={this.state.mail}
+                        name="userName"
+                        value={this.state.userName}
                         onChange={this.handleChange}
                     />
                     <input
                         className="textInput"
                         placeholder="비밀번호"
-                        name="password"
-                        value={this.state.name}
+                        name="passWord"
+                        value={this.state.passWord}
                         onChange={this.handleChange}
                     />
                     {/*<Link to ="/" className="noUnderLine" ><button className="mainBtn" >로그인</button></Link>*/}
@@ -94,4 +108,4 @@ class Login extends Component{
     }
 }
 
-export default Login;
+export default withCookies(Login);

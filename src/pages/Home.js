@@ -4,8 +4,50 @@ import MapAlert from "../components/Modules/MapAlert";
 import MyTimeline from "../components/MyPost/MyTimeline";
 import Upload from "../components/Post/Upload/Upload";
 import '../Animation.css';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
+import { Redirect } from 'react-router-dom';
 
 class Home extends Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    constructor(props) {
+        super(props);
+        const { cookies } = props;
+        this.state = {
+            posts : this.props.posts.map(
+                (post, index) => <Post
+                    key = {index}
+                    postInfo = {post}
+                    clicked = {this.checkClicked}
+                />
+            ),
+            mapLoc: {
+                lat: 0,
+                lng: 0,
+            },
+            clicked: false,
+            token: cookies.get('olloc') || 'Ben',
+        };
+        let that = this;
+        if(this.state.token != 'Ben'){
+            const checkLogin = require('axios');
+            checkLogin.get('http://olloc.kr3.kr:8000/user/', {
+                headers: {Authorization: this.state.token},
+            }).then(function (response){
+                console.log(response);
+                // 타임라인 땡겨오기
+            }).catch((error) => {
+                console.log(error.response);
+                that.state = {
+                    token: 'Ben',
+                }
+            });
+        }
+    }
+
     static defaultProps = {
         posts: [
             {
@@ -138,30 +180,19 @@ class Home extends Component{
         })
     }
 
-    state = {
-        posts : this.props.posts.map(
-            (post, index) => <Post
-                key = {index}
-                postInfo = {post}
-                clicked = {this.checkClicked}
-            />
-        ),
-        mapLoc: {
-            lat: 0,
-            lng: 0,
-        },
-        clicked: false,
-    }
-
     render(){
-        return(
-            <div>
-                <Upload></Upload>
-                {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
-                {this.state.posts}
-            </div>
-        );
+        if(this.state.token == 'Ben'){
+            return <Redirect push to ='/main' />;
+        }else{
+            return(
+                <div>
+                    <Upload></Upload>
+                    {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
+                    {this.state.posts}
+                </div>
+            );
+        }
     }
 }
 
-export default Home;
+export default withCookies(Home);

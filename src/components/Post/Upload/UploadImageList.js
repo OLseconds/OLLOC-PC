@@ -18,11 +18,12 @@ class UploadImageList extends Component{
         lng: this.props.GPS.lng,
         mapInfo: this.props.mapInfo,
         check: this.props.GPS.check,
+        clickCheck: false,
     }
 
     onClick = () =>{
         this.setState({
-            check: !this.state.check,
+            clickCheck: !this.state.clickCheck,
         })
     }
     getData = (data) => {
@@ -43,6 +44,7 @@ class UploadImageList extends Component{
                 check: true,
             },
             mapInfo: data.info,
+            clickCheck: !this.state.clickCheck,
         })
         console.log(this.state);
         this.props.getData(sendData);
@@ -58,7 +60,7 @@ class UploadImageList extends Component{
                 <button onClick={this.onRemove}>삭제</button>
                 {GPS.check?<button onClick={this.onClick}>정보 있음</button>: <button onClick={this.onClick}>정보 없음</button>}
                 <img style={{width: "100px", height: "100px"}} src={src} alt="미리보기 실패"/>
-                {this.state.check && <SearchMap onClick = {this.onClick} GPS = {GPS} getData = {this.getData}/>}
+                {this.state.clickCheck && <SearchMap onClick = {this.onClick} GPS = {GPS} getData = {this.getData}/>}
             </div>
         );
 

@@ -37,7 +37,10 @@ class SearchMap extends Component{
                     };
                 this.map = new kakao.maps.Map(mapContainer, mapOption);
                 this.infowindow= new kakao.maps.InfoWindow({zIndex:1});
-                if(this.props.GPS.lat != 0){
+
+                // 지도 그리고 infowindow 하나 생성
+
+                if(this.props.GPS.lat != 0){    // 좌표값이 있는 사진인 경우
                     let geocoder = new kakao.maps.services.Geocoder();
 
                     const searchAddrFromCoords = (coords, callback) => {
@@ -48,7 +51,7 @@ class SearchMap extends Component{
                     // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
                     const displayCenterInfo = (result, status) => {
                         if (status === kakao.maps.services.Status.OK) {
-                            for(var i = 0; i < result.length; i++) {
+                            for(let i = 0; i < result.length; i++) {
                                 // 행정동의 region_type 값은 'H' 이므로
                                 if (result[i].region_type === 'H') {
                                     this.searchText = result[i].address_name.toString();
@@ -83,7 +86,6 @@ class SearchMap extends Component{
                 });
 
                 const displayMarker = (place) => {
-                    // console.log(place);
                     let marker = new kakao.maps.Marker({
                         map: this.map,
                         position: new kakao.maps.LatLng(place.y, place.x)
@@ -128,8 +130,10 @@ class SearchMap extends Component{
                         zIndex:999,
                     });
                     this.customOverlay.setMap(this.map);
-                    if(this.props.GPS.check){
-                        let btn = document.getElementById('loc-name-btn');
+
+
+                    let btn = document.getElementById('loc-name-btn');
+                    if(btn){
                         btn.onclick = () =>{
                             this.setState({
                                 locName: document.getElementById('loc-name').value,
@@ -137,8 +141,10 @@ class SearchMap extends Component{
                             alert("등록 완료");
                             return false;
                         }
+
+                        this.infowindow.setMap(null);
                     }
-                    this.infowindow.setMap(null);
+
                 });
             });
         }
@@ -215,6 +221,7 @@ class SearchMap extends Component{
             return;
         }
         this.props.getData({lat: this.state.lat, lng: this.state.lng, info: this.state.locName});
+
     }
     render(){
         return(

@@ -56,7 +56,6 @@ class ImageUp extends Component{
     }
 
     render(){
-        console.log(this.state)
         const imageList = this.state.data.map(
             preview => (<UploadImageList key={preview.id} id={preview.id} src={preview.imgBase64} GPS={preview.gps} mapInfo= {preview.mapInfo} remove={this.handleRemove} getData={this.getData}/>)
         );

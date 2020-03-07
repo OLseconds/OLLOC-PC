@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home, Main, Post } from 'pages';
 import Header from 'components/Header';
-import {MyPost} from "../pages";
+import {MyPost} from "../pages"
 
 class App extends Component {
-    render() {
+    render(){
         return(
             <div>
                 <Header />
