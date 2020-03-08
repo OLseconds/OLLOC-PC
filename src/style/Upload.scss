@@ -120,6 +120,45 @@
 
       }
     }
+    #search-map{
+      position:fixed;
+      top:90px;
+      left:50%;
+      margin-left:-250px;
+      background:#fff;
+      box-shadow: 5px 0 30px rgba(0, 0, 0, .1);
+      width:470px;
+      border-radius:5px;
+
+      height:600px;
+      padding:15px;
+      #search-loc {
+        width:440px;
+        display:block;
+        border:1px solid #dbdbdb;
+        padding:10px 15px;
+        border-radius:30px;
+        font-size:12pt;
+      }
+      .btn{
+        width:470px;
+        display:block;
+        border:1px solid #dbdbdb;
+        margin-top:10px;
+        padding:10px 0;
+        border-radius:30px;
+        font-size:10pt;
+      }
+      input[type="submit"]{
+        @extend .btn;
+      }
+      .send {
+        @extend .btn;
+        background:#228be6;
+        color:#fff;
+        border:none;
+      }
+    }
   }
   #upload_form_background {
     background:rgba(255,255,255,0.7);
@@ -148,16 +187,5 @@
       }
     }
     #ex_file {display:none;}
-  }
-}
-
-#search-map{
-  position: relative;
-  form{
-    position: relative;
-    z-index: 999;
-    width: 500px;
-    height: 700px;
-    margin: 0 auto;
   }
 }

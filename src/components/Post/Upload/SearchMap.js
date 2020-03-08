@@ -227,18 +227,17 @@ class SearchMap extends Component{
         return(
             <div id = "search-map">
                 <form onSubmit={this.search}>
-                    {this.props.GPS.lat}
+                    {/*this.props.GPS.lat*/}
                     <input
-                        placeholder="위치를 입력하세요!"
+                        placeholder="장소 및 주소를 입력하세요"
                         id="search-loc"
                         name='search'
                         type="text"
                     />
                     <input type='submit' value = '검색' />
-                    <div style={{width: '500px', height: '700px'}} id="map"></div>
+                    <div style={{width: '470px', height: '470px'}} id="map"></div>
                 </form>
-                <button style={{position: 'relative', zIndex: "999"}} onClick={this.sendData}>확인</button>
-                <div className="alert" onClick={this.props.onClick}></div>
+                <button className="send" onClick={this.sendData}>확인</button>
             </div>
 
         )
