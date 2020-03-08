@@ -225,19 +225,23 @@ class SearchMap extends Component{
     }
     render(){
         return(
-            <div id = "search-map">
-                <form onSubmit={this.search}>
-                    {/*this.props.GPS.lat*/}
-                    <input
-                        placeholder="장소 및 주소를 입력하세요"
-                        id="search-loc"
-                        name='search'
-                        type="text"
-                    />
-                    <input type='submit' value = '검색' />
-                    <div style={{width: '470px', height: '470px'}} id="map"></div>
-                </form>
-                <button className="send" onClick={this.sendData}>확인</button>
+            <div>
+                <div id = "search-map">
+                    <form onSubmit={this.search}>
+                        {/*this.props.GPS.lat*/}
+                        <input
+                            placeholder="장소 및 주소를 입력하세요"
+                            id="search-loc"
+                            name='search'
+                            type="text"
+                        />
+                        <input type='submit' value = '검색' />
+                        <div style={{width: '470px', height: '470px'}} id="map"></div>
+                    </form>
+                    <button className="send" onClick={this.sendData}>확인</button>
+
+                </div>
+                <div className="alert" onClick={this.props.onClick}></div>
             </div>
 
         )
