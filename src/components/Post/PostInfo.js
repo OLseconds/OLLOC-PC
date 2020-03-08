@@ -20,23 +20,35 @@ class PostInfo extends Component {
             writer: this.props.writer,
         };
     }
-    componentWillMount() {
-        const {initDescription} = this.props;
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        const {initDescription, likes, likeState, writer} = nextProps;
         if(~initDescription.indexOf('\n')){
-            this.setState({
+            return{
                 showDescription: initDescription.split('\n')[0].substr(0, 25),
                 showMore: true,
-            })
+                likes: likes,
+                likeState: likeState,
+                writer: writer,
+            }
         }else if(initDescription.length >= 25) {
-            this.setState({
+            return{
                 showDescription: initDescription.substr(0, 25) + " ",
                 showMore: true,
-            })
+                likes: likes,
+                likeState: likeState,
+                writer: writer,
+            }
         }else{
-            this.setState({
+            return {
                 showDescription: initDescription,
-            })
+                likes: likes,
+                likeState: likeState,
+                writer: writer,
+            }
         }
+
+        return null;
     }
 
     showMore = () => {

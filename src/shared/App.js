@@ -15,6 +15,7 @@ class App extends Component {
                     <Route path="/main/:name" component={Main} />
                     <Route path="/main" component={Main} />
                     <Route path="/post" component={Post} />
+                    <Route path="/post:id" component={Post} />
                     <Route path="/mypost" component={MyPost} />
                 </Switch>
             </div>

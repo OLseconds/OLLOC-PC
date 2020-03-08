@@ -6,10 +6,13 @@ class PostImages extends Component{
     static defaultProps = {
         URL: []
     }
-    state = {
-        images: this.props.URL.map(
-            (url, index) => <div key={index} className="swiper-slide"><img className="swiper-index" src={url}/></div>
-        ),
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return {
+            images: nextProps.URL.map(
+                (url, index) => <div key={index} className="swiper-slide"><img className="swiper-index" src={url}/></div>
+            ),
+        }
+        return null;
     }
 
     componentDidMount() {
@@ -48,7 +51,6 @@ class PostImages extends Component{
                     </div>
 
                     <div className="swiper-pagination swiper-pagination-white"></div>
-
                     <div className="swiper-button-prev swiper-button-white"></div>
                     <div className="swiper-button-next swiper-button-white"></div>
 

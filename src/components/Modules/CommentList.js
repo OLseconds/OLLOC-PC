@@ -7,14 +7,16 @@ class CommentList extends Component {
         information: []
     }
 
-    state = {
-        commentList1: this.props.information.slice(0, 2).map(
-            (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
-        ),
-        commentList2: this.props.information.slice(2, this.props.information.length).map(
-            (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
-        ),
-        commentOverFlow: false,
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return {
+            commentList1: nextProps.information.slice(0, 2).map(
+                (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
+            ),
+            commentList2: nextProps.information.slice(2, nextProps.information.length).map(
+                (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
+            ),
+            commentOverFlow: false,
+        }
     }
 
     componentWillMount() {

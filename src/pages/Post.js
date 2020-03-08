@@ -2,8 +2,63 @@ import React, {Component} from 'react';
 import MapAlert from "../components/Modules/MapAlert";
 import '../Animation.css';
 import PostSplit from "../components/Post/PostSplit";
+import queryString from 'query-string';
 
 class Home extends Component{
+    constructor(props) {
+        super(props);
+        const id = queryString.parse(this.props.location.search).id;
+        if (!id) window.location.href='/';
+
+        const axios = require('axios');
+        axios.get('http://olloc.kr3.kr:8000/posts/?post_id=' + id)
+            .then((response) => {
+                const {data} = response;
+                this.setState({
+                    posts: {
+                        writer: data.owner.username,
+                        profileImg: data.owner.profile_img,
+                        description: data.description,
+                        imagesURL: data.img,
+                        likes: 32898232,
+                        likeState: false,
+                        comments: [
+                            {
+                                name: "5linesys",
+                                comment: "허걱슨!!"
+                            },
+                            {
+                                name: "kim_tang2",
+                                comment: "OLLOC 화이팅!!"
+                            },
+                            {
+                                name: "mirrrrrrrrrri",
+                                comment: "안녕하세요!"
+                            },
+                            {
+                                name: "cherry_j_",
+                                comment: "다랑이 보고싶!"
+                            },
+                            {
+                                name: "yuzion",
+                                comment: "나만 핸즈클럽 못가 ㅠ.!"
+                            },
+                            {
+                                name: "jvckiwai",
+                                comment: "혹시 날 잊었니..?"
+                            }
+                        ]
+                    }
+                })
+            }).catch( (error) => {
+                console.log(error.response);
+        })
+        this.state = {
+            id: queryString.parse(this.props.location.search).id,
+            clicked: false,
+        }
+    }
+
     static defaultProps = {
         posts: {
             writer: "yuzion",
@@ -60,14 +115,8 @@ class Home extends Component{
                     comment: "혹시 날 잊었니..?"
                 }
             ]
-
         }
     }
-
-    state = {
-        clicked: false,
-    }
-
 
     checkClicked = (getClicked) => {
         this.setState({
@@ -77,7 +126,7 @@ class Home extends Component{
     render(){
         return(
             <div>
-                <PostSplit clicked={this.checkClicked} postInfo={this.props.posts}/>
+                <PostSplit clicked={this.checkClicked} postInfo={this.state.posts}/>
                 {this.state.clicked && <MapAlert clicked = {this.checkClicked}/>}
             </div>
         );
