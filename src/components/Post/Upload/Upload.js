@@ -5,17 +5,16 @@ import "../../../style/Upload.scss"
 
 class Upload extends Component{
     state = {
-        locName: "",
-        lat: 0,
-        lng: 0,
+        mode: false,
     }
 
-    getImgLoc = (data) =>{
+    modeToggle = () => {
         this.setState({
-            locName: data.locName,
-            lat: data.lat,
-            lng: data.lng,
+            mode: !this.state.mode,
         })
+    }
+    getImgGPS = (data) => {
+
     }
 
     render(){
@@ -24,22 +23,22 @@ class Upload extends Component{
                 <div id="make_post">
                     <h3>안녕하세요. OOO님.</h3>
                     <div className="post_btn">
-                        <div className="post_btn_cont">
+                        <div className="post_btn_cont" onClick = {this.modeToggle}>
                             오늘은 무엇을 하셨나요?
                         </div>
                     </div>
                 </div>
-                <div id="upload_form_background"></div>
-                <div id="upload_form">
+                {this.state.mode && <div id="upload_form_background" onClick={this.modeToggle}></div>}
+                {this.state.mode && <div id="upload_form">
                     <div className="form_cont">
                         <div className="form_header">
-                            <h2>게시물 작성하기</h2><div className="close_form" onClick="">X</div>
+                            <h2>게시물 작성하기</h2><div className="close_form" onClick={this.modeToggle}>X</div>
                         </div>
                         <textarea placeholder="오늘 무슨 일이 있었나요?"></textarea>
                         <ImageUp></ImageUp>
                         <button className="parkBtn">게시하기</button>
                     </div>
-                </div>
+                </div>}
             </div>
         );
     }
