@@ -30,26 +30,68 @@ class Home extends Component{
             },
             clicked: false,
             token: cookies.get('olloc') || 'Ben',
+            id: "",
+            userName: "",
+            name: "",
+            email: "",
+
         };
-        let that = this;
         if(this.state.token != 'Ben'){
             const checkLogin = require('axios');
             checkLogin.get('http://olloc.kr3.kr:8000/user/', {
                 headers: {Authorization: this.state.token},
-            }).then(function (response){
-                console.log(response);
-                // 타임라인 땡겨오기
+            }).then( (response) => {
+                this.setName(response.data);
+                // console.log(response);
             }).catch((error) => {
                 console.log(error.response);
-                that.state = {
-                    token: 'Ben',
-                }
+                this.benThisUser();
             });
         }
     }
 
+    benThisUser = () => {
+        this.setState({
+            token: 'Ben',
+        })
+    }
+    setName = (data) =>{
+        this.setState({
+            id: data.id,
+            userName: data.username,
+            name: data.name,
+            email: data.email,
+        })
+    }
+
     static defaultProps = {
         posts: [
+            {
+                writer: "FPusspaperlee",
+                profileImg: "https://leejh.info/wp-content/themes/paperlee/img/profile125.jpg",
+                description:
+                    "감성 코딩 shit",
+                imagesURL: [
+                    "https://leejh.info/wp-content/uploads/2020/01/IMG_2327-768x768.jpeg",
+                    "https://leejh.info/wp-content/uploads/2020/01/IMG_2329-768x768.jpeg"
+                ],
+                likes: 79,
+                likeState: false,
+                comments: [
+                    {
+                        name: "5linesys",
+                        comment: "팬이에요!!"
+                    },
+                    {
+                        name: "yuzion",
+                        comment: "오빠 왜 톡 씹고 OLLOC해?"
+                    }
+                ],
+                mapLoc: {
+                    lat: 38.536172,
+                    lng: 126.976978
+                }
+            },
             {
                 writer: "yuzion",
                 profileImg: "https://placehold.it/58x58",
@@ -140,33 +182,6 @@ class Home extends Component{
                     lng: 126.976978
                 }
             },
-            ,
-            {
-                writer: "paperlee",
-                profileImg: "https://leejh.info/wp-content/themes/paperlee/img/profile125.jpg",
-                description:
-                    "감성 코딩 shit",
-                imagesURL: [
-                    "https://leejh.info/wp-content/uploads/2020/01/IMG_2327-768x768.jpeg",
-                    "https://leejh.info/wp-content/uploads/2020/01/IMG_2329-768x768.jpeg"
-                ],
-                likes: 79,
-                likeState: false,
-                comments: [
-                    {
-                        name: "5linesys",
-                        comment: "팬이에요!!"
-                    },
-                    {
-                        name: "yuzion",
-                        comment: "오빠 왜 톡 씹고 OLLOC해?"
-                    }
-                ],
-                mapLoc: {
-                    lat: 38.536172,
-                    lng: 126.976978
-                }
-            },
         ]
     }
 
@@ -182,11 +197,11 @@ class Home extends Component{
 
     render(){
         if(this.state.token == 'Ben'){
-            return <Redirect push to ='/main' />;
+            return  <Redirect push to ='/main' />;
         }else{
             return(
                 <div>
-                    <Upload></Upload>
+                    <Upload userName={this.state.userName} token={this.state.token}></Upload>
                     {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                     {this.state.posts}
                 </div>

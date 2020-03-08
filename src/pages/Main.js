@@ -20,22 +20,38 @@ class Main extends Component {
         this.login = this.login.bind(this)
         this.state = {
             direction: 'animated fadeIn',
-            token: cookies.get('olloc') || 'Ben'
+            token: 'Ben',
         };
 
+        const cookieToken = cookies.get('olloc')||'Ben';
+
         const checkLogin = require('axios');
-        checkLogin.get('http://olloc.kr3.kr:8000/user/', {
-            headers: {Authorization: this.state.token},
-        }).then(function (response){
-            console.log(response);
-        }).catch( error => {
-            console.log(error.response);
-            this.state = {
-                token: 'Ben',
-            }
-        })
+        if(cookieToken != "Ben"){
+            checkLogin.get('http://olloc.kr3.kr:8000/user/', {
+                headers: {Authorization: cookieToken},
+            }).then( (response) => {
+                this.setToken(cookies.get('olloc'));
+                console.log(response);
+            }).catch( (error) => {
+                console.log(error.response);
+                this.benThisUser();
+            })
+        }
 
     }
+    setToken = (token) => {
+        console.log(token);
+        this.setState({
+            token: token,
+        })
+    }
+
+    benThisUser = () => {
+        this.setState({
+            token: 'Ben',
+        })
+    }
+
     login(token){
         this.setState({
             token: token,
@@ -52,6 +68,7 @@ class Main extends Component {
         })
     }
     render() {
+        console.log(this.state.token)
         const {location} = this.props;
         const query = queryString.parse(location.search);
         const detail = this.loginsplit(query.detail);

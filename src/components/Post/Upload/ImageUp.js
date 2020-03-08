@@ -19,7 +19,7 @@ class ImageUp extends Component{
                 // 2. 읽기가 완료되면 아래코드가 실행
                 try {
                     const {latitude, longitude} = await exifr.gps(imgFile);
-                    check = true;
+                    check = false;
                     lat = latitude;
                     lng = longitude;
                 } catch (e) {
@@ -55,8 +55,11 @@ class ImageUp extends Component{
         })
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.data !== this.state.data) this.props.getImgGps(this.state.data);
+    }
+
     render(){
-        console.log(this.state.data);
         const imageList = this.state.data.map(
             preview => (<UploadImageList key={preview.id} id={preview.id} src={preview.imgBase64} GPS={preview.gps} mapInfo= {preview.mapInfo} remove={this.handleRemove} getData={this.getData}/>)
         );

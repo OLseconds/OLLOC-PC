@@ -60,7 +60,8 @@ class UploadImageList extends Component{
                 <img style={{width: "100px", height: "100px"}} src={src} alt="미리보기 실패"/>
                 <button className="del_btn" onClick={this.onRemove}>삭제</button>
                 {GPS.check?<button className="map_btn" onClick={this.onClick}>위치 변경</button>: <button className="map_btn" onClick={this.onClick}>*위치입력</button>}
-                {this.state.clickCheck && <SearchMap onClick = {this.onClick} GPS = {GPS} getData = {this.getData}/>}
+                {this.state.clickCheck && <SearchMap onClick = {this.onClick} GPS =
+                    {GPS} getData = {this.getData}/>}
             </div>
         );
 
