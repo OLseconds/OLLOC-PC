@@ -51,7 +51,7 @@ class Login extends Component{
             cookies.set('olloc', response.data.token);
             checkLogin(response.data.token);
         }).catch(error => {
-            if(!error.response) alert("서버 병신됨");
+            if(!error.response) alert("로그인 서버에 장애가 발생했습니다.");
             else alert("입력한 정보가 존재하지 않거나 패스워드가 일치하지 않습니다.");
             console.log(error.response);
         })
