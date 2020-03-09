@@ -27,6 +27,8 @@ class Login extends Component{
     loginSubmit = (e) => {
         // submit버튼을 누른 경우 리로딩 방지
         e.preventDefault();
+        if(!this.state.userName){alert("사용자 명을 입력해주세요!"); return;}
+        else if(!this.state.passWord) {alert("비밀번호를 입력해주세요!"); return;}
         // 상태값을 전송 함수에 전달
         this.sendLoginData(this.state);
         //값 초기
