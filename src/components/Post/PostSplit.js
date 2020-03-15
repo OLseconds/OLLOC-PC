@@ -73,7 +73,7 @@ class PostSplit extends Component{
         const { clicked, sendIndex } = this.props;
         return (
             <div id = "post-split" style={{marginTop:"100px"}}>
-                <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex}/>
+                <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} script={this.props.script}/>
                 <div id ="post-split-right">
                     <div id = "writer"><img src={profileImg} /> <span>{writer}</span></div>
                     <div id = "right-info">

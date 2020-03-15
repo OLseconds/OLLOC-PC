@@ -10,11 +10,15 @@ class Home extends Component{
         const id = queryString.parse(this.props.location.search).id;
         if (!id) window.location.href='/';
 
+        const script = document.createElement('script');
+        script.async = true;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
+        script.src = "https://unpkg.com/swiper/js/swiper.js";
+        document.head.appendChild(script);
+
         const axios = require('axios');
         axios.get('http://olloc.kr3.kr:8000/posts/?post_id=' + id)
             .then((response) => {
                 const {data} = response;
-                console.log(data);
                 this.setState({
                     posts: {
                         writer: data.owner.username,
@@ -35,6 +39,7 @@ class Home extends Component{
         this.state = {
             id: queryString.parse(this.props.location.search).id,
             clicked: false,
+            script: script,
         }
     }
 
@@ -73,7 +78,7 @@ class Home extends Component{
     render(){
         return(
             <div>
-                <PostSplit pageId={this.state.id} clicked={this.checkClicked} postInfo={this.state.posts} sendIndex={this.getIndex}/>
+                <PostSplit pageId={this.state.id} clicked={this.checkClicked} postInfo={this.state.posts} sendIndex={this.getIndex} script={this.state.script}/>
                 {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc={this.state.mapLoc}/>}
             </div>
         );

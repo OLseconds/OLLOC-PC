@@ -7,6 +7,7 @@ import '../Animation.css';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
+import Images from "../components/Modules/Images";
 
 class Home extends Component{
     static propTypes = {
@@ -16,7 +17,12 @@ class Home extends Component{
     constructor(props) {
         super(props);
         const { cookies } = props;
+        const script = document.createElement('script');
+        script.async = true;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
+        script.src = "https://unpkg.com/swiper/js/swiper.js";
+        document.head.appendChild(script);
         this.state = {
+            script: script,
             posts: [
                 {
                     writer: "paper_lee",
@@ -216,6 +222,7 @@ class Home extends Component{
                 postInfo = {post}
                 sendIndex = {this.getIndex}
                 clicked = {this.checkClicked}
+                script = {this.state.script}
             />);
         if(this.state.token == 'Ben'){
             return  <Redirect push to ='/main' />;

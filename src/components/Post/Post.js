@@ -6,21 +6,21 @@ import '../../style/Post.scss';
 
 const Post = (props) => {
     const {writer, profileImg, imagesURL, description, likes, likeState, comments} = props.postInfo;
-    const { clicked, postIndex } = props;
+    const { clicked, postIndex, script} = props;
 
     const sendIndex = (imageIndex) =>{
         const index = {
             post: postIndex,
             image: imageIndex,
         }
-            props.sendIndex(index);
+        props.sendIndex(index);
     }
 
 
     return (
         <div id = "post">
                 <div id = "writer"><img src={profileImg} /> {writer}</div>
-                <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} postIndex={postIndex}/>
+                <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} script={script}/>
                 <PostInfo
                     initDescription={description}
                     likes={likes}
