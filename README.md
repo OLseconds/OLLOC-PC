@@ -5,6 +5,7 @@
 - ES6
 - React.js
 - Kakao maps API
+- Swiper.js
 
 현재까지 결과물은 http://react.kr3.kr 에서 확인 가능
 
