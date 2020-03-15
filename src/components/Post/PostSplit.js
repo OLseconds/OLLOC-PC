@@ -9,7 +9,7 @@ const PostSplit = (props) => {
     const { clicked } = props;
     return (
         <div id = "post-split" style={{marginTop:"100px"}}>
-            <PostImages URL={imagesURL} clicked={clicked}/>
+            <PostImages URL={imagesURL} clicked={clicked} sendIndex={props.sendIndex} />
             <div id ="post-split-right">
                 <div id = "writer"><img src={profileImg} /> <span>{writer}</span></div>
                 <div id = "right-info">

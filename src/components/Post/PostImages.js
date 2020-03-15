@@ -6,13 +6,16 @@ class PostImages extends Component{
     static defaultProps = {
         URL: []
     }
+    state = {
+        images: null,
+    }
+
     static getDerivedStateFromProps(nextProps, prevState) {
         return {
             images: nextProps.URL.map(
                 (url, index) => <div key={index} className="swiper-slide"><img className="swiper-index" src={url}/></div>
             ),
         }
-        return null;
     }
 
     componentDidMount() {
@@ -22,7 +25,7 @@ class PostImages extends Component{
         document.head.appendChild(script);
 
         script.onload = () =>{
-            new Swiper ('.swiper-container', {
+            const mySwiper = new Swiper ('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',
 
@@ -37,16 +40,22 @@ class PostImages extends Component{
                     prevEl: '.swiper-button-prev',
                 },
             });
+            const clicked = () => {
+                this.props.sendIndex(mySwiper.activeIndex);
+            }
+            mySwiper.on('doubleClick', clicked);
         }
     }
+
     clicked = () => {
-        this.props.clicked(true, this.props.mapLoc.lat, this.props.mapLoc.lng);
+        this.props.sendIndex(0);
     }
     render() {
+        console.log(this.state.images);
         return (
             <div id="post-img">
                 <div className="swiper-container" style={{width: '500px', height: '500px'}}>
-                    <div className="swiper-wrapper" onDoubleClick={this.clicked}>
+                    <div className="swiper-wrapper">
                         {this.state.images}
                     </div>
 

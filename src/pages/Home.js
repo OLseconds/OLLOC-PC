@@ -67,7 +67,7 @@ class Home extends Component{
     static defaultProps = {
         posts: [
             {
-                writer: "FPusspaperlee",
+                writer: "paper_lee",
                 profileImg: "https://leejh.info/wp-content/themes/paperlee/img/profile125.jpg",
                 description:
                     "감성 코딩 shit",

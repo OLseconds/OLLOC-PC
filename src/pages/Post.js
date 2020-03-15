@@ -14,6 +14,7 @@ class Home extends Component{
         axios.get('http://olloc.kr3.kr:8000/posts/?post_id=' + id)
             .then((response) => {
                 const {data} = response;
+                console.log(data);
                 this.setState({
                     posts: {
                         writer: data.owner.username,
@@ -22,6 +23,8 @@ class Home extends Component{
                         imagesURL: data.img,
                         likes: 32898232,
                         likeState: false,
+                        lx: data.lx,
+                        ly: data.ly,
                         comments: [
                             {
                                 name: "5linesys",
@@ -118,6 +121,16 @@ class Home extends Component{
         }
     }
 
+    getIndex = (index) =>{
+        this.setState({
+            mapLoc: {
+                lat: this.state.posts.lx[index],
+                lng: this.state.posts.ly[index],
+            }
+        })
+        this.checkClicked(true);
+    }
+
     checkClicked = (getClicked) => {
         this.setState({
             clicked: getClicked,
@@ -126,8 +139,8 @@ class Home extends Component{
     render(){
         return(
             <div>
-                <PostSplit clicked={this.checkClicked} postInfo={this.state.posts}/>
-                {this.state.clicked && <MapAlert clicked = {this.checkClicked}/>}
+                <PostSplit clicked={this.checkClicked} postInfo={this.state.posts} sendIndex={this.getIndex}/>
+                {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc={this.state.mapLoc}/>}
             </div>
         );
     }
