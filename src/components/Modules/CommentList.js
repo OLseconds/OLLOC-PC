@@ -10,10 +10,10 @@ class CommentList extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         return {
             commentList1: nextProps.information.slice(0, 2).map(
-                (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
+                (information, index) => <Comment key={index} name={information.owner.name} comment={information.comment} />
             ),
             commentList2: nextProps.information.slice(2, nextProps.information.length).map(
-                (information, index) => <Comment key={index} name={information.name} comment={information.comment} />
+                (information, index) => <Comment key={index} name={information.owner.name} comment={information.comment} />
             ),
             commentOverFlow: false,
         }

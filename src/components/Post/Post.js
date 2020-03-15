@@ -19,6 +19,10 @@ const Post = (props) => {
                     writer={writer}
                 />
                 <CommentList information = {comments}/>
+                <div id="comment-input">
+                    <textarea placeholder="댓글 달기..." name="" id="comment-text" cols="30" rows="10"></textarea>
+                    <span id = "comment-btn">게시</span>
+                </div>
             </div>
         );
 }

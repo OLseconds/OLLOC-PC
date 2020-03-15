@@ -79,11 +79,15 @@ class Home extends Component{
                 likeState: false,
                 comments: [
                     {
-                        name: "5linesys",
+                        owner: {
+                            name: "5linesys",
+                        },
                         comment: "팬이에요!!"
                     },
                     {
-                        name: "yuzion",
+                        owner: {
+                            name: "yuzion",
+                        },
                         comment: "오빠 왜 톡 씹고 OLLOC해?"
                     }
                 ],
@@ -112,27 +116,39 @@ class Home extends Component{
                 likeState: false,
                 comments: [
                     {
-                        name: "5linesys",
+                        owner: {
+                            name: "5linesys",
+                        },
                         comment: "허걱슨!!"
                     },
                     {
-                        name: "kim_tang2",
+                        owner: {
+                            name: "kim_tang2",
+                        },
                         comment: "OLLOC 화이팅!!"
                     },
                     {
-                        name: "mirrrrrrrrrri",
+                        owner: {
+                            name: "mirrrrrrrrrri",
+                        },
                         comment: "안녕하세요!"
                     },
                     {
-                        name: "cherry_j_",
+                        owner: {
+                            name: "cherry_j_",
+                        },
                         comment: "다랑이 보고싶!"
                     },
                     {
-                        name: "yuzion",
+                        owner: {
+                            name: "yuzion",
+                        },
                         comment: "나만 핸즈클럽 못가 ㅠ.!"
                     },
                     {
-                        name: "jvckiwai",
+                        owner: {
+                            name: "jvckiwai",
+                        },
                         comment: "혹시 날 잊었니..?"
                     }
                 ],
@@ -165,15 +181,21 @@ class Home extends Component{
                 likeState: false,
                 comments: [
                     {
-                        name: "5linesys",
+                        owner: {
+                            name: "5linesys",
+                        },
                         comment: "팬이에요!!"
                     },
                     {
-                        name: "paperlee_",
+                        owner: {
+                            name: "paperlee_",
+                        },
                         comment: "요즘 유시온 더 좋아해요 전"
                     },
                     {
-                        name: "yuzion",
+                        owner: {
+                            name: "yuzion",
+                        },
                         comment: "온니,, 핸즈클럽 가자"
                     }
                 ],

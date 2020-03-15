@@ -18,7 +18,8 @@ class PostImages extends Component{
         }
     }
 
-    componentDidMount() {
+    constructor(props) {
+        super(props);
         const script = document.createElement('script');
         script.async = true;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
         script.src = "https://unpkg.com/swiper/js/swiper.js";
@@ -40,22 +41,21 @@ class PostImages extends Component{
                     prevEl: '.swiper-button-prev',
                 },
             });
-            const clicked = () => {
-                this.props.sendIndex(mySwiper.activeIndex);
-            }
-            mySwiper.on('doubleClick', clicked);
+
+            this.setState({
+                mySwiper: mySwiper,
+            })
         }
     }
 
     clicked = () => {
-        this.props.sendIndex(0);
+        this.props.sendIndex(this.state.mySwiper.activeIndex);
     }
     render() {
-        console.log(this.state.images);
         return (
             <div id="post-img">
                 <div className="swiper-container" style={{width: '500px', height: '500px'}}>
-                    <div className="swiper-wrapper">
+                    <div className="swiper-wrapper" onDoubleClick={this.clicked}>
                         {this.state.images}
                     </div>
 
