@@ -3,6 +3,7 @@ import '../../style/PostInfo.scss';
 
 class PostInfo extends Component {
     static defaultProps = {
+        writer: '',
         initDescription: '',
         likes: 0,
         likeState: false,
@@ -22,32 +23,33 @@ class PostInfo extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        const {initDescription, likes, likeState, writer} = nextProps;
-        if(~initDescription.indexOf('\n')){
-            return{
-                showDescription: initDescription.split('\n')[0].substr(0, 25),
-                showMore: true,
-                likes: likes,
-                likeState: likeState,
-                writer: writer,
-            }
-        }else if(initDescription.length >= 25) {
-            return{
-                showDescription: initDescription.substr(0, 25) + " ",
-                showMore: true,
-                likes: likes,
-                likeState: likeState,
-                writer: writer,
-            }
-        }else{
-            return {
-                showDescription: initDescription,
-                likes: likes,
-                likeState: likeState,
-                writer: writer,
+        if(prevState.showDescription === ""){
+            const {initDescription, likes, likeState, writer} = nextProps;
+            if(~initDescription.indexOf('\n')){
+                return{
+                    showDescription: initDescription.split('\n')[0].substr(0, 25),
+                    showMore: true,
+                    likes: likes,
+                    likeState: likeState,
+                    writer: writer,
+                }
+            }else if(initDescription.length >= 25) {
+                return{
+                    showDescription: initDescription.substr(0, 25) + " ",
+                    showMore: true,
+                    likes: likes,
+                    likeState: likeState,
+                    writer: writer,
+                }
+            }else{
+                return {
+                    showDescription: initDescription,
+                    likes: likes,
+                    likeState: likeState,
+                    writer: writer,
+                }
             }
         }
-
         return null;
     }
 
