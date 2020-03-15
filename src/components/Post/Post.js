@@ -4,14 +4,23 @@ import CommentList from '../Modules/CommentList';
 import PostImages from "./PostImages";
 import '../../style/Post.scss';
 
-
 const Post = (props) => {
-    const {writer, profileImg, imagesURL, description, likes, likeState, comments, mapLoc} = props.postInfo;
-    const { clicked } = props;
+    const {writer, profileImg, imagesURL, description, likes, likeState, comments} = props.postInfo;
+    const { clicked, postIndex } = props;
+
+    const sendIndex = (imageIndex) =>{
+        const index = {
+            post: postIndex,
+            image: imageIndex,
+        }
+            props.sendIndex(index);
+    }
+
+
     return (
         <div id = "post">
                 <div id = "writer"><img src={profileImg} /> {writer}</div>
-                <PostImages URL={imagesURL} clicked={clicked} mapLoc={mapLoc}/>
+                <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} postIndex={postIndex}/>
                 <PostInfo
                     initDescription={description}
                     likes={likes}

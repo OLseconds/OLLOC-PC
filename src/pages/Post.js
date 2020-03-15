@@ -73,7 +73,6 @@ class Home extends Component{
     render(){
         return(
             <div>
-                {console.log(this.state.comments)}
                 <PostSplit pageId={this.state.id} clicked={this.checkClicked} postInfo={this.state.posts} sendIndex={this.getIndex}/>
                 {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc={this.state.mapLoc}/>}
             </div>

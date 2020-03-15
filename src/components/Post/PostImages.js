@@ -10,16 +10,7 @@ class PostImages extends Component{
         images: null,
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        return {
-            images: nextProps.URL.map(
-                (url, index) => <div key={index} className="swiper-slide"><img className="swiper-index" src={url}/></div>
-            ),
-        }
-    }
-
-    constructor(props) {
-        super(props);
+    componentDidMount() {
         const script = document.createElement('script');
         script.async = true;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
         script.src = "https://unpkg.com/swiper/js/swiper.js";
@@ -49,14 +40,19 @@ class PostImages extends Component{
     }
 
     clicked = () => {
-        this.props.sendIndex(this.state.mySwiper.activeIndex);
+        if(this.state.mySwiper.length !== undefined) this.props.sendIndex(this.state.mySwiper[this.props.postIndex].activeIndex);
+        else this.props.sendIndex(this.state.mySwiper.activeIndex);
     }
+
     render() {
+        const images = this.props.URL.map(
+            (url, index) => <div key={index} onDoubleClick={this.clicked} className="swiper-slide"><img className="swiper-index" src={url}/></div>
+        );
         return (
             <div id="post-img">
                 <div className="swiper-container" style={{width: '500px', height: '500px'}}>
-                    <div className="swiper-wrapper" onDoubleClick={this.clicked}>
-                        {this.state.images}
+                    <div className="swiper-wrapper">
+                        {images}
                     </div>
 
                     <div className="swiper-pagination swiper-pagination-white"></div>
