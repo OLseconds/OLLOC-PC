@@ -4,6 +4,8 @@ import MapAlert from "../components/Modules/MapAlert";
 import MyTimeline from "../components/MyPost/MyTimeline";
 import Upload from "../components/Post/Upload/Upload";
 import '../Animation.css';
+import '../style/loading.scss';
+
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
@@ -166,7 +168,7 @@ class Home extends Component{
             userName: "",
             name: "",
             email: "",
-
+            loading: false,
         };
         if(this.state.token != 'Ben'){
             const checkLogin = require('axios');
@@ -181,6 +183,33 @@ class Home extends Component{
             });
         }
     }
+
+    componentDidMount() {
+        // 스크롤링 이벤트 추가
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        // 언마운트 될때에, 스크롤링 이벤트 제거
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    handleScroll = () => {
+        const { innerHeight } = window;
+        const { scrollHeight } = document.body;
+        // IE에서는 document.documentElement 를 사용.
+        const scrollTop =
+            (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+        // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
+        if (scrollHeight - innerHeight - scrollTop < 200) {
+            if(!this.state.loading){
+                this.setState({
+                    loading: true,
+                })
+                console.log("Almost Bottom Of This Browser");
+            }
+        }
+    };
 
     benThisUser = () => {
         this.setState({
@@ -233,6 +262,18 @@ class Home extends Component{
                     <Upload userName={this.state.userName} token={this.state.token}></Upload>
                     {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                     {posts}
+                    {this.state.loading &&
+                    <div id="container">
+                        <div className="stick"></div>
+                        <div className="stick"></div>
+                        <div className="stick"></div>
+                        <div className="stick"></div>
+                        <div className="stick"></div>
+                        <div className="stick"></div>
+
+                        <h1>Loading...</h1>
+                    </div>
+                    }
                 </div>
             );
         }
