@@ -7,7 +7,7 @@ const MyTimeline  = (props) => {
         <div id = "my-timeline">
             <MyTimelineInfo data = {props.data}/>
             <div style={{textAlign: 'center'}}>
-                <MyPostList image={props.imagesURL} />
+                <MyPostList image={props.imagesURL} postId={props.data.postId}/>
             </div>
         </div>
     );

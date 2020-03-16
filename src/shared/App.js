@@ -17,6 +17,7 @@ class App extends Component {
                     <Route path="/post" component={Post} />
                     <Route path="/post:id" component={Post} />
                     <Route path="/mypost" component={MyPost} />
+                    <Route path="/mypost:id" component={MyPost} />
                 </Switch>
             </div>
         );
