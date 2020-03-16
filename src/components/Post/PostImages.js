@@ -51,7 +51,6 @@ class PostImages extends Component{
             $script(swiperUrl, () => {
                 /*global Swiper*/
                 this.Swiper = Swiper;
-                console.log("!");
                 new Swiper ('.swiper-container', {
                     // Optional parameters
                     direction: 'horizontal',
