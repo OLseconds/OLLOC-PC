@@ -170,7 +170,7 @@ class Home extends Component{
         };
         if(this.state.token != 'Ben'){
             const checkLogin = require('axios');
-            checkLogin.get('http://olloc.kr3.kr:8000/user/', {
+            checkLogin.get('http://olloc.kr3.kr:8000/auth/', {
                 headers: {Authorization: this.state.token},
             }).then( (response) => {
                 this.setName(response.data);
