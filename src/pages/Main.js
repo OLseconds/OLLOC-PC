@@ -24,7 +24,6 @@ class Main extends Component {
         };
 
         const cookieToken = cookies.get('olloc')||'Ben';
-
         const checkLogin = require('axios');
         if(cookieToken != "Ben"){
             checkLogin.get('http://olloc.kr3.kr:8000/user/', {
@@ -68,7 +67,6 @@ class Main extends Component {
         })
     }
     render() {
-        console.log(this.state.token)
         const {location} = this.props;
         const query = queryString.parse(location.search);
         const detail = this.loginsplit(query.detail);

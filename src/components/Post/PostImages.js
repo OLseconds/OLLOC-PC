@@ -22,8 +22,6 @@ class PostImages extends Component{
     }
 
     componentDidMount(nextProps, prevState){
-        console.log(this.props);
-        console.log(nextProps);
         this.props.script.onload = () =>{
             new Swiper ('.swiper-container', {
                 // Optional parameters
