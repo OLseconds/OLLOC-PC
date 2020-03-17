@@ -109,7 +109,7 @@ class MyPost extends Component {
                         }
                     })
                 }).catch((error) => {
-                    if(!error.response){alert("서버 오류로 팔로우하지 못했습니다.")}
+                    if(!error.response){alert("서버 오류로 언팔로우하지 못했습니다.")}
                     else alert("로그인 후 이용 가능합니다.")
                 })
             }else{

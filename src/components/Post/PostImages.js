@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import '../../style/Slider.css'
 import Images from '../Modules/Images'
-import $script from 'scriptjs';
+import Swiper from 'swiper';
 
 class PostImages extends Component{
     static defaultProps = {
@@ -21,9 +21,29 @@ class PostImages extends Component{
         return null;
     }
 
-    componentDidMount(nextProps, prevState){
-        this.props.script.onload = () =>{
-            new Swiper ('.swiper-container', {
+    componentDidMount(nextProps, prevState) {
+        let mySwiper = new Swiper('.swiper-container', {
+            // Optional parameters
+            direction: 'horizontal',
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState){
+
+        if(prevProps.URL.length !== this.props.URL.length){
+            console.log("!");
+            let mySwiper = new Swiper('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',
 
@@ -37,35 +57,6 @@ class PostImages extends Component{
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-            });
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        const script = document.createElement('script');
-        script.async = false;    // 브라우저가 페이지를 파싱되는 동안에도 스크립트가 실행됨.
-        script.src = "https://unpkg.com/swiper/js/swiper.js";
-
-        if(prevProps.URL.length !== this.props.URL.length){
-            const swiperUrl = "https://unpkg.com/swiper/js/swiper.js";
-            $script(swiperUrl, () => {
-                /*global Swiper*/
-                this.Swiper = Swiper;
-                new Swiper ('.swiper-container', {
-                    // Optional parameters
-                    direction: 'horizontal',
-
-                    // If we need pagination
-                    pagination: {
-                        el: '.swiper-pagination',
-                    },
-
-                    // Navigation arrows
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                });
             });
         }
     }
