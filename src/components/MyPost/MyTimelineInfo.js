@@ -1,18 +1,36 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { withCookies, Cookies } from 'react-cookie';
+import {instanceOf} from "prop-types";
+import queryString from "query-string";
 
-const MyTimelineInfo = ( {data} ) => {
-    const {profileImg, userName, postsNum, follower, follow} = data;
-    return(
-        <div id="MyTimelineInfo">
-            <img src={profileImg} alt="프로필 사진"/>
-            <div id = "personal-info">
-                <div className="username">{userName} <button>팔로잉~!</button></div>
-                <div>
-                    <span>게시물 <span>{postsNum}</span></span> <span>팔로워 <span>{follower}</span></span> <span>팔로우 <span>{follow}</span></span>
+class MyTimelineInfo extends Component {
+    state = {
+        followState: null,
+    }
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.data.followState !== prevState.followState)
+            return{followState: nextProps.data.followState}
+        return null
+    }
+
+    render(){
+        const {profileImg, userName, postsNum, follower, follow, userId, followState,} = this.props.data;
+        return(
+            <div id="MyTimelineInfo">
+                <img src={profileImg} alt="프로필 사진"/>
+                <div id = "personal-info">
+                    <div className="username">{userName} <button onClick={this.props.followHandler}>{this.state.followState?"팔로잉":"팔로우"}</button></div>
+                    <div>
+                        <span>게시물 <span>{(postsNum?postsNum:0)}</span></span> <span>팔로워 <span>{follower}</span></span> <span>팔로우 <span>{follow}</span></span>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        )
+    }
 }
 
-export default MyTimelineInfo;
+export default withCookies(MyTimelineInfo);

@@ -24,11 +24,11 @@ class PostSplit extends Component{
 
         if(this.state.token != 'Ben'){
             const checkLogin = require('axios');
-            checkLogin.get('http://olloc.kr3.kr:8000/user/', {
+            checkLogin.get('http://olloc.kr3.kr:8000/auth/', {
                 headers: {Authorization: this.state.token},
             }).catch((error) => {
-                console.log(error.response);
-                this.benThisUser();
+                if(error.response.data.error_code === -1) this.benThisUser();
+                else alert("서버에 문제가 발생했습니다.");
             });
         }
     }
@@ -50,16 +50,16 @@ class PostSplit extends Component{
             const axios = require('axios');
             axios.post('http://olloc.kr3.kr:8000/comment/', data, headers
             ).then((response) => {
-                console.log(response.data);
                 this.setState({
                     inputComment: "",
                 })
+                window.location.reload(true);
+                console.log(response);
             }).catch((error) => {
+                console.log(error);
                 alert("서버 오류로 댓글 입력에 실패했습니다.")
-               console.log(error.response);
             });
         }
-        window.location.reload(true);
     }
 
     changeHandler = (e) => {

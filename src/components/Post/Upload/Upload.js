@@ -69,7 +69,7 @@ class Upload extends Component{
         ).then( () => {
             this.modeToggle();
         }).catch( (error) => {
-            if(!error.response) alert("서버 병신됨")
+            if(!error.response) alert("서버에 문제가 발생했습니다.")
             else if(error.response.data.error_code) alert("업로드 실패(이미지 파일 올려주세요)");
             else alert("알 수 없는 에러로 업로드에 실패했습니다.");
         })

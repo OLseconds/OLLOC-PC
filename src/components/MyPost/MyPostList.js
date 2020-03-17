@@ -19,7 +19,6 @@ class MyPostList extends Component{
         return null
     }
     render() {
-        console.log(this.props);
         return (
             <div id="MyPostList">
                 {!this.state.imageList.length&&"등록된 게시물이 없습니다."}
