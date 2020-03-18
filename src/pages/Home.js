@@ -5,7 +5,6 @@ import MyTimeline from "../components/MyPost/MyTimeline";
 import Upload from "../components/Post/Upload/Upload";
 import '../Animation.css';
 import '../style/loading.scss';
-
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
@@ -26,81 +25,75 @@ class Home extends Component{
         let check = cookies.get('olloc') || 'Ben';
 
         const axios = require('axios');
+
+        axios.get('http://olloc.kr3.kr:8000/auth/', {
+            headers: {Authorization: check}
+        }).then((response) => {
+            this.setName(response.data);
+        }).catch((error) => {
+            this.benThisUser();
+        });
+
         axios.get('http://olloc.kr3.kr:8000/timeline/', {
             headers: {Authorization: check},
         }).then( (response) => {
             this.setState({
                 token: check,
             })
+            console.log(response.data);
             for(let i = 0; i < response.data.length; i++){
-                for(let j = 0; j < response.data[i].length; j++){
-                    const data = response.data[i][j];
-                    let comment = [];
-                    for(let k = 0; k < data.comments.length; k++)
-                        comment.push({owner: {name: data.comments[k].owner.username}, comment: data.comments[k].comment})
-                    this.setState({
-                        posts: this.state.posts.concat({
-                            writer: data.owner.username,
-                            profileImg: data.owner.profile_img,
-                            description: data.description,
-                            imagesURL: data.img,
-                            likes: 100,
-                            likeState: false,
-                            lx: data.lx,
-                            ly: data.ly,
-                            mapInfo: data.map_info,
-                            comments: comment
-                        }),
-                    })
-                }
+                const data = response.data[i];
+                let comment = [];
+                for(let k = 0; k < data.comments.length; k++)
+                    comment.push({owner: {name: data.comments[k].owner.username}, comment: data.comments[k].comment})
+                this.setState({
+                    posts: this.state.posts.concat({
+                        writer: data.owner.username,
+                        profileImg: data.owner.profile_img,
+                        description: data.description,
+                        imagesURL: data.img,
+                        likes: 100,
+                        likeState: false,
+                        lx: data.lx,
+                        ly: data.ly,
+                        mapInfo: data.map_info,
+                        comments: comment
+                    }),
+                })
             }
         }).catch((error) => {
             console.log(error)
             console.log(error.response);
             // this.benThisUser();
         });
-
-        // 아래 내용 삭제 후 벤 하는 것에 대한 로직을 변경할 것
-        // if(this.state.token != 'Ben'){
-        //     const checkLogin = require('axios');
-        //     checkLogin.get('http://olloc.kr3.kr:8000/auth/', {
-        //         headers: {Authorization: this.state.token},
-        //     }).then( (response) => {
-        //         this.setName(response.data);
-        //         // console.log(response);
-        //     }).catch((error) => {
-        //         console.log(error.response);
-        //         this.benThisUser();
-        //     });
-        // }
     }
 
-    // componentDidMount() {
-    //     // 스크롤링 이벤트 추가
-    //     window.addEventListener("scroll", this.handleScroll);
-    // }
-    //
-    // componentWillUnmount() {
-    //     // 언마운트 될때에, 스크롤링 이벤트 제거
-    //     window.removeEventListener("scroll", this.handleScroll);
-    // }
-    //
-    // handleScroll = () => {
-    //     const { innerHeight } = window;
-    //     const { scrollHeight } = document.body;
-    //     // IE에서는 document.documentElement 를 사용.
-    //     const scrollTop =
-    //         (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    //     // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
-    //     if (scrollHeight - innerHeight - scrollTop < 200) {
-    //         if(!this.state.loading){
-    //             this.setState({
-    //                 loading: true,
-    //             })
-    //             console.log("Almost Bottom Of This Browser");
-    //         }
-    //     }
-    // };
+    componentDidMount() {
+        // 스크롤링 이벤트 추가
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        // 언마운트 될때에, 스크롤링 이벤트 제거
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    handleScroll = () => {
+        const { innerHeight } = window;
+        const { scrollHeight } = document.body;
+        // IE에서는 document.documentElement 를 사용.
+        const scrollTop =
+            (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+        // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
+        if (scrollHeight - innerHeight - scrollTop < 200) {
+            if(!this.state.loading){
+                this.setState({
+                    loading: true,
+                })
+                console.log("Almost Bottom Of This Browser");
+            }
+        }
+    };
 
     benThisUser = () => {
         this.setState({
@@ -143,13 +136,12 @@ class Home extends Component{
                 sendIndex = {this.getIndex}
                 clicked = {this.checkClicked}
             />);
-        // if(this.state.token == 'Ben'){
-        //     return  <Redirect push to ='/main' />;
-        // }else{
-
+        if(this.state.token == 'Ben'){
+            return  <Redirect push to ='/main' />;
+        }else{
             return(
                 <div>
-                    {/*<Upload userName={this.state.userName} token={this.state.token}></Upload>*/}
+                    <Upload userName={this.state.userName} token={this.state.token}></Upload>
                     {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                     {posts}
                     {this.state.loading &&
@@ -167,7 +159,7 @@ class Home extends Component{
                 </div>
             );
         }
-    // }
+    }
 }
 
 export default withCookies(Home);

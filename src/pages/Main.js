@@ -28,18 +28,15 @@ class Main extends Component {
         if(cookieToken != "Ben"){
             checkLogin.get('http://olloc.kr3.kr:8000/auth/', {
                 headers: {Authorization: cookieToken},
-            }).then( (response) => {
+            }).then( () => {
                 this.setToken(cookies.get('olloc'));
-                console.log(response);
-            }).catch( (error) => {
-                console.log(error.response);
+            }).catch( () => {
                 this.benThisUser();
             })
         }
 
     }
     setToken = (token) => {
-        console.log(token);
         this.setState({
             token: token,
         })
