@@ -108,7 +108,6 @@ class Home extends Component{
     }
 
     getIndex = (index) =>{
-        console.log(index);
         this.setState({
             mapLoc: {
                 lat: this.state.posts[index.post].lx[index.image],

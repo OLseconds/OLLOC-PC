@@ -55,10 +55,9 @@ class PostSplit extends Component{
                     inputComment: "",
                 })
                 window.location.reload(true);
-                console.log(response);
             }).catch((error) => {
-                console.log(error);
-                alert("서버 오류로 댓글 입력에 실패했습니다.")
+                if(error) alert("댓글을 입력해주세요")
+                else alert("서버 오류로 댓글 입력에 실패했습니다.")
             });
         }
     }
