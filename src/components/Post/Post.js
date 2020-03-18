@@ -3,24 +3,70 @@ import PostInfo from './PostInfo';
 import CommentList from '../Modules/CommentList';
 import PostImages from "./PostImages";
 import {Link} from 'react-router-dom';
+import { withCookies, Cookies } from 'react-cookie';
 import '../../style/Post.scss';
+import {instanceOf} from "prop-types";
 
-const Post = (props) => {
-    const {postId, writer, profileImg, imagesURL, description, likes, likeState, comments, userId} = props.postInfo;
-    const { clicked, postIndex} = props;
-
-    const sendIndex = (imageIndex) =>{
-        const index = {
-            post: postIndex,
-            image: imageIndex,
-        }
-        props.sendIndex(index);
+class Post extends Component {
+    static defaultProps = {
+        cookies: instanceOf(Cookies).isRequired,
+        postInfo: [],
+        clicked: '',
     }
 
-    return (
-        <div id = "post">
+    sendIndex = (imageIndex) =>{
+        const index = {
+            post: this.props.postIndex,
+            image: imageIndex,
+        }
+        this.props.sendIndex(index);
+    }
+
+    constructor(props) {
+        super(props);
+        const {cookies} = props;
+        this.state={
+            token: cookies.get('olloc') || 'Ben',
+            inputComment: "",
+        }
+    }
+
+    addComment = () =>{
+        const data = {
+                post_id: this.props.postInfo.postId,
+                description: this.state.inputComment,},
+            headers = {headers: {Authorization: this.state.token}};
+
+        if(this.state.token === 'Ben') alert("로그인 후 이용이 가능합니다.");
+        else{
+            const axios = require('axios');
+            axios.post('http://olloc.kr3.kr:8000/comment/', data, headers
+            ).then((response) => {
+                this.setState({
+                    inputComment: "",
+                })
+                window.location.reload(true);
+                console.log(response);
+            }).catch((error) => {
+                console.log(error.response);
+                alert("서버 오류로 댓글 입력에 실패했습니다.")
+            });
+        }
+    }
+
+    changeHandler = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    render() {
+        const {postId, writer, profileImg, imagesURL, description, likes, likeState, comments, userId} = this.props.postInfo;
+        const { clicked, postIndex} = this.props;
+        return (
+            <div id = "post">
                 <div id = "writer"><img src={profileImg} /> <Link className={"name-btn"} to={"/mypost?id="+userId}>{writer}</Link></div>
-                <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex}/>
+                <PostImages URL={imagesURL} clicked={clicked} sendIndex={this.sendIndex}/>
                 <PostInfo
                     initDescription={description}
                     likes={likes}
@@ -30,16 +76,13 @@ const Post = (props) => {
                 />
                 <CommentList information = {comments} postId={postId} />
                 <div id="comment-input">
-                    <textarea placeholder="댓글 달기..." name="" id="comment-text" cols="30" rows="10"></textarea>
-                    <span id = "comment-btn">게시</span>
+                    <textarea placeholder="댓글 달기..." name="inputComment" onChange={this.changeHandler} value={this.state.inputComment} id="comment-text" cols="30" rows="10"></textarea>
+                    <span onClick={this.addComment} id = "comment-btn">게시</span>
                 </div>
             </div>
         );
+    }
 }
 
-Post.defaultPropos = {
-    postInfo: [],
-    clicked: '',
-}
 
-export default Post;
+export default withCookies(Post);
