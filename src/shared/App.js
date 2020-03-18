@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Home, Main, Post } from 'pages';
 import Header from 'components/Header';
 import {MyPost} from "../pages"
+import ProfileSetting from "../components/MyPost/ProfileSetting";
 
 class App extends Component {
     render(){
@@ -18,6 +19,9 @@ class App extends Component {
                     <Route path="/post:id" component={Post} />
                     <Route path="/mypost" component={MyPost} />
                     <Route path="/mypost:id" component={MyPost} />
+                    <Route path="/profile" component={ProfileSetting} />
+                    <Route path="/profile:id" component={ProfileSetting} />
+
                 </Switch>
             </div>
         );

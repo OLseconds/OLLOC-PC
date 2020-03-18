@@ -1,0 +1,19 @@
+#profile-setting{
+  img{
+    border-radius: 64px;
+    border: 1px solid white;
+  }
+
+  .upload_btn{
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 60px;
+    height: 64px;
+    width: 64px;
+    line-height: 64px;
+    background-color: rgba(255, 255, 255, 0.5);
+    &:hover{cursor: pointer;}
+  }
+  #ex_file {display:none;}
+}
