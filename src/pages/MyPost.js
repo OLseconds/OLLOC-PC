@@ -26,7 +26,7 @@ class MyPost extends Component {
         super(props);
         const { cookies } = props;
 
-        const id = queryString.parse(this.props.location.search).id;
+        let id = queryString.parse(this.props.location.search).id;
         if (!id) window.location.href='/';
         const axios = require('axios');
         axios.get('http://olloc.kr3.kr:8000/follow/?user_id=' + id,

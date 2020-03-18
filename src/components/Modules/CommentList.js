@@ -8,24 +8,29 @@ class CommentList extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        return {
-            commentList1: nextProps.information.slice(0, 2).map(
-                (information, index) => <Comment key={index} name={information.owner.name} comment={information.comment} />
-            ),
-            commentList2: nextProps.information.slice(2, nextProps.information.length).map(
-                (information, index) => <Comment key={index} name={information.owner.name} comment={information.comment} />
-            ),
-            commentOverFlow: false,
+        if(nextProps.information.length > 2){
+            return {
+                commentList1: nextProps.information.slice(0, 2).map(
+                    (information, index) => <Comment key={index} id={information.owner.id} name={information.owner.username} comment={information.comment} />
+                ),
+                commentList2: nextProps.information.slice(2, nextProps.information.length).map(
+                    (information, index) => <Comment key={index} id={information.owner.id} name={information.owner.username} comment={information.comment} />
+                ),
+                commentOverFlow: true,
+            }
+        }else{
+            return {
+                commentList1: nextProps.information.slice(0, 2).map(
+                    (information, index) => <Comment key={index} id={information.owner.id} name={information.owner.username} comment={information.comment} />
+                ),
+                commentList2: nextProps.information.slice(2, nextProps.information.length).map(
+                    (information, index) => <Comment key={index} id={information.owner.id} name={information.owner.username} comment={information.comment} />
+                ),
+                commentOverFlow: false,
+            }
         }
     }
 
-    componentWillMount() {
-        if(this.props.information.length > 2) {
-            this.setState({
-                commentOverFlow: true,
-            })
-        }
-    }
 
     render() {
         if(this.props.beforeProps){
@@ -38,7 +43,7 @@ class CommentList extends Component {
         }else{
             return (
                 <div id = "comment-list" style={{padding: '0 10px 10px 10px'}}>
-                    {this.state.commentOverFlow &&  <Link className="show-more" to ="/post">댓글 {this.props.information.length}개 모두 보기</Link>}
+                    {this.state.commentOverFlow &&  <Link className="show-more" to ={"/post?id=" + this.props.postId}>댓글 {this.props.information.length}개 모두 보기</Link>}
                     {this.state.commentList1}
                 </div>
             );

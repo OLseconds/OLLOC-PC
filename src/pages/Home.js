@@ -40,14 +40,12 @@ class Home extends Component{
             this.setState({
                 token: check,
             })
-            console.log(response.data);
             for(let i = 0; i < response.data.length; i++){
                 const data = response.data[i];
-                let comment = [];
-                for(let k = 0; k < data.comments.length; k++)
-                    comment.push({owner: {name: data.comments[k].owner.username}, comment: data.comments[k].comment})
                 this.setState({
                     posts: this.state.posts.concat({
+                        postId: data.id,
+                        userId: data.owner.id,
                         writer: data.owner.username,
                         profileImg: data.owner.profile_img,
                         description: data.description,
@@ -57,7 +55,7 @@ class Home extends Component{
                         lx: data.lx,
                         ly: data.ly,
                         mapInfo: data.map_info,
-                        comments: comment
+                        comments: data.comments
                     }),
                 })
             }

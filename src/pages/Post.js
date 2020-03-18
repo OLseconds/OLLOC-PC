@@ -21,6 +21,7 @@ class Home extends Component{
                 const {data} = response;
                 this.setState({
                     posts: {
+                        writerId: data.owner.id,
                         writer: data.owner.username,
                         profileImg: data.owner.profile_img,
                         description: data.description,
@@ -45,15 +46,11 @@ class Home extends Component{
 
     static defaultProps = {
         posts: {
-            writer: "yuzion",
+            writer: "",
             profileImg: "https://placehold.it/58x58",
             description:"",
-            imagesURL: [
-                "https://placehold.it/458x458",
-                "https://placehold.it/128x128",
-                "https://placehold.it/500x500"
-            ],
-            likes: 32898232,
+            imagesURL: [],
+            likes: 0,
             likeState: false,
             comments: []
         }

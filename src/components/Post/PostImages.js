@@ -41,7 +41,6 @@ class PostImages extends Component{
 
     componentDidUpdate(prevProps, prevState){
         if(prevProps.URL.length !== this.props.URL.length){
-            console.log("!");
             let mySwiper = new Swiper('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',

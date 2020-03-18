@@ -5,6 +5,7 @@ import PostInfo from "./PostInfo";
 import CommentList from "../Modules/CommentList";
 import { withCookies, Cookies } from 'react-cookie';
 import {instanceOf} from "prop-types";
+import {Link} from 'react-router-dom';
 
 class PostSplit extends Component{
     static defaultProps = {
@@ -69,13 +70,13 @@ class PostSplit extends Component{
     }
 
     render(){
-        const {writer, profileImg, imagesURL, description, likes, likeState, comments} = this.props.postInfo;
+        const {writer, writerId, profileImg, imagesURL, description, likes, likeState, comments} = this.props.postInfo;
         const { clicked, sendIndex } = this.props;
         return (
             <div id = "post-split" style={{marginTop:"100px"}}>
                 <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} script={this.props.script}/>
                 <div id ="post-split-right">
-                    <div id = "writer"><img src={profileImg} /> <span>{writer}</span></div>
+                    <div id = "writer"><img src={profileImg} /> <Link to={"/mypost?id="+writerId} className={'name-btn'}><span>{writer}</span></Link></div>
                     <div id = "right-info">
                         <div id = "after-description">
                             <PostInfo

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import '../../style/PostInfo.scss';
 
 class PostInfo extends Component {
@@ -19,6 +20,7 @@ class PostInfo extends Component {
             likes: this.props.likes,
             likeState: this.props.likeState,
             writer: this.props.writer,
+            writerId: this.props.writerId,
         };
     }
 
@@ -76,7 +78,7 @@ class PostInfo extends Component {
     }
 
     render() {
-        const {showDescription, showMore, likes, likeState, writer} = this.state;
+        const {showDescription, showMore, likes, likeState, writer, writerId} = this.state;
         if(this.props.beforeProps){
             return(
                 <div id = "post-info">
@@ -99,7 +101,7 @@ class PostInfo extends Component {
                     </div>
                     <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
                     <div className="description">
-                        <b>{writer} </b>{this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                        <Link to={"/mypost?id="+writerId} className={"name-btn"}><b>{writer}</b></Link> {this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
                     </div>
                 </div>
             );
