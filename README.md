@@ -8,6 +8,8 @@
 - Swiper.js
 
 현재까지 결과물은 http://react.kr3.kr 에서 확인 가능
+- 회원가입 가능
+- 테스트 계정 id: test / pw: test
 
 
 KAKAO MAPS API를 이용하여 지도를 나타내고 이를 React.js를 이용하여 SPA를 만들 것 이기 떄문에 API 탐구를 위한 커밋이 포함됨
