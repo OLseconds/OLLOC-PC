@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import { withCookies, Cookies } from 'react-cookie';
 import {instanceOf} from "prop-types";
 import queryString from "query-string";
+import ProfileSetting from "./ProfileSetting";
 
 class MyTimelineInfo extends Component {
     state = {
         followState: null,
+        profileSet: false,
     }
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
@@ -17,11 +19,18 @@ class MyTimelineInfo extends Component {
         return null
     }
 
+    profileSetToggle = () => {
+        this.setState({
+            profileSet: !this.state.profileSet,
+        })
+    }
     render(){
         const {profileImg, userName, postsNum, follower, follow, userId, followState,} = this.props.data;
         return(
             <div id="MyTimelineInfo">
+                {this.state.profileSet&&<ProfileSetting userName={userName} profileImg={profileImg} toggle={this.profileSetToggle}></ProfileSetting>}
                 <img src={profileImg} alt="프로필 사진"/>
+                <button onClick={this.profileSetToggle}>프로필설정</button>
                 <div id = "personal-info">
                     <div className="username">{userName} <button onClick={this.props.followHandler}>{this.state.followState?"팔로잉":"팔로우"}</button></div>
                     <div>

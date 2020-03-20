@@ -1,19 +1,83 @@
-#profile-setting{
-  img{
-    border-radius: 64px;
-    border: 1px solid white;
-  }
+@keyframes fadein {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@-o-keyframes fadein { /* Opera */
+  from {opacity:0;}
+  to {opacity: 1;}
+}
 
-  .upload_btn{
-    display: block;
-    position: absolute;
+#profile-setting{
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  #profile-background{
+    animation: fadein 750ms;
+    -moz-animation: fadein 750ms; /* Firefox */
+    -webkit-animation: fadein 750ms; /* Safari and Chrome */
+    -o-animation: fadein 750ms; /* Opera */
+    position: fixed;
+    margin: 0 auto;
     left: 0;
-    top: 60px;
-    height: 64px;
-    width: 64px;
-    line-height: 64px;
-    background-color: rgba(255, 255, 255, 0.5);
-    &:hover{cursor: pointer;}
+    right: 0;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
   }
-  #ex_file {display:none;}
+  #profile-wrapper{
+    background-color: white;
+    padding-top: 15px;
+    border: 1px solid #ababab;
+    width: 500px;
+    margin: 0 auto;
+    top: 30%;
+    position: relative;
+    text-align: center;
+    #profile-profile_img{
+      display: block;
+      height: 64px;
+      width: 64px;
+      border-radius: 64px;
+      border: 1px solid black;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .upload_btn{
+      display: block;
+      position: absolute;
+      left: 50%;
+      margin-left: -32px;
+      top: 60px;
+      height: 21px;
+      width: 64px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      &:hover{cursor: pointer;}
+    }
+    #ex_file {display:none;}
+    #user-name{display: block; margin-top: 15px;}
+
+    .profile-btn{
+      height: 40px;
+      width: 90px;
+      background-color: #228be6;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 25px;
+      border: none;
+      margin: 15px;
+      &:hover{cursor: pointer;}
+      &:focus{outline: none;}
+    }
+  }
 }

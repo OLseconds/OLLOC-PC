@@ -3,58 +3,60 @@ import '../../style/Profile.scss';
 
 class ProfileSetting extends Component{
     state={
-        profileImg: null,
+        profileImg: this.props.profileImg,
+        imgGet: false,
     }
-    handleChangeFile = event => {
-        // let imgFile = document.getElementById('ex_file').files;
-        for (let i = 0; i < event.target.files.length; i++) {
-            let imgFile = event.target.files[i];
-            let check, lat, lng;
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.profileImg !== prevState.profileImg && !prevState.imgGet){
+            return{profileImg: nextProps.profileImg}
+        }
+    }
 
-            let reader = new FileReader()
-            if (event.target.files[i]) reader.readAsDataURL(event.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
-            reader.onloadend = async e => {
-                // 2. 읽기가 완료되면 아래코드가 실행
-                try {
-                    //완료되면 어케 할꺼뉘~~
-                    const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
-                    if (base64) {
-                        this.setState({
-                            profileImg: base64.toString(),
-                        })
-                    }
-                } catch (e) {
-                    console.log(e)
+    handleChangeFile = event => {
+        let reader = new FileReader()
+        if (event.target.files[0]) reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
+        reader.onloadend = async e => {
+            // 2. 읽기가 완료되면 아래코드가 실행
+            try {
+                const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
+                if (base64) {
                     this.setState({
-                        imgState:false,
+                        profileImg: base64.toString(),
+                        imgGet: true,
                     })
                 }
-            };
-        }
+            } catch (e) {
+                console.log(e)
+                this.setState({
+                    imgGet: false,
+                })
+            }
+        };
         document.getElementById('ex_file').value = null;
     };
 
     render(){
         return(
             <div id='profile-setting'>
-                <div className="img_add">
-                    <img style={{width: '64px', height:'64px'}}src={this.state.profileImg} alt=""/>
-                    <label className="upload_btn" htmlFor="ex_file" onChange={this.handleChangeFile}>
-                        <i className="fas fa-camera"></i> 변경
-                    </label>
-                    <input
-                        type="file"
-                        name="imgFile[]"
-                        id="ex_file"
-                        className="ex_file"
-                        onChange={this.handleChangeFile}
-                    />
+                <div id='profile-background' onClick={this.props.toggle}></div>
+                <div id='profile-wrapper'>
+                    <div className="img_add">
+                        <img id="profile-profile_img" src={this.state.profileImg} alt=""/>
+                        <label className="upload_btn" htmlFor="ex_file" onChange={this.handleChangeFile}>
+                            <i className="fas fa-camera"></i> 변경
+                        </label>
+                        <input
+                            type="file"
+                            name="imgFile[]"
+                            id="ex_file"
+                            className="ex_file"
+                            onChange={this.handleChangeFile}
+                        />
+                    </div>
+                    <span id="user-name" >별명 : <input type="text" value={this.props.userName}  name="username"/></span>
+                    <button className="profile-btn">회원탈퇴</button>
+                    <button className="profile-btn">완료</button>
                 </div>
-                    별명 : <input type="text"
-                        name="username"
-                    />
-                    <button>완료</button>
-                    <button>회원탈퇴</button>
             </div>
         )
     }
