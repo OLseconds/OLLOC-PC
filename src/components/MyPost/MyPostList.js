@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MyPost from './MyPost'
-import Comment from "../Modules/Comment";
 
 class MyPostList extends Component{
     state = {

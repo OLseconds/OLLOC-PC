@@ -46,7 +46,7 @@ class MyPost extends Component {
                         followState: response.data.is_following,
                     }
                 })
-            }).catch(() => {
+            }).catch((error) => {
         })
 
         axios.get('http://olloc.kr3.kr:8000/user/?user_id=' + id)
@@ -61,22 +61,24 @@ class MyPost extends Component {
                         follow: data.following,
                     }
                 })
-            }).catch(() => {
+            }).catch((error) => {
+                //존재하지 않는 페이지 예외
+                console.log(error.response);
         })
         axios.get('http://olloc.kr3.kr:8000/timeline/?user_id=' + id)
             .then((response) => {
-                for(let i = 0; i < response.data.length; i++){
+                for(let i = 0; i < response.data.count; i++){
                     this.setState({
-                        imagesURL: this.state.imagesURL.concat({id: response.data[i].id, url: response.data[i].img[0]}),
+                        imagesURL: this.state.imagesURL.concat({id: response.data.results[i].id, url: response.data.results[i].img[0]}),
                     })
                 }
                 this.setState({
                     data: {
                         ...this.state.data,
-                        postsNum: response.data.length,
+                        postsNum: response.data.count,
                     }
                 })
-            }).catch(() => {
+            }).catch((error) => {
                 alert("서버에 문제가 발생했습니다.");
         })
     }

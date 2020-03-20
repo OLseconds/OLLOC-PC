@@ -36,11 +36,12 @@ class Home extends Component{
         axios.get('http://olloc.kr3.kr:8000/timeline/', {
             headers: {Authorization: check},
         }).then( (response) => {
+            console.log(response.data)
             this.setState({
                 token: check,
             })
-            for(let i = 0; i < response.data.length; i++){
-                const data = response.data[i];
+            for(let i = 0; i < response.data.count; i++){
+                const data = response.data.results[i];
                 this.setState({
                     posts: this.state.posts.concat({
                         postId: data.id,
