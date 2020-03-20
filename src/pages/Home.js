@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import Post from '../components/Post/Post';
 import MapAlert from "../components/Modules/MapAlert";
-import MyTimeline from "../components/MyPost/MyTimeline";
 import Upload from "../components/Post/Upload/Upload";
 import '../Animation.css';
-import '../style/loading.scss';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
-import Images from "../components/Modules/Images";
+import Loading from "../components/Modules/Loading";
 
 class Home extends Component{
     static propTypes = {
@@ -21,6 +19,7 @@ class Home extends Component{
 
         this.state ={
             posts: [],
+            loading: true,
         }
         let check = cookies.get('olloc') || 'Ben';
 
@@ -59,6 +58,9 @@ class Home extends Component{
                     }),
                 })
             }
+            this.setState({
+                loading: false,
+            })
         }).catch((error) => {
             console.log(error)
             console.log(error.response);
@@ -141,18 +143,7 @@ class Home extends Component{
                     <Upload userName={this.state.userName} token={this.state.token}></Upload>
                     {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                     {posts}
-                    {this.state.loading &&
-                    <div id="container">
-                        <div className="stick"></div>
-                        <div className="stick"></div>
-                        <div className="stick"></div>
-                        <div className="stick"></div>
-                        <div className="stick"></div>
-                        <div className="stick"></div>
-
-                        <h1>Loading...</h1>
-                    </div>
-                    }
+                    {this.state.loading &&<Loading />}
                 </div>
             );
         }
