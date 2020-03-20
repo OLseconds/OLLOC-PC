@@ -67,6 +67,7 @@ class Post extends Component {
                 <div id = "writer"><img src={profileImg} /> <Link className={"name-btn"} to={"/mypost?id="+userId}>{writer}</Link></div>
                 <PostImages URL={imagesURL} clicked={clicked} sendIndex={this.sendIndex}/>
                 <PostInfo
+                    postId={postId}
                     initDescription={description}
                     likes={likes}
                     likeState={likeState}

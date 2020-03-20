@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import '../../style/PostInfo.scss';
+import { withCookies, Cookies } from 'react-cookie';
+import {instanceOf} from "prop-types";
 
 class PostInfo extends Component {
     static defaultProps = {
+        cookies: instanceOf(Cookies).isRequired,
         writer: '',
         initDescription: '',
         likes: 0,
@@ -63,16 +66,34 @@ class PostInfo extends Component {
     }
 
     likesToggle = () => {
+        const axios = require('axios');
+        const { cookies } = this.props;
+
+
         const {likeState, likes} = this.state;
         if(!likeState){
-            this.setState({
-                likeState: !likeState,
-                likes: likes+1,
+            axios.put('http://olloc.kr3.kr:8000/like/',
+                {"post_id": this.props.postId},
+                {headers: {Authorization: cookies.get('olloc') || 'Ben'}
+            }).then(() => {
+                this.setState({
+                    likeState: !likeState,
+                    likes: likes+1,
+                })
+            }).catch((error) => {
+                if(error.response) alert("로그인 이후 사용 가능합니다.")
+                else alert("서버에 문제가 발생했습니다.")
             })
         }else{
-            this.setState({
-                likeState: !likeState,
-                likes: likes-1,
+            axios.delete('http://olloc.kr3.kr:8000/like/?post_id=' + this.props.postId, {
+                headers: {Authorization: cookies.get('olloc') || 'Ben'}
+            }).then(() => {
+                this.setState({
+                    likeState: !likeState,
+                    likes: likes-1,
+                })
+            }).catch((error) => {
+                if(!error.response) alert("서버에 문제가 발생했습니다.")
             })
         }
     }
@@ -109,4 +130,4 @@ class PostInfo extends Component {
     }
 }
 
-export default PostInfo;
+export default withCookies(PostInfo);

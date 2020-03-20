@@ -51,7 +51,7 @@ class Home extends Component{
                         description: data.description,
                         imagesURL: data.img,
                         likes: data.like,
-                        likeState: false,
+                        likeState: data.likeState,
                         lx: data.lx,
                         ly: data.ly,
                         mapInfo: data.map_info,

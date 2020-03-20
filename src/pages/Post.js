@@ -2,11 +2,18 @@ import React, {Component} from 'react';
 import MapAlert from "../components/Modules/MapAlert";
 import '../Animation.css';
 import PostSplit from "../components/Post/PostSplit";
+import { withCookies, Cookies } from 'react-cookie';
 import queryString from 'query-string';
+import {instanceOf} from "prop-types";
 
 class Home extends Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props) {
         super(props);
+        const { cookies } = props;
         const id = queryString.parse(this.props.location.search).id;
         if (!id) window.location.href='/';
 
@@ -16,18 +23,20 @@ class Home extends Component{
         document.head.appendChild(script);
 
         const axios = require('axios');
-        axios.get('http://olloc.kr3.kr:8000/posts/?post_id=' + id)
-            .then((response) => {
+        axios.get('http://olloc.kr3.kr:8000/posts/?post_id=' + id, {
+            headers: {Authorization: cookies.get('olloc') || 'Ben'}
+        }).then((response) => {
                 const {data} = response;
                 this.setState({
                     posts: {
+                        postId: data.id,
                         writerId: data.owner.id,
                         writer: data.owner.username,
                         profileImg: data.owner.profile_img,
                         description: data.description,
                         imagesURL: data.img,
-                        likes: 32898232,
-                        likeState: false,
+                        likes: data.like,
+                        likeState: data.likeState,
                         lx: data.lx,
                         ly: data.ly,
                         mapInfo: data.map_info,
@@ -75,11 +84,11 @@ class Home extends Component{
     render(){
         return(
             <div>
-                <PostSplit pageId={this.state.id} clicked={this.checkClicked} postInfo={this.state.posts} sendIndex={this.getIndex} script={this.state.script}/>
+                <PostSplit clicked={this.checkClicked} postInfo={this.state.posts} sendIndex={this.getIndex} script={this.state.script}/>
                 {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc={this.state.mapLoc}/>}
             </div>
         );
     }
 }
 
-export default Home;
+export default withCookies(Home);

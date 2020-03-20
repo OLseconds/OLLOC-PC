@@ -42,7 +42,7 @@ class PostSplit extends Component{
 
     addComment = () =>{
         const data = {
-            post_id: this.props.pageId,
+            post_id: this.props.postInfo.postId,
             description: this.state.inputComment,},
             headers = {headers: {Authorization: this.state.token}};
 
@@ -69,7 +69,7 @@ class PostSplit extends Component{
     }
 
     render(){
-        const {writer, writerId, profileImg, imagesURL, description, likes, likeState, comments} = this.props.postInfo;
+        const {postId, writer, writerId, profileImg, imagesURL, description, likes, likeState, comments} = this.props.postInfo;
         const { clicked, sendIndex } = this.props;
         return (
             <div id = "post-split" style={{marginTop:"100px"}}>
@@ -79,6 +79,7 @@ class PostSplit extends Component{
                     <div id = "right-info">
                         <div id = "after-description">
                             <PostInfo
+                                postId={postId}
                                 beforeProps={true}
                                 initDescription={description}
                                 likes={likes}
