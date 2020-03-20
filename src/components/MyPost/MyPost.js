@@ -6,6 +6,10 @@ const MyPost = ({imageURL, postId}) => {
         <div id = "mypost">
             <Link to ={'/post?id=' + postId}>
                 <img src={imageURL} alt=""/>
+                <div className="img_info">
+                    <div><i className="fas fa-heart"></i> <span id="likes">0</span></div>
+                    <div><i className="fas fa-comment"></i> <span id="comments">0</span></div>
+                </div>
             </Link>
         </div>
     );
