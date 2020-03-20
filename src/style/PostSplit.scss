@@ -39,36 +39,47 @@
         scrollbar-width: none; /* Firefox */
         height: 227px;
         overflow-y: scroll;
+        &::-webkit-scrollbar{
+          width:5px;
+
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(0,0,0,.3);
+          border-radius:2px;
+        }
+        &::-webkit-scrollbar-track {
+          background-color: #fff;
+          border:1px solid rgba(0,0,0,.1);
+          border-radius:2px;
+        }
       }
       #comment-input{
-        position: absolute;
-        bottom: 9px;
-        width: 300px;
-        display:inline-block;
+        border-top: 1px solid #dbdbdb;
         height: 50px;
-        border-top: 1px solid #ababab;
-        #comment-text{
-          padding: 5px;
-          display: inline-block;
+        textarea{
+          margin: 0;
+          border: 0;
+          font-size:10pt;
+          padding:15px;
+          height:20px;
+          width: 200px;
+          //overflow-y: scroll;
           resize: none;
-          height: 46px;
-          width: 230px;
-          border: none;
           &:focus{outline: none;}
         }
         #comment-btn{
-          vertical-align: top;
           display: inline-block;
-          width: 60px;
-          height: 57px;
-          text-align: center;
-          color: blue;
+          height: 50px;
+          width:50px;
+          vertical-align: top;
           line-height: 50px;
+          font-weight:bold;
+          text-align: center;
           &:hover{cursor: pointer;}
-        }
-
-        &:focus{
-          outline: none;
+          color: #3897f0;
+          font-size:10pt;
+          float:right;
+          margin-right:15px;
         }
       }
     }
