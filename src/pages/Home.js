@@ -50,7 +50,7 @@ class Home extends Component{
                         profileImg: data.owner.profile_img,
                         description: data.description,
                         imagesURL: data.img,
-                        likes: 100,
+                        likes: data.like,
                         likeState: false,
                         lx: data.lx,
                         ly: data.ly,

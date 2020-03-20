@@ -11,6 +11,7 @@ class MyPost extends Component {
     };
 
     state = {
+        isLogin: false,
         data: {
             userId: null,
             profileImg: '',
@@ -29,6 +30,15 @@ class MyPost extends Component {
         let id = queryString.parse(this.props.location.search).id;
         if (!id) window.location.href='/';
         const axios = require('axios');
+
+        axios.get('http://olloc.kr3.kr:8000/auth/',
+            {headers: {Authorization: cookies.get('olloc' || 'Ben')}})
+            .then(() => {
+                this.setState({
+                    isLogin: true,
+                })
+            })
+
         axios.get('http://olloc.kr3.kr:8000/follow/?user_id=' + id,
             {headers: {Authorization: cookies.get('olloc') || 'Ben'}})
             .then((response) => {
@@ -120,7 +130,7 @@ class MyPost extends Component {
     render(){
         return (
           <div>
-              <MyTimeline followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} />
+              <MyTimeline followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} isLogin={this.state.isLogin}/>
           </div>
         );
     }

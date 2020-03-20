@@ -5,6 +5,7 @@ class ProfileSetting extends Component{
     state={
         profileImg: this.props.profileImg,
         imgGet: false,
+        visible: true,
     }
     static getDerivedStateFromProps(nextProps, prevState){
         if(nextProps.profileImg !== prevState.profileImg && !prevState.imgGet){
@@ -35,10 +36,15 @@ class ProfileSetting extends Component{
         document.getElementById('ex_file').value = null;
     };
 
+    visibleFalse = () => {
+        this.setState({visible: false})
+        this.props.toggle()
+    }
+
     render(){
         return(
-            <div id='profile-setting'>
-                <div id='profile-background' onClick={this.props.toggle}></div>
+            <div id='profile-setting' className={(this.state.visible?"fadein":"fadeout")}>
+                <div id='profile-background' onClick={this.visibleFalse}></div>
                 <div id='profile-wrapper'>
                     <div className="img_add">
                         <img id="profile-profile_img" src={this.state.profileImg} alt=""/>

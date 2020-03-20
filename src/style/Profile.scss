@@ -15,30 +15,60 @@
   to {opacity: 1;}
 }
 
+@keyframes fadeout {
+  from {opacity:1;}
+  to {opacity:0;}
+}
+@-moz-keyframes fadeout { /* Firefox */
+  from {opacity:1;}
+  to {opacity:0;}
+}
+@-webkit-keyframes fadeout { /* Safari and Chrome */
+  from {opacity:1;}
+  to {opacity:0;}
+}
+@-o-keyframes fadeout { /* Opera */
+  from {opacity:1;}
+  to {opacity:0;}
+}
+
 #profile-setting{
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  #profile-background{
+  &.fadein{
     animation: fadein 750ms;
     -moz-animation: fadein 750ms; /* Firefox */
     -webkit-animation: fadein 750ms; /* Safari and Chrome */
     -o-animation: fadein 750ms; /* Opera */
+  }
+  &.fadeout{
+    animation: fadeout 500ms;
+    -moz-animation: fadeout 500ms; /* Firefox */
+    -webkit-animation: fadeout 500ms; /* Safari and Chrome */
+    -o-animation: fadeout 500ms; /* Opera */
+  }
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  #profile-background{
+    z-index: 999;
     position: fixed;
-    margin: 0 auto;
+    margin-top: -15px;
     left: 0;
     right: 0;
     height: 100%;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.7);
   }
   #profile-wrapper{
+    z-index: 999;
     background-color: white;
     padding-top: 15px;
     border: 1px solid #ababab;
     width: 500px;
     margin: 0 auto;
-    top: 30%;
-    position: relative;
+    top: 37%;
+    left: 0;
+    right: 0;
+    position: fixed;
     text-align: center;
     #profile-profile_img{
       display: block;

@@ -29,6 +29,18 @@
           padding:5px 10px;
           vertical-align: middle;
         }
+        .my_timeline-btn{
+          width: 100px;
+          height: 45px;
+          margin-left: 20px;
+          border-radius: 22px;
+          color: white;
+          font-weight: bold;
+          font-size: 0.9rem;
+          background-color: #228be6;
+          &:focus{outline: none;}
+          &:hover{cursor: pointer;}
+        }
       }
 
       span {
