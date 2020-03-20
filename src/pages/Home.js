@@ -20,6 +20,8 @@ class Home extends Component{
         this.state ={
             posts: [],
             loading: true,
+            nextGetPost: null,
+            checkedAll: false,
         }
         let check = cookies.get('olloc') || 'Ben';
 
@@ -36,11 +38,11 @@ class Home extends Component{
         axios.get('http://olloc.kr3.kr:8000/timeline/', {
             headers: {Authorization: check},
         }).then( (response) => {
-            console.log(response.data)
             this.setState({
                 token: check,
+                nextGetPost: response.data.next,
             })
-            for(let i = 0; i < response.data.count; i++){
+            for(let i = 0; i < response.data.results.length; i++){
                 const data = response.data.results[i];
                 this.setState({
                     posts: this.state.posts.concat({
@@ -63,9 +65,7 @@ class Home extends Component{
                 loading: false,
             })
         }).catch((error) => {
-            console.log(error)
-            console.log(error.response);
-            // this.benThisUser();
+            this.benThisUser();
         });
     }
 
@@ -80,20 +80,54 @@ class Home extends Component{
     }
 
     handleScroll = () => {
-        const { innerHeight } = window;
-        const { scrollHeight } = document.body;
-        // IE에서는 document.documentElement 를 사용.
-        const scrollTop =
-            (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
-        if (scrollHeight - innerHeight - scrollTop < 200) {
-            if(!this.state.loading){
-                this.setState({
-                    loading: true,
-                })
-                console.log("Almost Bottom Of This Browser");
+        if(this.state.nextGetPost){
+            const { innerHeight } = window;
+            const { scrollHeight } = document.body;
+            // IE에서는 document.documentElement 를 사용.
+            const scrollTop =
+                (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+            // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
+            if (scrollHeight - innerHeight - scrollTop < 200) {
+                if(!this.state.loading){
+                    this.setState({
+                        loading: true,
+                    })
+
+                    const axios = require('axios');
+                    axios.get(this.state.nextGetPost, {
+                        headers: {Authorization: this.state.token},
+                    }).then( (response) => {
+                        this.setState({
+                            nextGetPost: response.data.next,
+                        })
+                        for(let i = 0; i < response.data.results.length; i++){
+                            const data = response.data.results[i];
+                            this.setState({
+                                posts: this.state.posts.concat({
+                                    postId: data.id,
+                                    userId: data.owner.id,
+                                    writer: data.owner.username,
+                                    profileImg: data.owner.profile_img,
+                                    description: data.description,
+                                    imagesURL: data.img,
+                                    likes: data.like,
+                                    likeState: data.likeState,
+                                    lx: data.lx,
+                                    ly: data.ly,
+                                    mapInfo: data.map_info,
+                                    comments: data.comments
+                                }),
+                            })
+                        }
+                        this.setState({
+                            loading: false,
+                        })
+                    }).catch((error) => {
+                        this.benThisUser();
+                    });
+                }
             }
-        }
+        }else this.setState({checkedAll: true,})
     };
 
     benThisUser = () => {
@@ -144,6 +178,7 @@ class Home extends Component{
                     <Upload userName={this.state.userName} token={this.state.token}></Upload>
                     {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                     {posts}
+                    {this.state.checkedAll&& <span>모든 게시물을 확인했습니다.</span>}
                     {this.state.loading &&<Loading />}
                 </div>
             );

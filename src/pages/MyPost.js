@@ -4,6 +4,8 @@ import "../style/MyPost.scss";
 import { withCookies, Cookies } from 'react-cookie';
 import queryString from "query-string";
 import {instanceOf} from "prop-types";
+import Loading from "../components/Modules/Loading";
+
 
 class MyPost extends Component {
     static propTypes = {
@@ -11,6 +13,8 @@ class MyPost extends Component {
     };
 
     state = {
+        nextGetPost: null,
+        checkedAll: false,
         isLogin: false,
         data: {
             userId: null,
@@ -67,7 +71,8 @@ class MyPost extends Component {
         })
         axios.get('http://olloc.kr3.kr:8000/timeline/?user_id=' + id)
             .then((response) => {
-                for(let i = 0; i < response.data.count; i++){
+                this.setState({nextGetPost: response.data.next})
+                for(let i = 0; i < response.data.results.length; i++){
                     this.setState({
                         imagesURL: this.state.imagesURL.concat({id: response.data.results[i].id, url: response.data.results[i].img[0]}),
                     })
@@ -127,10 +132,62 @@ class MyPost extends Component {
             }
         }
     }
+
+    componentDidMount() {
+        // 스크롤링 이벤트 추가
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        // 언마운트 될때에, 스크롤링 이벤트 제거
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
+    handleScroll = () => {
+        if(this.state.nextGetPost){
+            const { innerHeight } = window;
+            const { scrollHeight } = document.body;
+            // IE에서는 document.documentElement 를 사용.
+            const scrollTop =
+                (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+            // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
+            if (scrollHeight - innerHeight - scrollTop < 200) {
+                if(!this.state.loading){
+                    this.setState({
+                        loading: true,
+                    })
+
+                    const axios = require('axios');
+                    axios.get(this.state.nextGetPost)
+                        .then((response) => {
+                            this.setState({nextGetPost: response.data.next})
+                            for(let i = 0; i < response.data.results.length; i++){
+                                this.setState({
+                                    imagesURL: this.state.imagesURL.concat({id: response.data.results[i].id, url: response.data.results[i].img[0]}),
+                                })
+                            }
+                            this.setState({
+                                loading: false,
+                                data: {
+                                    ...this.state.data,
+                                    postsNum: response.data.count,
+                                }
+                            })
+                        }).catch((error) => {
+                        alert("서버에 문제가 발생했습니다.");
+                    })
+                }
+            }
+        }else this.setState({checkedAll: true,})
+    };
+
     render(){
         return (
           <div>
               <MyTimeline followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} isLogin={this.state.isLogin}/>
+
+              {this.state.checkedAll&& <span>모든 게시물을 확인했습니다.</span>}
+              {this.state.loading &&<Loading />}
           </div>
         );
     }
