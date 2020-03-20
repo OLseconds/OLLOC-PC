@@ -33,10 +33,8 @@ class MyPost extends Component {
 
         axios.get('http://olloc.kr3.kr:8000/auth/',
             {headers: {Authorization: cookies.get('olloc' || 'Ben')}})
-            .then(() => {
-                this.setState({
-                    isLogin: true,
-                })
+            .then((response) => {
+                if(id == response.data.id) this.setState({isLogin: true,})
             })
 
         axios.get('http://olloc.kr3.kr:8000/follow/?user_id=' + id,
