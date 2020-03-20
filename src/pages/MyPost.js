@@ -23,7 +23,7 @@ class MyPost extends Component {
         },
         imagesURL: [],
     }
-    constructor(props) {
+    constructor(props){
         super(props);
         const { cookies } = props;
 

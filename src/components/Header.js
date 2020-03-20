@@ -10,28 +10,6 @@ class Header extends Component {
         cookies: instanceOf(Cookies).isRequired
     };
 
-    state = {
-        login: false,
-    }
-    constructor(props) {
-        super(props);
-        const { cookies } = props;
-
-        const axios = require('axios');
-        axios.get('http://olloc.kr3.kr:8000/auth/', {
-            headers: {Authorization: cookies.get('olloc') || 'Ben'}
-        }).then((response) =>{
-            this.setState({
-                id: response.data.id,
-                login: true,
-            })
-        }).catch((error) => {
-            this.setState({
-                login: false,
-            })
-        });
-    }
-
     checker = () => {
         const { cookies } = this.props;
 
@@ -39,16 +17,13 @@ class Header extends Component {
         axios.get('http://olloc.kr3.kr:8000/auth/', {
             headers: {Authorization: cookies.get('olloc') || 'Ben'}
         }).then((response) =>{
-            this.setState({
-                id: response.data.id,
-                login: true,
-            })
+            window.location.href = 'http://react.kr3.kr/mypost?id='+response.data.id;
         }).catch(() => {
-            this.setState({
-                login: false,
-            })
+            window.location.href = 'http://react.kr3.kr/main';
         });
     }
+
+
     render() {
         return (
             <header id="main_header">
@@ -61,7 +36,7 @@ class Header extends Component {
                         <ul>
                             <li><Link to="/"><i className="fas fa-home"></i></Link></li>
 
-                            <li onClick={this.checker}><Link to={this.state.login?"/mypost?id="+this.state.id:"/main"}><i className="fas fa-user-circle"></i></Link></li>
+                            <li onClick={this.checker}><i className="fas fa-user-circle"></i></li>
                             <li><Link to="/"><i className="fab fa-safari"></i></Link></li>
                             <li><Link to="/"><i className="fas fa-heart"></i></Link></li>
                         </ul>
