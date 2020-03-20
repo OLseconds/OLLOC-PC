@@ -18,6 +18,7 @@ class PostInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            likeAni: false,
             showDescription: "",
             showMore: false,
             likes: this.props.likes,
@@ -79,6 +80,7 @@ class PostInfo extends Component {
                 this.setState({
                     likeState: !likeState,
                     likes: likes+1,
+                    likeAni: true,
                 })
             }).catch((error) => {
                 if(error.response) alert("로그인 이후 사용 가능합니다.")
@@ -91,6 +93,7 @@ class PostInfo extends Component {
                 this.setState({
                     likeState: !likeState,
                     likes: likes-1,
+                    likeAni: false,
                 })
             }).catch((error) => {
                 if(!error.response) alert("서버에 문제가 발생했습니다.")
@@ -102,12 +105,14 @@ class PostInfo extends Component {
         const {showDescription, showMore, likes, likeState, writer, writerId} = this.state;
         if(this.props.beforeProps){
             return(
-                <div id = "post-info">
+                <div id = "post-info" >
                     <div className="description">
                         {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
                     </div>
                     <div className="symbol-size">
-                        {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
+                        {likeState
+                            ? <span className={this.state.likeAni&&"animated tada"} style={{userSelect: 'none', fontSize:'1.7rem', color: 'red', display: 'inline-block', marginRight: '6px'}} onClick={this.likesToggle}>♥ </span>
+                            :<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
                         <i className="far fa-comment" />
                     </div>
                     <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
@@ -115,9 +120,12 @@ class PostInfo extends Component {
             );
         }else{
             return(
+                // 여기가 Home요
                 <div id = "post-info">
                     <div className="symbol-size">
-                        {likeState ? <span style={{userSelect: 'none', fontSize:'1.7rem', color: 'red'}} onClick={this.likesToggle}>♥ </span>:<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
+                        {likeState
+                            ? <span className={this.state.likeAni&&"animated tada"} style={{userSelect: 'none', fontSize:'1.7rem', color: 'red', display: 'inline-block', marginRight: '6px'}} onClick={this.likesToggle}>♥ </span>
+                            :<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
                         <i className="far fa-comment" />
                     </div>
                     <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
