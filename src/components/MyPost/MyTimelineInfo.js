@@ -49,7 +49,7 @@ class MyTimelineInfo extends Component {
                         {this.props.isLogin&&<button className="my_timeline-btn" onClick={this.profileSetToggle}>프로필설정</button>}
                     </div>
                     <div>
-                        <span>게시물 <span>{(postsNum?postsNum:0)}</span></span> <span>팔로워 <span className="cursor" onClick={this.showFollower}>{follower}</span></span> <span>팔로우 <span className="cursor"  onClick={this.showFollow}>{follow}</span></span>
+                        <span>게시물 <span>{postsNum}</span></span> <span className="cursor" onClick={this.showFollower}>팔로워 <span>{follower}</span></span> <span className="cursor"  onClick={this.showFollow}>팔로우 <span>{follow}</span></span>
                     </div>
                 </div>
             </div>

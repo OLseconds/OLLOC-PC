@@ -22,9 +22,9 @@ class MyPost extends Component {
             userId: null,
             profileImg: '',
             userName: '',
-            postsNum: 0,
-            follower: 0,
-            follow: 0,
+            postsNum: null,
+            follower: null,
+            follow: null,
             followState: false,
         },
         imagesURL: [],
@@ -191,12 +191,10 @@ class MyPost extends Component {
     }
 
     hideFollowList = () => {
-        setTimeout(() => {
-            this.setState({
-                showFollowList: false,
-                showFollowStat: null,
-            })
-        }, 500);
+        this.setState({
+            showFollowList: false,
+            showFollowStat: null,
+        })
     }
 
     render(){
