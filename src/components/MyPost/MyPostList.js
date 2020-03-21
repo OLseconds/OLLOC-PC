@@ -20,7 +20,7 @@ class MyPostList extends Component{
     render() {
         return (
             <div id="MyPostList">
-                {!this.state.imageList.length&&"등록된 게시물이 없습니다."}
+                {!this.state.imageList.length&&<div className="post_alert">등록된 게시물이 없습니다.</div>}
                 {this.state.imageList}
             </div>
         )
