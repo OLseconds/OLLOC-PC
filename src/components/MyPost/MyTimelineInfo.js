@@ -32,6 +32,14 @@ class MyTimelineInfo extends Component {
         this.props.followHandler();
     }
 
+    showFollow = () => {
+        this.props.showFollow('follow');
+    }
+
+    showFollower = () => {
+        this.props.showFollow('follower');
+    }
+
     render(){
         const {profileImg, userName, postsNum, follower, follow, userId,} = this.props.data;
         return(
@@ -47,7 +55,7 @@ class MyTimelineInfo extends Component {
                         {this.props.isLogin&&<button className="my_timeline-btn" onClick={this.profileSetToggle}>프로필설정</button>}
                     </div>
                     <div>
-                        <span>게시물 <span>{(postsNum?postsNum:0)}</span></span> <span>팔로워 <span>{follower}</span></span> <span>팔로우 <span>{follow}</span></span>
+                        <span>게시물 <span>{(postsNum?postsNum:0)}</span></span> <span>팔로워 <span className="cursor" onClick={this.showFollower}>{follower}</span></span> <span>팔로우 <span className="cursor"  onClick={this.showFollow}>{follow}</span></span>
                     </div>
                 </div>
             </div>

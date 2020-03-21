@@ -14,6 +14,8 @@ class MyPost extends Component {
     };
 
     state = {
+        showFollowList: false,
+        showFollowStat: null,
         nextGetPost: null,
         isLogin: false,
         data: {
@@ -181,11 +183,25 @@ class MyPost extends Component {
         }
     };
 
+    showFollowList = (stat) => {
+        this.setState({
+            showFollowList: true,
+            showFollowStat: stat,
+        })
+    }
+
+    hideFollowList = () => {
+        this.setState({
+            showFollowList: false,
+            showFollowStat: null,
+        })
+    }
+
     render(){
         return (
           <div>
-              <FollowList></FollowList>
-              <MyTimeline followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} isLogin={this.state.isLogin}/>
+              {this.state.showFollowList&&<FollowList stat={this.state.showFollowStat} hide={this.hideFollowList}></FollowList>}
+              <MyTimeline showFollow={this.showFollowList} followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} isLogin={this.state.isLogin}/>
               {this.state.loading &&<Loading />}
           </div>
         );
