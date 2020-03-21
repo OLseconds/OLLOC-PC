@@ -40,6 +40,9 @@ class FollowList extends Component{
             <div id="follow_list" className={"fade"+this.state.fade}>
                 <div id ="follow_list-bg" onClick={this.test}>
                     <div id="follow_list-wrapper">
+                        <div id="follow_list_header">
+                            <h2 id="flh">팔로워(우)</h2>
+                        </div>
                         <ul>
                             {list}
                         </ul>

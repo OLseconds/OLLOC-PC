@@ -1,46 +1,85 @@
 .cursor{&:hover{cursor: pointer;}}
 #follow_list{
-  &.fadein{
-    animation: fadein 750ms;
-    -moz-animation: fadein 750ms; /* Firefox */
-    -webkit-animation: fadein 750ms; /* Safari and Chrome */
-    -o-animation: fadein 750ms; /* Opera */
-  }
-  &.fadeout{
-    animation: fadeout 500ms;
-    -moz-animation: fadeout 500ms; /* Firefox */
-    -webkit-animation: fadeout 500ms; /* Safari and Chrome */
-    -o-animation: fadeout 500ms; /* Opera */
-  }
+  //&.fadein{
+  //  animation: fadein 750ms;
+  //  -moz-animation: fadein 750ms; /* Firefox */
+  //  -webkit-animation: fadein 750ms; /* Safari and Chrome */
+  //  -o-animation: fadein 750ms; /* Opera */
+  //}
+  //&.fadeout{
+  //  animation: fadeout 500ms;
+  //  -moz-animation: fadeout 500ms; /* Firefox */
+  //  -webkit-animation: fadeout 500ms; /* Safari and Chrome */
+  //  -o-animation: fadeout 500ms; /* Opera */
+  //}
   #follow_list-bg{
     z-index: 999;
     position: fixed;
     margin-top: -15px;
     left: 0;
     right: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
+    top:0;
+    bottom:0;
+    background-color: rgba(0, 0, 0, 0.5);
     #follow_list-wrapper{
       z-index: 999;
-      background-color: white;
-      border: 1px solid #ababab;
-      width: 500px;
+      background-color: #fff;
+      box-shadow: 0px 5px 30px rgba(0,0,0,.5);
+      width: 350px;
       margin: 0 auto;
-      top: 46%;
+      top:50%;
+      margin-top:-150px;
       left: 0;
       right: 0;
       position: fixed;
-      text-align: center;
+      border-radius:10px;
+      height:300px;
+
+      #follow_list_header {
+        border-bottom:1px solid #dbdbdb;
+        h2 {
+          padding:10px 0;
+          text-align:center;
+          margin:0;
+          font-size:12pt;
+        }
+      }
+
       ul{
         margin: 0;
         padding: 0;
+        overflow-y:scroll;
+        height:260px;
+        &::-webkit-scrollbar {
+          width: 5px;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(0, 0, 0, .3);
+          border-radius: 2px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: #fff;
+          border: 1px solid rgba(0, 0, 0, .1);
+          border-radius: 2px;
+        }
         li{
           list-style: none;
-          height: 50px;
-          line-height: 50px;
-          border-bottom: 1px solid #ababab;
+          font-weight:bold;
+          height: 30px;
+          padding:5px 10px;
+          border-bottom: 1px solid #dbdbdb;
           &:last-child{border: none;}
+          font-size:10pt;
+          img {
+            width:30px;
+            height:30px;
+            margin-right:10px;
+            border-radius:25px;
+            vertical-align: middle;
+          }
         }
       }
     }
