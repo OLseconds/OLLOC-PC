@@ -54,6 +54,7 @@ class Home extends Component{
                         imagesURL: data.img,
                         likes: data.like,
                         likeState: data.likeState,
+                        date: data.date,
                         lx: data.lx,
                         ly: data.ly,
                         mapInfo: data.map_info,
@@ -112,6 +113,7 @@ class Home extends Component{
                                     imagesURL: data.img,
                                     likes: data.like,
                                     likeState: data.likeState,
+                                    date:data.date,
                                     lx: data.lx,
                                     ly: data.ly,
                                     mapInfo: data.map_info,
@@ -178,7 +180,7 @@ class Home extends Component{
                     <Upload userName={this.state.userName} token={this.state.token}></Upload>
                     {this.state.clicked && <MapAlert clicked = {this.checkClicked} mapLoc = {this.state.mapLoc}/>}
                     {posts}
-                    {this.state.checkedAll&& <span>모든 게시물을 확인했습니다.</span>}
+                    {this.state.checkedAll&& <div className="alerts">모든 게시물을 확인했습니다.</div>}
                     {this.state.loading &&<Loading />}
                 </div>
             );

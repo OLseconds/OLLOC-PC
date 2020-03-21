@@ -69,11 +69,12 @@ class PostSplit extends Component{
     }
 
     render(){
-        const {postId, writer, writerId, profileImg, imagesURL, description, likes, likeState, comments} = this.props.postInfo;
+        const {postId, writer, writerId, profileImg, imagesURL, description, likes, likeState, date, comments} = this.props.postInfo;
         const { clicked, sendIndex } = this.props;
         return (
             <div id = "post-split" style={{marginTop:"100px"}}>
                 <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} script={this.props.script}/>
+                <div className="map_alert"><i className="fas fa-map-marker-alt"></i> <div>사진을 더블 탭 해서 위치를 확인하세요!</div></div>
                 <div id ="post-split-right">
                     <div id = "writer"><img src={profileImg} /> <Link to={"/mypost?id="+writerId} className={'name-btn'}><span>{writer}</span></Link></div>
                     <div id = "right-info">
@@ -84,6 +85,7 @@ class PostSplit extends Component{
                                 initDescription={description}
                                 likes={likes}
                                 likeState={likeState}
+                                date={date}
                             />
                             <CommentList beforeProps={true} information = {comments}/>
                             <div id="comment-input">

@@ -37,12 +37,13 @@ class Home extends Component{
                         imagesURL: data.img,
                         likes: data.like,
                         likeState: data.likeState,
+                        date:data.date,
                         lx: data.lx,
                         ly: data.ly,
                         mapInfo: data.map_info,
                         comments: data.comments
                     }
-                })
+                });
             }).catch( (error) => {
                 console.log(error.response);
         })
@@ -61,6 +62,7 @@ class Home extends Component{
             imagesURL: [],
             likes: 0,
             likeState: false,
+            date: "",
             comments: []
         }
     }

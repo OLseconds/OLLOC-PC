@@ -11,6 +11,7 @@ class PostInfo extends Component {
         initDescription: '',
         likes: 0,
         likeState: false,
+        date:'',
         beforeProps: false,
     }
 
@@ -23,6 +24,7 @@ class PostInfo extends Component {
             showMore: false,
             likes: this.props.likes,
             likeState: this.props.likeState,
+            date:this.props.date,
             writer: this.props.writer,
             writerId: this.props.writerId,
         };
@@ -30,13 +32,14 @@ class PostInfo extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if(prevState.showDescription === ""){
-            const {initDescription, likes, likeState, writer} = nextProps;
+            const {initDescription, likes, likeState, date, writer} = nextProps;
             if(~initDescription.indexOf('\n')){
                 return{
                     showDescription: initDescription.split('\n')[0].substr(0, 25),
                     showMore: true,
                     likes: likes,
                     likeState: likeState,
+                    date: date,
                     writer: writer,
                 }
             }else if(initDescription.length >= 25) {
@@ -45,6 +48,7 @@ class PostInfo extends Component {
                     showMore: true,
                     likes: likes,
                     likeState: likeState,
+                    date: date,
                     writer: writer,
                 }
             }else{
@@ -52,6 +56,7 @@ class PostInfo extends Component {
                     showDescription: initDescription,
                     likes: likes,
                     likeState: likeState,
+                    date: date,
                     writer: writer,
                 }
             }
@@ -101,13 +106,37 @@ class PostInfo extends Component {
         }
     }
 
+    test = (time) => {
+        let min = 60 * 1000;
+        let c = new Date()
+        let d = new Date(time);
+        let minsAgo = Math.floor((c - d) / (min));
+
+        let result = {
+            'raw': d.getFullYear() + '-' + (d.getMonth() + 1 > 9 ? '' : '0') + (d.getMonth() + 1) + '-' + (d.getDate() > 9 ? '' : '0') +  d.getDate() + ' ' + (d.getHours() > 9 ? '' : '0') +  d.getHours() + ':' + (d.getMinutes() > 9 ? '' : '0') +  d.getMinutes() + ':'  + (d.getSeconds() > 9 ? '' : '0') +  d.getSeconds(),
+            'formatted': '',
+        };
+
+        if (minsAgo < 60) { // 1시간 내
+            result.formatted = minsAgo + '분 전';
+        } else if (minsAgo < 60 * 24) { // 하루 내
+            result.formatted = Math.floor(minsAgo / 60) + '시간 전';
+        } else { // 하루 이상
+            result.formatted = Math.floor(minsAgo / 60 / 24) + '일 전';
+        }
+        return result.formatted;
+    }
+
     render() {
-        const {showDescription, showMore, likes, likeState, writer, writerId} = this.state;
+        const {showDescription, showMore, likes, likeState, date, writer, writerId} = this.state;
         if(this.props.beforeProps){
             return(
                 <div id = "post-info" >
                     <div className="description">
                         {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                    </div>
+                    <div className="datetime">
+                        {this.test(date)}
                     </div>
                     <div className="symbol-size">
                         {likeState
@@ -131,6 +160,9 @@ class PostInfo extends Component {
                     <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
                     <div className="description">
                         <Link to={"/mypost?id="+writerId} className={"name-btn"}><b>{writer}</b></Link> {this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                    </div>
+                    <div className="datetime">
+                        {this.test(date)}
                     </div>
                 </div>
             );
