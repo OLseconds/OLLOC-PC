@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import { withCookies, Cookies } from 'react-cookie';
-import {instanceOf} from "prop-types";
-import queryString from "query-string";
 import ProfileSetting from "./ProfileSetting";
 
 class MyTimelineInfo extends Component {
@@ -10,9 +7,6 @@ class MyTimelineInfo extends Component {
         profileSet: false,
         followAni: "my_timeline-btn",
     }
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    };
 
     static getDerivedStateFromProps(nextProps, prevState){
         if(nextProps.data.followState !== prevState.followState)
@@ -63,4 +57,4 @@ class MyTimelineInfo extends Component {
     }
 }
 
-export default withCookies(MyTimelineInfo);
+export default MyTimelineInfo;

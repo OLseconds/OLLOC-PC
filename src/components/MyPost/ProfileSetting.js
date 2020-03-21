@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
+import { withCookies, Cookies } from 'react-cookie';
 import '../../style/Profile.scss';
+import {instanceOf} from "prop-types";
 
 class ProfileSetting extends Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
     state={
         profileImg: this.props.profileImg,
         imgGet: false,
         visible: true,
+        changeImg: false,
     }
     static getDerivedStateFromProps(nextProps, prevState){
         if(nextProps.profileImg !== prevState.profileImg && !prevState.imgGet){
@@ -14,6 +20,7 @@ class ProfileSetting extends Component{
     }
 
     handleChangeFile = event => {
+        let imgFile = event.target.files[0];
         let reader = new FileReader()
         if (event.target.files[0]) reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
         reader.onloadend = async e => {
@@ -23,7 +30,9 @@ class ProfileSetting extends Component{
                 if (base64) {
                     this.setState({
                         profileImg: base64.toString(),
+                        image: imgFile,
                         imgGet: true,
+                        changeImg: true,
                     })
                 }
             } catch (e) {
@@ -39,6 +48,32 @@ class ProfileSetting extends Component{
     visibleFalse = () => {
         this.setState({visible: false})
         this.props.toggle()
+    }
+
+    changeProfile = () => {
+        const { cookies } = this.props;
+        const token = cookies.get('olloc') || 'Ben';
+
+
+        const form = new FormData();
+        form.append('user_id', this.props.userId);
+        form.append('image', this.state.image);
+        if(this.state.changeImg){
+            const axios = require('axios');
+            axios.post('http://olloc.kr3.kr:8000/user/', form,
+                {headers: {Authorization: token}})
+            .then((response) => {
+                window.location.reload(true);
+            }).catch((error) => {
+                console.log(error);
+                console.log(error.response);
+            })
+        }else alert("이미지를 선택해주세요!")
+
+    }
+
+    exitOlloc = () =>{
+        alert("기능 구현 중 입니다 ^^");
     }
 
     render(){
@@ -60,12 +95,12 @@ class ProfileSetting extends Component{
                         />
                     </div>
                     <span id="user-name" >별명 : <input type="text" value={this.props.userName}  name="username"/></span>
-                    <button className="profile-btn">회원탈퇴</button>
-                    <button className="profile-btn">완료</button>
+                    <button className="profile-btn" onClick={this.exitOlloc}>회원탈퇴</button>
+                    <button className="profile-btn" onClick={this.changeProfile}>완료</button>
                 </div>
             </div>
         )
     }
 }
 
-export default ProfileSetting
+export default withCookies(ProfileSetting);
