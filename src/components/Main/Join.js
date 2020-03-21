@@ -26,17 +26,15 @@ class Join extends Component{
     }
 
     sendJoinData = (data, t) => {
-        axios.post('http://olloc.kr3.kr:8000/user/', {
+        axios.put('http://olloc.kr3.kr:8000/user/', {
             "username": data.userName,
             "password": data.passWord,
             "name": data.name,
             "mail": data.mail,
         }).then(function (response){
-            console.log(response);
-            t.changeView();
+            this.changeView();
             alert("성공적으로 가입되었습니다.");
         }).catch(function (error){
-            console.log(error);
             if(error.response.data.error_code == 2){
                 alert("중복되는 아이디가 존재합니다.");
                 error = true;
