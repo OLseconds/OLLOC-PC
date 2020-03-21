@@ -131,6 +131,9 @@
     width:12px;
     height:32px;
     div{
+      position:absolute;
+      width:300px;
+      left:30px;
       display:inline-block;
       font-size:10pt;
       opacity: 0;
