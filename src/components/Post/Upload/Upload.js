@@ -67,7 +67,7 @@ class Upload extends Component{
         }
         axios.post('http://olloc.kr3.kr:8000/posts/', form, header
         ).then( () => {
-            this.modeToggle();
+            window.location.reload(true);
         }).catch( (error) => {
             if(!error.response) alert("서버에 문제가 발생했습니다.")
             else if(error.response.data.error_code) alert("업로드 실패(이미지 파일 올려주세요)");

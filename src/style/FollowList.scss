@@ -1,19 +1,8 @@
 .cursor{&:hover{cursor: pointer;}}
 #follow_list{
-  //&.fadein{
-  //  animation: fadein 750ms;
-  //  -moz-animation: fadein 750ms; /* Firefox */
-  //  -webkit-animation: fadein 750ms; /* Safari and Chrome */
-  //  -o-animation: fadein 750ms; /* Opera */
-  //}
-  //&.fadeout{
-  //  animation: fadeout 500ms;
-  //  -moz-animation: fadeout 500ms; /* Firefox */
-  //  -webkit-animation: fadeout 500ms; /* Safari and Chrome */
-  //  -o-animation: fadeout 500ms; /* Opera */
-  //}
   #follow_list-bg{
-    z-index: 999;
+    &:hover{cursor: pointer;}
+    z-index: 998;
     position: fixed;
     margin-top: -15px;
     left: 0;
