@@ -62,11 +62,11 @@ class ProfileSetting extends Component{
             const axios = require('axios');
             axios.post('http://olloc.kr3.kr:8000/user/', form,
                 {headers: {Authorization: token}})
-            .then((response) => {
+            .then(() => {
                 window.location.reload(true);
             }).catch((error) => {
-                console.log(error);
-                console.log(error.response);
+                if(error.response.data.error_code === 1) alert("선택한 파일이 이미지가 아닙니다.");
+                else alert("서버에 문제가 발생했습니다.")
             })
         }else alert("이미지를 선택해주세요!")
 
