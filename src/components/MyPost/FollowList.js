@@ -5,6 +5,7 @@ class FollowList extends Component{
     state = {
         status: null,
         list: [],
+        fade: 'in',
     }
     constructor(props){
         super(props);
@@ -26,15 +27,18 @@ class FollowList extends Component{
                         this.setState({list: this.state.list.concat({username: response.data.follower_list[i].username, profileImg: response.data.follower_list[i].profile_img})})
                 })
         }else alert("오류가 발생했습니다.")
-
+    }
+    test = () => {
+        this.setState({fade: 'out'});
+        this.props.hide();
     }
     render(){
         const list = this.state.list.map(
             (info) => <li><img src={info.profileImg} alt="프로필 이미지"/>{info.username}</li>
         )
         return(
-            <div id="follow_list">
-                <div id ="follow_list-bg" onClick={this.props.hide}>
+            <div id="follow_list" className={"fade"+this.state.fade}>
+                <div id ="follow_list-bg" onClick={this.test}>
                     <div id="follow_list-wrapper">
                         <ul>
                             {list}

@@ -191,10 +191,12 @@ class MyPost extends Component {
     }
 
     hideFollowList = () => {
-        this.setState({
-            showFollowList: false,
-            showFollowStat: null,
-        })
+        setTimeout(() => {
+            this.setState({
+                showFollowList: false,
+                showFollowStat: null,
+            })
+        }, 500);
     }
 
     render(){
