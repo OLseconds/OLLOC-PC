@@ -21,7 +21,6 @@ class Home extends Component{
             posts: [],
             loading: true,
             nextGetPost: null,
-            checkedAll: false,
         }
         let check = cookies.get('olloc') || 'Ben';
 

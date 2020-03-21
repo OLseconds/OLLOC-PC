@@ -5,6 +5,7 @@ import { withCookies, Cookies } from 'react-cookie';
 import queryString from "query-string";
 import {instanceOf} from "prop-types";
 import Loading from "../components/Modules/Loading";
+import FollowList from "../components/MyPost/FollowList";
 
 
 class MyPost extends Component {
@@ -14,7 +15,6 @@ class MyPost extends Component {
 
     state = {
         nextGetPost: null,
-        checkedAll: false,
         isLogin: false,
         data: {
             userId: null,
@@ -178,15 +178,14 @@ class MyPost extends Component {
                     })
                 }
             }
-        }else this.setState({checkedAll: true,})
+        }
     };
 
     render(){
         return (
           <div>
+              <FollowList></FollowList>
               <MyTimeline followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} isLogin={this.state.isLogin}/>
-
-              {this.state.checkedAll&& <span>모든 게시물을 확인했습니다.</span>}
               {this.state.loading &&<Loading />}
           </div>
         );
