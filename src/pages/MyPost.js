@@ -200,7 +200,7 @@ class MyPost extends Component {
     render(){
         return (
           <div>
-              {this.state.showFollowList&&<FollowList stat={this.state.showFollowStat} hide={this.hideFollowList}></FollowList>}
+              {this.state.showFollowList&&<FollowList id={this.state.data.userId} stat={this.state.showFollowStat} hide={this.hideFollowList}></FollowList>}
               <MyTimeline showFollow={this.showFollowList} followHandler={this.followHandler} data = {this.state.data} imagesURL = {this.state.imagesURL} isLogin={this.state.isLogin}/>
               {this.state.loading &&<Loading />}
           </div>

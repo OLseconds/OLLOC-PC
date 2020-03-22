@@ -11,13 +11,13 @@ class FollowList extends Component{
 
         const axios = require('axios');
         if(this.props.stat === 'follow'){
-            axios.get('http://olloc.kr3.kr:8000/follow/?user_id=44')
+            axios.get('http://olloc.kr3.kr:8000/follow/?user_id='+props.id)
                 .then((response) =>{
                     for(let i = 0; i < response.data.following_list.length; i++)
                         this.setState({list: this.state.list.concat({username: response.data.following_list[i].username, profileImg: response.data.following_list[i].profile_img})})
                 })
         }else if(this.props.stat === 'follower'){
-            axios.get('http://olloc.kr3.kr:8000/follow/?user_id=44')
+            axios.get('http://olloc.kr3.kr:8000/follow/?user_id='+props.id)
                 .then((response) =>{
                     for(let i = 0; i < response.data.follower_list.length; i++)
                         this.setState({list: this.state.list.concat({username: response.data.follower_list[i].username, profileImg: response.data.follower_list[i].profile_img})})
