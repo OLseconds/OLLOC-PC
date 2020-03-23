@@ -85,7 +85,6 @@ class Login extends Component{
                     <span id="prevBtn" onClick={this.changeView}><i className="fas fa-arrow-left"></i></span>
                     <h1 id="mainTitle">OLLoc</h1>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
-                    <button className="mainBtn">facebook으로 로그인</button>
                     <div id="line">또는</div>
                     <input
                         className="textInput"

@@ -71,7 +71,6 @@ class Main extends Component {
         if(this.state.token != 'Ben') return <Redirect push to ='/' />;
         return (
             <div id = "main">
-                <img className = "animated fadeIn" src={leftImg} alt="이미지"/>
                 {
                     detail
                         ? <Join
