@@ -12,6 +12,7 @@
     background:#fff;
   }
   #post-split-right {
+    position:relative;
     overflow-y: scroll;
     -ms-overflow-style: none;
 
@@ -28,7 +29,10 @@
     border-left: 1px solid #dbdbdb;
 
     #writer {
+      position:fixed;
+      background:#fff;
       height: 50px;
+      width:290px;
       padding: 10px 0 10px 10px;
       border-bottom: 1px solid #dbdbdb;
 
@@ -47,18 +51,19 @@
 
     #description {
       padding: 10px 0 0 10px;
+
     }
 
     #after-description {
+      margin-top:70px;
       #post-info {
       }
 
       #comment-list {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
-        height: 250px;
+        height: 237px;
         overflow-y: scroll;
-
         &::-webkit-scrollbar {
           width: 5px;
 
@@ -74,12 +79,14 @@
           border: 1px solid rgba(0, 0, 0, .1);
           border-radius: 2px;
         }
+
       }
 
       #comment-input {
         border-top: 1px solid #dbdbdb;
         height: 50px;
-
+        position:absolute;
+        bottom:0;
         textarea {
           margin: 0;
           border: 0;
