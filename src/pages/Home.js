@@ -170,6 +170,7 @@ class Home extends Component{
                 postInfo = {post}
                 sendIndex = {this.getIndex}
                 clicked = {this.checkClicked}
+                userName={this.state.userName}
             />);
         if(this.state.token == 'Ben'){
             return  <Redirect push to ='/main' />;

@@ -60,12 +60,22 @@ class Post extends Component {
 
     }
 
+    deletePost = () => {
+        const axios = require('axios');
+        axios.delete('http://olloc.kr3.kr:8000/posts/?post_id=' + this.props.postInfo.postId,
+            {headers: {Authorization: this.state.token}})
+            .then((response) => {
+                window.location.reload(true);
+            }).catch((error) => {
+                alert("서버 오류로 게시글을 삭제하지 못했습니다.");
+        })
+    }
     render() {
         const {postId, writer, profileImg, imagesURL, description, likes, likeState, date, comments, userId} = this.props.postInfo;
-        const { clicked, postIndex} = this.props;
+        const {clicked, postIndex, userName} = this.props;
         return (
             <div id = "post">
-                <div id = "writer"><img src={profileImg} /> <Link className={"name-btn"} to={"/mypost?id="+userId}>{writer}</Link></div>
+                <div id = "writer"><img src={profileImg} /> <Link className={"name-btn"} to={"/mypost?id="+userId}>{writer}</Link> {userName==writer?<button onClick={this.deletePost}>삭제</button>:""}</div>
                 <PostImages URL={imagesURL} clicked={clicked} sendIndex={this.sendIndex}/>
                 <div className="map_alert"><i className="fas fa-map-marker-alt"></i> <div>사진을 더블 탭 해서 위치를 확인하세요!</div></div>
                 <PostInfo
