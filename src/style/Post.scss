@@ -15,6 +15,15 @@
       margin: 0 5px 0 15px;
       vertical-align: top;
     }
+    button{
+      border: none;
+      float: right;
+      font-size: 15px;
+      margin-right: 10px;
+      line-height: 30px;
+      color: #3897F0;
+      &:hover{cursor: pointer;}
+    }
   }
   #comment-input, .comment_info{
     border-top: 1px solid #dbdbdb;
