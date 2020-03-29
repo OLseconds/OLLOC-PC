@@ -47,6 +47,16 @@
         width: 50px;
         border-radius: 50px;
       }
+
+      button{
+        border: none;
+        float: right;
+        font-size: 15px;
+        margin-right: 10px;
+        line-height: 50px;
+        color: #3897F0;
+        &:hover{cursor: pointer;}
+      }
     }
 
     #description {
