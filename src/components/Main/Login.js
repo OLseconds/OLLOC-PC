@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import LogoImgUrl from "../../img/logo192.png";
 
 class Login extends Component{
     static propTypes = {
@@ -83,9 +84,8 @@ class Login extends Component{
             <div id ="login">
                 <form className={this.state.animation} id="loginForm" onSubmit={this.loginSubmit}>
                     <span id="prevBtn" onClick={this.changeView}><i className="fas fa-arrow-left"></i></span>
-                    <h1 id="mainTitle">OLLoc</h1>
+                    <h1 id="mainTitle"><img src={LogoImgUrl} /></h1>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
-                    <div id="line">또는</div>
                     <input
                         className="textInput"
                         placeholder="회원 아이디"
@@ -103,7 +103,7 @@ class Login extends Component{
                     />
                     {/*<Link to ="/" className="noUnderLine" ><button className="mainBtn" >로그인</button></Link>*/}
                     <button className="mainBtn" >로그인</button>
-                    <span className="loginText">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
+                    <span className="agree">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
                 </form>
             </div>
         );

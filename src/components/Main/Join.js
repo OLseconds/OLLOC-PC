@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import "../../Animation.css"
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import LogoImgUrl from '../../img/logo192.png';
 
 class Join extends Component{
 
@@ -78,9 +79,9 @@ class Join extends Component{
         return(
             <div id ="join">
                 <form id="loginForm" className={this.state.animation} onSubmit={this.joinSubmit}>
-                    <h1>OLLoc</h1>
+                    <h1><img src={LogoImgUrl} /></h1>
+                    <h2 className="mtitle"></h2>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
-                    <div id="line">또는</div>
                     <input
                         className="textInput"
                         placeholder="이메일 주소"
@@ -111,7 +112,7 @@ class Join extends Component{
                         onChange={this.handleChange}
                     />
                     <button className="mainBtn">가입</button>
-                    <span className="loginText">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
+                    <span className="agree">가입하면 OLLoc의 약관, 데이터 정책 및 쿠키 정책에 동의하게 됩니다.</span>
                 </form>
                 <div id="checkMem" className={this.state.animation}>
                     계정이 있으신가요? <span id = "loginBtn" onClick={this.changeView} >로그인</span>

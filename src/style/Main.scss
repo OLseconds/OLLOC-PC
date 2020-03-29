@@ -9,13 +9,6 @@ body{
 }
 #main{
   text-align: center;
-  img{
-    width: 389px;
-    height: 618px;
-    vertical-align: top;
-    display: inline-block;
-    z-index: 1;
-  }
 
   #login {
     #prevBtn{font-size: 30px; float: left; display: inline-block; margin-left: 10px;}
@@ -23,14 +16,20 @@ body{
   }
 
   #join, #login{
+    margin-top:60px;
     overflow: hidden;
     display: inline-block;
     width: 400px;
-
+    box-shadow: 5px 0px 60px rgba(0, 0, 0, .5);
+    background-color: #fff;
+    h1 {
+      padding:15px 0;
+      img {height:100px;}
+    }
     #loginForm {
       display: inline-block;
       margin: 0 auto;
-      background-color: #fff; border: solid 1px #E6E6E6; border-radius: 1px; padding: 10px 0; width: 348px; height: 524px;
+      padding: 10px 0; width: 348px; height: 524px;
       #line{
         color: #999999; font-size: 0.8rem; text-weight: bold; margin-bottom: 20px;
         &:before{
@@ -49,7 +48,18 @@ body{
         }
       }
       .textInput {
-        width: 264px; height: 34px; background-color: #F9F9F9; padding: 0 5px; border: solid 1px #EBEBEB; margin-bottom: 5px;
+        width: 264px;
+        height: 34px;
+        background:#fff;
+        padding:2px 5px;
+        border:0;
+        border-bottom:2px solid rgb(236,236,237);
+        transition: .7s;
+        margin-bottom: 5px;
+        outline:none;
+        &:focus{
+          border-bottom:2px solid rgb(0,0,255);
+        }
       }
 
       .noUnderLine{text-decoration: none;}
@@ -58,17 +68,26 @@ body{
         text-align: center;
         text-decoration: none !important;
         margin: 15px auto;
-        background-color: #3897F0;
-        color: white;
+        background-color: #fff;
+        border:none;
+        color:#000;
         width: 264px;
-        height: 34px;
-        border-radius: 5px;
+        padding:10px 0;
         font-size: 1rem;
         font-weight: bold;
         line-height: 30px;
+        transition: .3s;
+        cursor:pointer;
+        box-shadow: 5px 0px 10px rgba(0,0,0,.2);
+        &:hover {
+          box-shadow:5px 0px 30px rgba(0,0,0, .3);
+        }
       }
 
-      .loginText{margin: 0 40px; display: block; color: #999999; font-weight: bold;}
+      .mtitle {font-size:25pt;}
+
+      .loginText{margin: 0 40px; display: block; color: #9c9c9c; font-weight: bold; margin-bottom:20px;}
+      .agree {font-size:10pt;}
     }
   }
 
@@ -78,14 +97,13 @@ body{
     width: 348px;
     height: 48px;
     padding: 10px 0;
-    border: solid 1px #E6E6E6;
     border-radius: 1px;
     text-align: center;
     line-height: 48px;
 
 
     #loginBtn{
-      color: blue;
+      color: #4d9dff;
       text-decoration: underline;
       &:hover{
         cursor: pointer;
