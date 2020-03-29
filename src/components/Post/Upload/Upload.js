@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import SearchMap from './SearchMap';
 import ImageUp from './ImageUp';
 import "../../../style/Upload.scss"
 

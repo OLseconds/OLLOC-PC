@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import MyTimelineInfo from './MyTimelineInfo';
 import MyPostList from './MyPostList';
 

@@ -1,4 +1,3 @@
-/*global Swiper*/
 import React, {Component} from 'react';
 import '../../style/Slider.css'
 import Images from '../Modules/Images'
@@ -6,9 +5,11 @@ import Swiper from 'swiper';
 
 class PostImages extends Component{
     static defaultProps = {
-        URL: []
+        URL: [],
+        mySwiper: null,
     }
 
+    state={}
     static getDerivedStateFromProps(nextProps, prevState) {
         const clicked = (index) => {
             nextProps.sendIndex(index);
@@ -17,31 +18,11 @@ class PostImages extends Component{
             images: nextProps.URL.map(
                 (url, index) => <div key={index} className="swiper-slide"><Images url={url} index={index} sendIndex={clicked}/></div>)
         }
-
-        return null;
     }
 
     componentDidMount(nextProps, prevState) {
-        let mySwiper = new Swiper('.swiper-container', {
-            // Optional parameters
-            direction: 'horizontal',
-
-            // If we need pagination
-            pagination: {
-                el: '.swiper-pagination',
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        if(prevProps.URL.length !== this.props.URL.length){
-            let mySwiper = new Swiper('.swiper-container', {
+        this.setState({
+            mySwiper: new Swiper('.swiper-container', {
                 // Optional parameters
                 direction: 'horizontal',
 
@@ -55,7 +36,29 @@ class PostImages extends Component{
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-            });
+            })
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.URL.length !== this.props.URL.length){
+            this.setState({
+                mySwiper: new Swiper('.swiper-container', {
+                    // Optional parameters
+                    direction: 'horizontal',
+
+                    // If we need pagination
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+
+                    // Navigation arrows
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                })
+            })
         }
     }
 

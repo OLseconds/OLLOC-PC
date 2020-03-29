@@ -46,7 +46,6 @@ class UploadImageList extends Component{
             mapInfo: data.info,
             clickCheck: !this.state.clickCheck,
         })
-        console.log(this.state);
         this.props.getData(sendData);
     }
     onRemove = () =>{

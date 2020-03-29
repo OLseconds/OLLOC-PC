@@ -35,7 +35,7 @@ class Join extends Component{
             this.changeView();
             alert("성공적으로 가입되었습니다.");
         }).catch(function (error){
-            if(error.response.data.error_code == 2){
+            if(error.response.data.error_code === 2){
                 alert("중복되는 아이디가 존재합니다.");
                 error = true;
             }

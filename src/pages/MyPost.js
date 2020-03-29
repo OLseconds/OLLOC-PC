@@ -40,7 +40,7 @@ class MyPost extends Component {
         axios.get('http://olloc.kr3.kr:8000/auth/',
             {headers: {Authorization: cookies.get('olloc' || 'Ben')}})
             .then((response) => {
-                if(id == response.data.id) this.setState({isLogin: true,})
+                if(id === response.data.id.toString()) this.setState({isLogin: true,})
             })
 
         axios.get('http://olloc.kr3.kr:8000/follow/?user_id=' + id,
@@ -57,6 +57,10 @@ class MyPost extends Component {
 
         axios.get('http://olloc.kr3.kr:8000/user/?user_id=' + id)
             .then((response) => {
+                if(response.data.error_code === 1){
+                    //존재하지 않는 페이지 예외
+                    window.location.href = 'http://react.kr3.kr';
+                }
                 const {data} =response;
                 this.setState({
                     data:{
@@ -67,10 +71,7 @@ class MyPost extends Component {
                         follow: data.following,
                     }
                 })
-            }).catch((error) => {
-                //존재하지 않는 페이지 예외
-                console.log(error.response);
-        })
+            })
         axios.get('http://olloc.kr3.kr:8000/timeline/?user_id=' + id)
             .then((response) => {
                 this.setState({nextGetPost: response.data.next})

@@ -4,14 +4,14 @@ import MyPost from './MyPost'
 class MyPostList extends Component{
     state = {
         imageList: this.props.image.map(
-            data => <MyPost imageURL={data.url} postId={data.id}/>
+            (data, index) => <MyPost key={index} imageURL={data.url} postId={data.id}/>
         )
     }
     static getDerivedStateFromProps(nextProps, prevState){
         if(nextProps.image.length !== prevState.imageList.length){
             return {
                 imageList: nextProps.image.map(
-                    data => <MyPost imageURL={data.url} postId={data.id}/>
+                    (data, index) => <MyPost key={index} imageURL={data.url} postId={data.id}/>
                 )
             }
         }

@@ -9,6 +9,7 @@ class Maps extends Component {
         animation: 'Maps animated fadeIn',
         clicked: this.props.clicked,
     }
+
     componentDidMount(){    // 컴포넌트가 만들어지고 첫 렌더링을 다 마친 후 실행되는 메소드
         const {mapLoc} = this.props;
         const script = document.createElement('script');
@@ -46,6 +47,7 @@ class Maps extends Component {
         if(prevState.clicked && !nextProps.clicked) {
             return {animation: 'Maps animated fadeOut'}
         }
+        return null;
     }
 
     render() {

@@ -42,10 +42,10 @@ class MyTimelineInfo extends Component {
                 <img src={profileImg} alt="프로필 사진"/>
                 <div id = "personal-info">
                     <div className="username">{userName}
-                    {this.state.followState?
-                        <button className={this.state.followAni} onClick={this.followHandler}>팔로잉</button>
-                        :<button className="my_timeline-btn" onClick={this.followHandler}>팔로우</button>
-                    }
+                        {this.state.followState?
+                            <button className={this.state.followAni} onClick={this.followHandler}>팔로잉</button>
+                            :<button className="my_timeline-btn" onClick={this.followHandler}>팔로우</button>
+                        }
                         {this.props.isLogin&&<button className="my_timeline-btn" onClick={this.profileSetToggle}>프로필설정</button>}
                     </div>
                     <div>

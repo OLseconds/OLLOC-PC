@@ -40,7 +40,7 @@ class SearchMap extends Component{
 
                 // 지도 그리고 infowindow 하나 생성
 
-                if(this.props.GPS.lat != 0){    // 좌표값이 있는 사진인 경우
+                if(this.props.GPS.lat !== 0){    // 좌표값이 있는 사진인 경우
                     let geocoder = new kakao.maps.services.Geocoder();
 
                     const searchAddrFromCoords = (coords, callback) => {
@@ -213,7 +213,7 @@ class SearchMap extends Component{
         document.getElementById('search-loc').value="";
     }
     sendData = () =>{
-        if(this.state.locName === "" && this.state.lat == 0 && this.state.lng == 0){
+        if(this.state.locName === "" && this.state.lat === 0 && this.state.lng === 0){
             alert("위치를 선택해주세요!");
             return;
         }else if(this.state.locName === ""){

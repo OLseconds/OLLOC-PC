@@ -24,7 +24,7 @@ class PostSplit extends Component{
             inputComment: "",
         }
 
-        if(this.state.token != 'Ben'){
+        if(this.state.token !== 'Ben'){
             const checkLogin = require('axios');
             checkLogin.get('http://olloc.kr3.kr:8000/auth/', {
                 headers: {Authorization: this.state.token},
@@ -92,8 +92,8 @@ class PostSplit extends Component{
                 <PostImages URL={imagesURL} clicked={clicked} sendIndex={sendIndex} script={this.props.script}/>
                 <div className="map_alert"><i className="fas fa-map-marker-alt"></i> <div>사진을 더블 탭 해서 위치를 확인하세요!</div></div>
                 <div id ="post-split-right">
-                    <div id = "writer"><img src={profileImg} /> <Link to={"/mypost?id="+writerId} className={'name-btn'}><span>{writer}</span></Link>
-                        {this.state.userName==writer?<button onClick={this.deletePost}>삭제</button>:""}</div>
+                    <div id = "writer"><img src={profileImg} alt=""/> <Link to={"/mypost?id="+writerId} className={'name-btn'}><span>{writer}</span></Link>
+                        {this.state.userName===writer?<button onClick={this.deletePost}>삭제</button>:""}</div>
                     <div id = "right-info">
                         <div id = "after-description">
                             <PostInfo

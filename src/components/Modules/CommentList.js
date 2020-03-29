@@ -7,6 +7,8 @@ class CommentList extends Component {
         information: []
     }
 
+    state={}
+
     static getDerivedStateFromProps(nextProps, prevState) {
         if(nextProps.information.length > 2){
             return {

@@ -133,14 +133,14 @@ class PostInfo extends Component {
             return(
                 <div id = "post-info" >
                     <div className="description">
-                        {this.state.showMore ? showDescription : showDescription.split('\n').map( line => { return (<span>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                        {this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <span style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</span>}
                     </div>
                     <div className="datetime">
                         {this.test(date)}
                     </div>
                     <div className="symbol-size">
                         {likeState
-                            ? <span className={this.state.likeAni&&"animated tada"} style={{userSelect: 'none', fontSize:'1.7rem', color: 'red', display: 'inline-block', marginRight: '6px'}} onClick={this.likesToggle}>♥ </span>
+                            ? <span className={this.state.likeAni?"animated tada":""} style={{userSelect: 'none', fontSize:'1.7rem', color: 'red', display: 'inline-block', marginRight: '6px'}} onClick={this.likesToggle}>♥ </span>
                             :<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
                         <i className="far fa-comment" />
                     </div>
@@ -153,13 +153,13 @@ class PostInfo extends Component {
                 <div id = "post-info">
                     <div className="symbol-size">
                         {likeState
-                            ? <span className={this.state.likeAni&&"animated tada"} style={{userSelect: 'none', fontSize:'1.7rem', color: 'red', display: 'inline-block', marginRight: '6px'}} onClick={this.likesToggle}>♥ </span>
+                            ? <span className={this.state.likeAni?"animated tada":""} style={{userSelect: 'none', fontSize:'1.7rem', color: 'red', display: 'inline-block', marginRight: '6px'}} onClick={this.likesToggle}>♥ </span>
                             :<span style={{userSelect: 'none' , fontSize:'1.7rem'}} onClick={this.likesToggle}>♡ </span>}
                         <i className="far fa-comment" />
                     </div>
                     <div className="love">좋아요 {likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}개</div>
                     <div className="description">
-                        <Link to={"/mypost?id="+writerId} className={"name-btn"}><b>{writer}</b></Link> {this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <a style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</a>}
+                        <Link to={"/mypost?id="+writerId} className={"name-btn"}><b>{writer}</b></Link> {this.state.showMore ? showDescription : showDescription.split('\n').map( (line, index) => { return (<span key={index}>{line}<br/></span>)})}{showMore && <span style={{display: 'inline'}}className="show-more" onClick={this.showMore}> 더보기</span>}
                     </div>
                     <div className="datetime">
                         {this.test(date)}

@@ -17,6 +17,7 @@ class ProfileSetting extends Component{
         if(nextProps.profileImg !== prevState.profileImg && !prevState.imgGet){
             return{profileImg: nextProps.profileImg}
         }
+        return null;
     }
 
     handleChangeFile = event => {
@@ -94,7 +95,7 @@ class ProfileSetting extends Component{
                             onChange={this.handleChangeFile}
                         />
                     </div>
-                    <span id="user-name" >별명 : <input type="text" value={this.props.userName}  name="username"/></span>
+                    <span id="user-name" >별명 : <input type="text" placeholder={this.props.userName}  name="username"/></span>
                     <button className="profile-btn" onClick={this.exitOlloc}>회원탈퇴</button>
                     <button className="profile-btn" onClick={this.changeProfile}>완료</button>
                 </div>

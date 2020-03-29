@@ -172,7 +172,7 @@ class Home extends Component{
                 clicked = {this.checkClicked}
                 userName={this.state.userName}
             />);
-        if(this.state.token == 'Ben'){
+        if(this.state.token === 'Ben'){
             return  <Redirect push to ='/main' />;
         }else{
             return(

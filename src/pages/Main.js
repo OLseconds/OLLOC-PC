@@ -4,7 +4,6 @@ import Login from '../components/Main/Login';
 import '../Animation.css'
 import queryString from "query-string";
 import 'style/Main.scss';
-import leftImg from '../img/main.png'
 import { withCookies, Cookies } from 'react-cookie';
 import { Redirect } from 'react-router-dom';
 import {instanceOf} from "prop-types";
@@ -25,7 +24,7 @@ class Main extends Component {
 
         const cookieToken = cookies.get('olloc')||'Ben';
         const checkLogin = require('axios');
-        if(cookieToken != "Ben"){
+        if(cookieToken !== "Ben"){
             checkLogin.get('http://olloc.kr3.kr:8000/auth/', {
                 headers: {Authorization: cookieToken},
             }).then( () => {
@@ -68,7 +67,7 @@ class Main extends Component {
         const query = queryString.parse(location.search);
         const detail = this.loginsplit(query.detail);
 
-        if(this.state.token != 'Ben') return <Redirect push to ='/' />;
+        if(this.state.token !== 'Ben') return <Redirect push to ='/' />;
         return (
             <div id = "main">
                 {

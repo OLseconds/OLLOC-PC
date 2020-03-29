@@ -28,7 +28,7 @@ class Header extends Component {
         return (
             <header id="main_header">
                 <div className="container">
-                    <div id="main_logo"><h1><Link to="/"><img src={logoUrl}/>OLLOC</Link></h1></div>
+                    <div id="main_logo"><h1><Link to="/"><img src={logoUrl} alt=""/>OLLOC</Link></h1></div>
                     <div id="search">
                         <input type="text" placeholder="검색"/>
                     </div>
