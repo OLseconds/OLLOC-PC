@@ -79,8 +79,8 @@ class Join extends Component{
         return(
             <div id ="join">
                 <form id="loginForm" className={this.state.animation} onSubmit={this.joinSubmit}>
-                    <h1><img src={LogoImgUrl} /></h1>
-                    <h2 className="mtitle"></h2>
+                    <h1><img src={LogoImgUrl} alt=""/></h1>
+                    <h2 className="mtitle"> </h2>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
                     <input
                         className="textInput"

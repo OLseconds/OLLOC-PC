@@ -50,7 +50,6 @@ class Login extends Component{
             "username": data.userName,
             "password": data.passWord,
         }).then(function (response){
-            console.log(response.data.token);
             cookies.set('olloc', response.data.token);
             checkLogin(response.data.token);
         }).catch(error => {
@@ -82,9 +81,9 @@ class Login extends Component{
         }
         return(
             <div id ="login">
-                <form className={this.state.animation} id="loginForm" onSubmit={this.loginSubmit}>
+                <form style={{marginTop: '70px'}} className={this.state.animation} id="loginForm" onSubmit={this.loginSubmit}>
                     <span id="prevBtn" onClick={this.changeView}><i className="fas fa-arrow-left"></i></span>
-                    <h1 id="mainTitle"><img src={LogoImgUrl} /></h1>
+                    <h1 id="mainTitle"><img src={LogoImgUrl} alt=""/></h1>
                     <span className="loginText">친구들의 지도에 그려진 사진과 글을 보려면 가입하세요</span>
                     <input
                         className="textInput"
