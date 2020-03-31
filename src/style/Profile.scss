@@ -50,33 +50,37 @@
   width: 100%;
   position: fixed;
   #profile-background{
-    z-index: 999;
+    z-index: 998;
+
     position: fixed;
+
     margin-top: -15px;
     left: 0;
     right: 0;
-    height: 100%;
-    width: 100%;
+    top:0;
+    bottom:0;
     background-color: rgba(255, 255, 255, 0.7);
+
   }
   #profile-wrapper{
     z-index: 999;
     background-color: white;
     padding-top: 15px;
-    border: 1px solid #ababab;
+    box-shadow: 5px 0px 50px rgba(0, 0, 0, .3);
     width: 500px;
-    margin: 0 auto;
-    top: 37%;
+    height: 220px;
+    padding:50px 0;
+    margin: -110px auto 0 auto;
+    top:50%;
     left: 0;
     right: 0;
-    position: fixed;
+    position:fixed;
     text-align: center;
     #profile-profile_img{
       display: block;
-      height: 64px;
-      width: 64px;
+      height: 128px;
+      width: 128px;
       border-radius: 64px;
-      border: 1px solid black;
       text-align: center;
       margin: 0 auto;
     }
@@ -85,28 +89,29 @@
       display: block;
       position: absolute;
       left: 50%;
-      margin-left: -32px;
-      top: 60px;
-      height: 21px;
-      width: 64px;
+      margin-left: -64px;
+      top: 159px;
+      font-weight: bold;
+      padding:4px 0;
+      width:128px;
       text-align: center;
       background-color: rgba(255, 255, 255, 0.5);
-      font-size: 0.8rem;
+      font-size: 8pt;
       &:hover{cursor: pointer;}
     }
     #ex_file {display:none;}
     #user-name{display: block; margin-top: 15px;}
 
     .profile-btn{
-      height: 40px;
-      width: 90px;
+      height: 30px;
+      padding:5px 10px;
       background-color: #228be6;
       color: white;
       font-weight: bold;
-      font-size: 1rem;
-      border-radius: 25px;
+      font-size: 10pt;
+      border-radius: 3px;
       border: none;
-      margin: 15px;
+      margin: 15px 10px;
       &:hover{cursor: pointer;}
       &:focus{outline: none;}
     }
