@@ -20,7 +20,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
     "scriptjs": "^2.5.9",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^3.1.0",
     "swiper": "^5.3.6"
   },
   "scripts": {
