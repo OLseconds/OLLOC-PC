@@ -21,7 +21,7 @@
     "react-scripts": "^3.4.0",
     "scriptjs": "^2.5.9",
     "serialize-javascript": "^3.0.0",
-    "swiper": "^5.3.6"
+    "swiper": "^6.5.1"
   },
   "scripts": {
     "start": "export PORT=80 &&cross-env NODE_PATH=src react-scripts start",
